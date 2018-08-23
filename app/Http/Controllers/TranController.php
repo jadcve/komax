@@ -22,10 +22,22 @@ class TranController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Index - tran';
-        $trans = Tran::paginate(15);
+        $trans = Tran::canal($request->get('canal'))->paginate(50);
+
+/*
+        $compras = Tran::all();
+        $total = 0;
+        foreach($compras as $c){
+            $total = $c->netamount + $total;
+        }
+
+*/
+        //return view('users.index')->with('users', $users)->with('total',$total);
+
+
         return view('tran.index',compact('trans','title'));
     }
 

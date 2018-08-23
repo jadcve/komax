@@ -13,11 +13,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Tran extends Model
 {
-	
-	
+
+
     public $timestamps = false;
-    
+
     protected $table = 'trans';
 
-	
+    public function scopeCanal($query, $canal)
+    {
+        if(trim($canal != "")){
+
+            $query->where(\DB::raw('canal', $canal), "like","%$canal%");
+        }
+    }
+
+
 }

@@ -30,7 +30,7 @@
 		<div class="wrapper">
 			<header class="main-header">
 				<!-- Logo -->
-				<a href="{{url('scaffold-dashboard')}}" class="logo">
+				<a href="{{url('home')}}" class="logo">
 					<!-- mini logo for sidebar mini 50x50 pixels -->
 					<span class="logo-mini"><img src="/images/Komax-logo-mini.jpg" alt=""></span>
 					<!-- logo for regular state and mobile devices -->
@@ -105,7 +105,7 @@
                         <li class="treeview"><a href="{{url('/semana')}}"><i class="fa fa-th"></i> <span>Semana</span></a></li>
                         <li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
                         <li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
-
+                        <li class="treeview"><a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a></li>
 					</ul>
 				</section>
 				<!-- /.sidebar -->
