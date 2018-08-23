@@ -13,10 +13,12 @@
 		<!-- Ionicons -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 		<!-- Theme style -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/AdminLTE.min.css">
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/AdminLTE.min.css"> --}}
+	<link rel="stylesheet" href="{{ asset('css/AdminLTE.css') }}">
 		<!-- AdminLTE Skins. Choose a skin from the css/skins
 		folder instead of downloading all of them to reduce the load. -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/_all-skins.min.css">
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/_all-skins.min.css"> --}}
+		<link rel="stylesheet" href="{{ asset('css/_all-skins.css') }}">
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -30,9 +32,9 @@
 				<!-- Logo -->
 				<a href="{{url('scaffold-dashboard')}}" class="logo">
 					<!-- mini logo for sidebar mini 50x50 pixels -->
-					<span class="logo-mini"><b>S</b>IN</span>
+					<span class="logo-mini"><img src="/images/Komax-logo-mini.jpg" alt=""></span>
 					<!-- logo for regular state and mobile devices -->
-					<span class="logo-lg"><b>Komax</b></span>
+					<span class="logo-lg"><img src="/images/Komax-logo.jpg" alt=""></span>
 				</a>
 				<!-- Header Navbar: style can be found in header.less -->
 				<nav class="navbar navbar-static-top">
