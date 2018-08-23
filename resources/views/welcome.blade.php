@@ -25,7 +25,6 @@
             .full-height {
                 height: 100vh;
                 background: url('/images/31321.svg') no-repeat center center fixed;
-                /* background: url('../walmart/imgs/bg-login.svg'); */
                 background-repeat: no-repeat;
                 background-size: cover;
             }
@@ -58,7 +57,8 @@
                 color: #636b6f;
                 color: #000;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 16px;
+                margin-right: 3vw;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -78,8 +78,8 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}"><strong> Login</strong></a>
+                        {{-- <a href="{{ route('register') }}">Register</a> --}}
                     @endauth
                 </div>
             @endif
