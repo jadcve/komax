@@ -4,21 +4,22 @@
 
 <section class="content">
     <h1>
-        Proveedor Index
+        Modulo de Proveedores
     </h1>
-    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> New</a>
+    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-warning'><i class="fa fa-plus"></i> Crear Proveedor</a>
+    <br>
     <br>
     <br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-            <th>cod_prov</th>
-            <th>nombre_prov</th>
-            <th>leedt_prov</th>
-            <th>tentrega_prov</th>
-            <th>actions</th>
+            <th>Código Proveedor</th>
+            <th>Nombre</th>
+            <th>Leed Time</th>
+            <th>Tiempo de entrega</th>
+            <th>Acciones</th>
         </thead>
         <tbody>
-            @foreach($proveedors as $proveedor) 
+            @foreach($proveedors as $proveedor)
             <tr>
                 <td>{!!$proveedor->cod_prov!!}</td>
                 <td>{!!$proveedor->nombre_prov!!}</td>
@@ -30,7 +31,7 @@
                     <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}'><i class = 'fa fa-eye'> info</i></a>
                 </td>
             </tr>
-            @endforeach 
+            @endforeach
         </tbody>
     </table>
     {!! $proveedors->render() !!}

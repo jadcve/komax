@@ -96,16 +96,21 @@
 								<i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
 							</a>
 						</li>
-						<li class="header">USUARIOS</li>
-						<li class="treeview"><a href="{{url('/scaffold-users')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
-						<li class="treeview"><a href="{{url('/scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Perfil</span></a></li>
+                        <li class="treeview">
+                                <a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a>
+                        </li>
+
 						<li class="header">CONFIGURACIÓN</li>
 						<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> <span>Proveedores</span></a></li>
                         <li class="treeview"><a href="{{url('/tienda')}}"><i class="fa fa-map"></i> <span>Tiendas</span></a></li>
                         <li class="treeview"><a href="{{url('/semana')}}"><i class="fa fa-th"></i> <span>Semana</span></a></li>
                         <li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
                         <li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
-                        <li class="treeview"><a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a></li>
+
+                        <li class="header">USUARIOS</li>
+                        <li class="treeview"><a href="{{url('/scaffold-users')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+                        <li class="treeview"><a href="{{url('/scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Perfil</span></a></li>
+
 					</ul>
 				</section>
 				<!-- /.sidebar -->

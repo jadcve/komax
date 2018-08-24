@@ -3,7 +3,7 @@
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header">
-			<h3>Create new Role</h3>
+			<h3>Nuevo Rol</h3>
 		</div>
 		<div class="box-body">
 			<form action="{{url('scaffold-roles/store')}}" method = "post">
@@ -13,7 +13,7 @@
 					<input type="text" name = "name" class = "form-control" placeholder = "Name">
 				</div>
 				<div class="box-footer">
-					<button class = 'btn btn-primary' type = "submit">Create</button>
+					<button class = 'btn btn-primary' type = "submit">Crear</button>
 				</div>
 			</form>
 		</div>

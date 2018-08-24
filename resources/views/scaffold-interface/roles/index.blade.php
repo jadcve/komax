@@ -3,14 +3,17 @@
 <section class="content">
 	<div class="box box-primary">
 		<div class="box-header">
-			<h3>All Roles</h3>
+			<h3>Perfiles del Sistema</h3>
 		</div>
 		<div class="box-body">
-			<a href="{{url('scaffold-roles/create')}}" class = "btn btn-success"><i class="fa fa-plus fa-md" aria-hidden="true"></i> New</a>
-			<table class="table table-striped">
+			<a href="{{url('scaffold-roles/create')}}" class = "btn btn-warning"><i class="fa fa-plus fa-md" aria-hidden="true"></i> Nuevo Perfil</a>
+			<br/>
+            <br/>
+            <br/>
+            <table class="table table-striped">
 				<head>
-					<th>Role</th>
-					<th>Actions</th>
+					<th>Perfil</th>
+					<th>Acción</th>
 				</head>
 				<tbody>
 					@foreach($roles as $role)
