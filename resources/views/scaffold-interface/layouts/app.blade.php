@@ -32,9 +32,9 @@
 				<!-- Logo -->
 				<a href="{{url('home')}}" class="logo">
 					<!-- mini logo for sidebar mini 50x50 pixels -->
-					<span class="logo-mini"><img src="/images/Komax-logo-mini.jpg" alt=""></span>
+					<span class="logo-mini"><img src="{{ asset('images/Komax-logo-mini.jpg') }}" alt=""></span>
 					<!-- logo for regular state and mobile devices -->
-					<span class="logo-lg"><img src="/images/Komax-logo.jpg" alt=""></span>
+					<span class="logo-lg"><img src="{{ asset('images/Komax-logo.jpg') }}" alt=""></span>
 				</a>
 				<!-- Header Navbar: style can be found in header.less -->
 				<nav class="navbar navbar-static-top">

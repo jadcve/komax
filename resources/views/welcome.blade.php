@@ -13,8 +13,9 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                /* background-color: #cccccc; */
                 color: #636b6f;
+                color: #000;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -23,6 +24,9 @@
 
             .full-height {
                 height: 100vh;
+                background: url('/images/31321.svg') no-repeat center center fixed;
+                background-repeat: no-repeat;
+                background-size: cover;
             }
 
             .flex-center {
@@ -51,8 +55,10 @@
 
             .links > a {
                 color: #636b6f;
+                color: #000;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 16px;
+                margin-right: 3vw;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -65,30 +71,31 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        {{-- <div class="flex-center position-ref full-height" style="background: url('/images/31321.svg') no-repeat center center fixed; background-size: cover; background-image: url('/images/31321.svg'), linear-gradient(to bottom right,#000,#F15C22); "> --}}
+            <div class="flex-center position-ref full-height" >
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}"><strong> Login</strong></a>
+                        {{-- <a href="{{ route('register') }}">Register</a> --}}
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                <img src="{{ asset('images/Komax-logo-original.fw.png') }}" alt="">
                 </div>
 
-                <div class="links">
+                {{-- <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </body>
