@@ -24,7 +24,7 @@
 
             .full-height {
                 height: 100vh;
-                background: url('/images/31321.svg') no-repeat center center fixed;
+                background: url({{ asset('images/31321.svg')}}) no-repeat center center fixed;
                 background-repeat: no-repeat;
                 background-size: cover;
             }
