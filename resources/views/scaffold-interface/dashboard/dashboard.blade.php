@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Dashboard')
+@section('title','Komax Passion For Retail')
 @section('content')
 <section class="content-header">
 	<h1>
