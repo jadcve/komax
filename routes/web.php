@@ -64,9 +64,6 @@ Route::group(['middleware'=> 'web'],function(){
 //tran Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('tran','\App\Http\Controllers\TranController');
-  Route::post('tran/{id}/update','\App\Http\Controllers\TranController@update');
-  Route::get('tran/{id}/delete','\App\Http\Controllers\TranController@destroy');
-  Route::get('tran/{id}/deleteMsg','\App\Http\Controllers\TranController@DeleteMsg');
 });
 
 Route::resource('excel','ExcelController');
