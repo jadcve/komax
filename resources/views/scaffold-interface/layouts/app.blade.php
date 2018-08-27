@@ -78,7 +78,7 @@
 				<!-- sidebar: style can be found in sidebar.less -->
 				<section class="sidebar">
 					<!-- search form -->
-					<form action="#" method="get" class="sidebar-form">
+					{{-- <form action="#" method="get" class="sidebar-form">
 						<div class="input-group">
 							<input type="text" name="q" class="form-control" placeholder="Search...">
 							<span class="input-group-btn">
@@ -86,19 +86,17 @@
 								</button>
 							</span>
 						</div>
-					</form>
+					</form> --}}
 					<!-- /.search form -->
 					<!-- sidebar menu: : style can be found in sidebar.less -->
 					<ul class="sidebar-menu">
-						<li class="header">MENU PRINCIPAL</li>
-						<li class="active treeview">
+							<li class="header">MENU PRINCIPAL</li>
+						{{-- <li class="header">MENU PRINCIPAL</li> --}}
+						{{-- <li class="active treeview">
 							<a href="{{url('home')}}">
 								<i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
 							</a>
-						</li>
-                        <li class="treeview">
-                                <a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a>
-                        </li>
+						</li> --}}
 						<li class="treeview">
 								<a href="#">
 										<i class="fa fa-edit"></i>
@@ -119,14 +117,15 @@
 							  <li class="treeview">
 									<a href="#">
 											<i class="fa fa-cogs" aria-hidden="true"></i>
-									  <span>Procesos Logísticos y de Gestión</span>
+									  <span>Procesos Logísticos</span>
 									  <span class="pull-right-container">
 										<i class="fa fa-angle-left pull-right"></i>
 									  </span>
 									</a>
 									<ul class="treeview-menu">
-										<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> 
-										<span>Proveedores</span></a></li>
+										<li class="treeview">
+												<a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a>
+										</li>
 									</ul>
 								</li>
 						{{-- <li class="header">CONFIGURACIÓN</li>
