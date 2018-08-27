@@ -90,7 +90,7 @@ class TiendaController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
                          'test-event',
-                        ['message' => 'A new tienda has been created !!']);
+                        ['message' => 'Se ha creado una nueva bodega !!']);
 
         return redirect('tienda');
     }
@@ -178,7 +178,7 @@ class TiendaController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/tienda/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Precaución!!',"¿Desea eliminar de forma permanente la tienda! ?" ,'/tienda/'. $id . '/delete');
 
         if($request->ajax())
         {

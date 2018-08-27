@@ -99,18 +99,51 @@
                         <li class="treeview">
                                 <a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a>
                         </li>
-
-						<li class="header">CONFIGURACIÓN</li>
-						<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> <span>Proveedores</span></a></li>
-                        <li class="treeview"><a href="{{url('/tienda')}}"><i class="fa fa-map"></i> <span>Tiendas</span></a></li>
-                        <li class="treeview"><a href="{{url('/semana')}}"><i class="fa fa-th"></i> <span>Semana</span></a></li>
-                        <li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
-                        <li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
-
-                        <li class="header">USUARIOS</li>
-                        <li class="treeview"><a href="{{url('/scaffold-users')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
-                        <li class="treeview"><a href="{{url('/scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Perfil</span></a></li>
-
+						<li class="treeview">
+								<a href="#">
+										<i class="fa fa-edit"></i>
+								  <span>Inputs Generales</span>
+								  <span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								  </span>
+								</a>
+								<ul class="treeview-menu">
+									<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> 
+									<span>Proveedores</span></a></li>
+									<li class="treeview"><a href="{{url('/semana')}}"><i class="fa fa-th"></i> <span>Semana</span></a></li>
+									<li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
+									<li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
+									<li class="treeview"><a href="{{url('/tienda')}}"><i class="fa fa-map"></i> <span>Tiendas</span></a></li>
+								</ul>
+							  </li>
+							  <li class="treeview">
+									<a href="#">
+											<i class="fa fa-cogs" aria-hidden="true"></i>
+									  <span>Procesos Logísticos y de Gestión</span>
+									  <span class="pull-right-container">
+										<i class="fa fa-angle-left pull-right"></i>
+									  </span>
+									</a>
+									<ul class="treeview-menu">
+										<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> 
+										<span>Proveedores</span></a></li>
+									</ul>
+								</li>
+						{{-- <li class="header">CONFIGURACIÓN</li>
+						<li class="header">USUARIOS</li> --}}
+						<li class="treeview">
+							<a href="#">
+									<i class="fa fa-shield" aria-hidden="true"></i>
+								<span>Administar Usuarios</span>
+								<span class="pull-right-container">
+								<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="treeview"><a href="{{url('/scaffold-users')}}"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+								<li class="treeview"><a href="{{url('/scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Perfil</span></a></li>
+							</ul>
+						</li>
 					</ul>
 				</section>
 				<!-- /.sidebar -->
