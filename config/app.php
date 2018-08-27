@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
-
+    // 'name' => env('APP_NAME', 'Komax Passion For Retail'),
+    'name' => 'Komax Passion For Retail',
     /*
     |--------------------------------------------------------------------------
     | Application Environment
