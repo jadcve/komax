@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tran;
-use Amranidev\Ajaxis\Ajaxis;
+use Illuminate\Support\Facades\DB;
 use URL;
 
 /**
@@ -24,21 +24,29 @@ class TranController extends Controller
      */
     public function index(Request $request)
     {
+        $fecha_inicio = $request->fechaInicial;
+        $fecha_fin = $request->fechaFinal;
+        $canal = $request->canal;
+
+
+        $suma = DB::table('trans')
+            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+            ->orwhere('canal','=',$canal)
+            ->sum('netamount');
+
+        $trans = DB::table('trans')
+            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'))
+            ->groupBy('cod_art', 'canal' )
+            ->orderBy('netamount','desc')
+            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+            ->orwhere('canal','=',$canal)
+            ->paginate(20);
+
+
         $title = 'Index - tran';
-        $trans = Tran::canal($request->get('canal'))->paginate(50);
+        //$trans = Tran::canal($request->get('canal'))->paginate(50);
 
-/*
-        $compras = Tran::all();
-        $total = 0;
-        foreach($compras as $c){
-            $total = $c->netamount + $total;
-        }
-
-*/
-        //return view('users.index')->with('users', $users)->with('total',$total);
-
-
-        return view('tran.index',compact('trans','title'));
+        return view('tran.index',compact('trans','suma','title'));
     }
 
     /**
@@ -120,5 +128,10 @@ class TranController extends Controller
      	$tran = Tran::findOrfail($id);
      	$tran->delete();
         return URL::to('tran');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }
