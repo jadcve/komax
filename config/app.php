@@ -163,7 +163,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
+        'Maatwebsite\Excel\ExcelServiceProvider',
+=======
         'Collective\Html\HtmlServiceProvider',
+>>>>>>> edc7989fc030ba1bb1740b7d7cb89dd6f3184171
 
     ],
 
@@ -215,6 +219,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
     ],
 

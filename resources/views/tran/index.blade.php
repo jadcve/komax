@@ -36,21 +36,29 @@
 
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-            <th>Fecha de la venta</th>
+
+
             <th>Código Articulo</th>
-            <th>Canal</th>
             <th>Monto Neto</th>
+            <th>Canal</th>
             <th>Cantidad</th>
+            <th>%</th>
+            <th>total</th>
+
 
         </thead>
         <tbody>
             @foreach($trans as $tran)
             <tr>
-                <td>{!!$tran->fecha!!}</td>
+
                 <td>{!!$tran->cod_art!!}</td>
-                <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->netamount!!}</td>
+                <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->qty!!}</td>
+                <td>{!!($tran->netamount/$suma)*100 !!}</td>
+                <td>{!!$suma!!}</td>
+
+
 
             </tr>
             @endforeach

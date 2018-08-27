@@ -16,7 +16,7 @@
             <th>Nombre</th>
             <th>Leed Time</th>
             <th>Tiempo de entrega</th>
-            <th>Acciones</th>
+            <th>Acciones</th>s
         </thead>
         <tbody>
             @foreach($proveedors as $proveedor)
