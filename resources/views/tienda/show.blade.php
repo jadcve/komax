@@ -1,54 +1,54 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Show')
+@section('title','Tiendas')
 @section('content')
 
 <section class="content">
     <h1>
-        Show tienda
+        Detalles de {!!$tienda->bodega!!}
     </h1>
     <br>
-    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Tienda Index</a>
+    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Lista</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
-            <th>Key</th>
-            <th>Value</th>
+            <th></th>
+            <th>Información</th>
         </thead>
         <tbody>
             <tr>
-                <td> <b>cod_tienda</b> </td>
+                <td> <b>Código</b> </td>
                 <td>{!!$tienda->cod_tienda!!}</td>
             </tr>
             <tr>
-                <td> <b>bodega</b> </td>
+                <td> <b>Bodega</b> </td>
                 <td>{!!$tienda->bodega!!}</td>
             </tr>
             <tr>
-                <td> <b>canal</b> </td>
+                <td> <b>Canal</b> </td>
                 <td>{!!$tienda->canal!!}</td>
             </tr>
             <tr>
-                <td> <b>ciudad</b> </td>
+                <td> <b>Ciudad</b> </td>
                 <td>{!!$tienda->ciudad!!}</td>
             </tr>
             <tr>
-                <td> <b>comuna</b> </td>
+                <td> <b>Comuna</b> </td>
                 <td>{!!$tienda->comuna!!}</td>
             </tr>
             <tr>
-                <td> <b>region</b> </td>
+                <td> <b>Región</b> </td>
                 <td>{!!$tienda->region!!}</td>
             </tr>
             <tr>
-                <td> <b>latitude</b> </td>
+                <td> <b>Latitud</b> </td>
                 <td>{!!$tienda->latitude!!}</td>
             </tr>
             <tr>
-                <td> <b>longitud</b> </td>
+                <td> <b>Longitud</b> </td>
                 <td>{!!$tienda->longitud!!}</td>
             </tr>
             <tr>
-                <td> <b>direccion</b> </td>
+                <td> <b>Dirección</b> </td>
                 <td>{!!$tienda->direccion!!}</td>
             </tr>
         </tbody>
