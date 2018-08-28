@@ -29,7 +29,7 @@
                 <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->qty!!}</td>
                 <td>{!!($tran->netamount/$suma)*100 !!}</td>
-                <td>{!!$tran->netamount!!}</td>
+                <td>{!!$tran->calculo!!}</td>
 
             </tr>
             @endforeach

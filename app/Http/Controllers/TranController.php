@@ -41,7 +41,7 @@ class TranController extends Controller
 
 
         $trans = DB::table('trans')
-            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw('SUM(netamount) / ' . $suma . 'as calculo'))
+            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw('SUM(netamount) / ' . $suma . ' as calculo'))
             ->groupBy('cod_art', 'canal' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
