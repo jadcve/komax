@@ -34,7 +34,8 @@ class TranController extends Controller
             ->where('canal','=',$canal)
             ->sum('netamount');
         // dd($suma);
-        // var_dump($suma->getGrammar());
+        // var_dump($suma);
+        // var_dump('SUM(netamount) / ' . $suma . ' as calculo');
 
 
 
