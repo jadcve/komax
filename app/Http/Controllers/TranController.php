@@ -34,24 +34,23 @@ class TranController extends Controller
             ->where('canal','=',$canal)
             ->sum('netamount');
 
-        // dd($suma);
-        // var_dump($suma);
-        // var_dump('SUM(netamount) / ' . $suma . ' as calculo');
-
-
 
         $trans = DB::table('trans')
-            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw('SUM(netamount) / ' . $suma . ' as calculo'))
+            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
             ->groupBy('cod_art', 'canal' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('canal','=',$canal)
-            ->paginate(20);
+            ->paginate(50);
 
-        //$calc = $trans->all()->netamount/($suma)*100;
+       /* $x = 0;
+        foreach ($trans as $t) {
+          $x += $t->calc;
+          dd($x);
+        }
+       */
 
-
-        return view('tran.abc',compact('trans','suma', 'calc'));
+        return view('tran.abc',compact('trans','suma'));
     }
 
     /**

@@ -16,20 +16,19 @@
             <th>Canal</th>
             <th>Cantidad</th>
             <th>%</th>
-            <th>Total</th>
+            <th>Acumulado</th>
 
 
         </thead>
         <tbody>
+
             @foreach($trans as $tran)
             <tr>
-
                 <td>{!!$tran->cod_art!!}</td>
                 <td>{!!$tran->netamount!!}</td>
                 <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->qty!!}</td>
-                <td>{!!($tran->netamount/$suma)*100 !!}</td>
-                <td>{!!$tran->calculo!!}</td>
+                <td>{!!$tran->calc!!}</td>
 
             </tr>
             @endforeach
