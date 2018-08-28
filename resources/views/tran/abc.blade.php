@@ -21,7 +21,7 @@
 
         </thead>
         <tbody>
-
+        {!!$x=0!!}
             @foreach($trans as $tran)
             <tr>
                 <td>{!!$tran->cod_art!!}</td>
@@ -29,12 +29,11 @@
                 <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->qty!!}</td>
                 <td>{!!$tran->calc!!}</td>
-
+                <td>{!!$x += $tran->calc !!}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    {!! $trans->render() !!}
 
 </section>
 @endsection
