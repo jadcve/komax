@@ -44,6 +44,13 @@ class TranController extends Controller
             ->get();
 
 
+        $aux_trans = array_add($trans, 'acum', 'acum += $t->calc');
+        $acum = 0;
+        foreach ($trans as $t) {
+          dd($aux_trans = array_add($trans, 'acum', '$acum += $t->calc'));
+          //$acum += $t->calc;
+        }
+
         return view('tran.abc',compact('trans','suma'));
     }
 
