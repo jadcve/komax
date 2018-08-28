@@ -43,9 +43,12 @@ class TranController extends Controller
             ->where('canal','=',$canal)
             ->get();
 
-        $x = 0;
+
+        $aux_trans = array_add($trans, 'acum', 'acum += $t->calc');
+        $acum = 0;
         foreach ($trans as $t) {
-          $x += $t->calc;
+          dd($aux_trans = array_add($trans, 'acum', '$acum += $t->calc'));
+          //$acum += $t->calc;
         }
 
 
