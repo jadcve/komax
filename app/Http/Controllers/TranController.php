@@ -22,7 +22,7 @@ class TranController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function calculo(Request $request)
     {
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
@@ -33,6 +33,7 @@ class TranController extends Controller
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('canal','=',$canal)
             ->sum('netamount');
+
         // dd($suma);
         // var_dump($suma);
         // var_dump('SUM(netamount) / ' . $suma . ' as calculo');
@@ -50,7 +51,7 @@ class TranController extends Controller
         //$calc = $trans->all()->netamount/($suma)*100;
 
 
-        return view('tran.index',compact('trans','suma', 'calc'));
+        return view('tran.abc',compact('trans','suma', 'calc'));
     }
 
     /**
@@ -58,81 +59,12 @@ class TranController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function create()
+    public function index()
     {
-        //
+        return view('tran.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param    \Illuminate\Http\Request  $request
-     * @return  \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function show($id,Request $request)
-    {
-      //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function edit($id,Request $request)
-    {
-       //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function update($id,Request $request)
-    {
-      //
-    }
-
-    /**
-     * Delete confirmation message by Ajaxis.
-     *
-     * @link      https://github.com/amranidev/ajaxis
-     * @param    \Illuminate\Http\Request  $request
-     * @return  String
-     */
-    public function DeleteMsg($id,Request $request)
-    {
-       //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param    int $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-     	$tran = Tran::findOrfail($id);
-     	$tran->delete();
-        return URL::to('tran');
-    }
 
     public function export()
     {
