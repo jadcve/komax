@@ -43,15 +43,13 @@ class TranController extends Controller
             ->where('canal','=',$canal)
             ->get();
 
-       /* $x = 0;
+        $x = 0;
         foreach ($trans as $t) {
           $x += $t->calc;
-          dd($x);
         }
-       */
-    //   var_dump(compact('trans','suma'));
 
-        return view('tran.abc',compact('trans','suma'));
+
+        return view('tran.abc',compact('trans','x','suma'));
     }
 
     /**
