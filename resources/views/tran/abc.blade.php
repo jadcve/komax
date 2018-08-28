@@ -21,7 +21,7 @@
 
         </thead>
         <tbody>
-
+            {{-- { var_dump($trans) } --}}
             @foreach($trans as $tran)
             <tr>
                 <td>{!!$tran->cod_art!!}</td>
@@ -34,7 +34,6 @@
             @endforeach
         </tbody>
     </table>
-    {!! $trans->render() !!}
-
+    
 </section>
 @endsection

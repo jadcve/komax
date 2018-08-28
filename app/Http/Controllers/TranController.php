@@ -41,7 +41,7 @@ class TranController extends Controller
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('canal','=',$canal)
-            ->paginate(50);
+            ->get();
 
        /* $x = 0;
         foreach ($trans as $t) {
@@ -49,6 +49,7 @@ class TranController extends Controller
           dd($x);
         }
        */
+    //   var_dump(compact('trans','suma'));
 
         return view('tran.abc',compact('trans','suma'));
     }
