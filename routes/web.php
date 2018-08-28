@@ -64,6 +64,7 @@ Route::group(['middleware'=> 'web'],function(){
 //tran Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('tran','\App\Http\Controllers\TranController');
+  Route::post('tran','\App\Http\Controllers\TranController@calculo');
 });
 
 Route::resource('excel','ExcelController');
