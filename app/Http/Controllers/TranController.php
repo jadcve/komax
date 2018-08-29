@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tran;
+Use App\Temporal;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use URL;
 
 /**
@@ -43,16 +45,24 @@ class TranController extends Controller
             ->where('canal','=',$canal)
             ->get();
 
+        DB::table('temporals')->truncate();
+        $suma=0;
 
-        $aux_trans = array_add($trans, 'acum', 'acum += $t->calc');
-        $acum = 0;
-        foreach ($trans as $t) {
-          dd($aux_trans = array_add($trans, 'acum', '$acum += $t->calc'));
-          //$acum += $t->calc;
+        foreach($trans as $t){
+            $temp = new Temporal();
+            $temp->cod_art = $t->cod_art;
+            $temp->netamount = $t->netamount;
+            $temp->canal = $t->canal;
+            $temp->qty = $t->qty;
+            $temp->calc = $t->calc;
+            $suma += $t->calc;
+            $temp->acum = $suma;
+            $temp->save();
         }
 
+        $temp =  DB::table('temporals')->get();
 
-        return view('tran.abc',compact('trans','x','suma'));
+        return view('tran.abc',compact('trans','temp'));
     }
 
     /**
