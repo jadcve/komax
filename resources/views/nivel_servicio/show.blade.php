@@ -1,30 +1,30 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Show')
+@section('title','Nivel de Servicio')
 @section('content')
 
 <section class="content">
     <h1>
-        Show nivel_servicio
+        Nivel de Servicio Detallado
     </h1>
     <br>
-    <a href='{!!url("nivel_servicio")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Nivel_servicio Index</a>
+    <a href='{!!url("nivel_servicio")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Lista de  Niveles de Servicio</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
-            <th>Key</th>
-            <th>Value</th>
+            <th style="width:30%"></th>
+            <th>Información</th>
         </thead>
         <tbody>
             <tr>
-                <td> <b>letra</b> </td>
+                <td> <b>Clasificación</b> </td>
                 <td>{!!$nivel_servicio->letra!!}</td>
             </tr>
             <tr>
-                <td> <b>nivel_servicio</b> </td>
+                <td> <b>Nivel de Servicio</b> </td>
                 <td>{!!$nivel_servicio->nivel_servicio!!}</td>
             </tr>
             <tr>
-                <td> <b>descripcion</b> </td>
+                <td> <b>Descripción</b> </td>
                 <td>{!!$nivel_servicio->descripcion!!}</td>
             </tr>
         </tbody>

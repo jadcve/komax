@@ -1,12 +1,12 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Index')
+@section('title','Proveedores')
 @section('content')
 
 <section class="content">
     <h1>
         Modulo de Proveedores
     </h1>
-    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-warning'><i class="fa fa-plus"></i> Crear Proveedor</a>
+    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a>
     <br>
     <br>
     <br>
@@ -16,7 +16,7 @@
             <th>Nombre</th>
             <th>Leed Time</th>
             <th>Tiempo de entrega</th>
-            <th>Acciones</th>s
+            <th>Acciones</th>
         </thead>
         <tbody>
             @foreach($proveedors as $proveedor)
@@ -26,9 +26,9 @@
                 <td>{!!$proveedor->leedt_prov!!}</td>
                 <td>{!!$proveedor->tentrega_prov!!}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/proveedor/{!!$proveedor->id!!}/deleteMsg" ><i class = 'fa fa-trash'> delete</i></a>
-                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}/edit'><i class = 'fa fa-edit'> edit</i></a>
-                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}'><i class = 'fa fa-eye'> info</i></a>
+                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
+                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
+                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/proveedor/{!!$proveedor->id!!}/deleteMsg" ><i class = 'fa fa-trash'> Eliminar</i></a>
                 </td>
             </tr>
             @endforeach

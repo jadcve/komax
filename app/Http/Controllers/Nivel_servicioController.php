@@ -72,7 +72,7 @@ class Nivel_servicioController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
                          'test-event',
-                        ['message' => 'A new nivel_servicio has been created !!']);
+                        ['message' => 'Se ha creado un nuevo nivel de servicio !!']);
 
         return redirect('nivel_servicio');
     }
@@ -148,7 +148,7 @@ class Nivel_servicioController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/nivel_servicio/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Precaución!!','¿Desea eliminar de forma permanente este registro! ?','/nivel_servicio/'. $id . '/delete');
 
         if($request->ajax())
         {
