@@ -106,7 +106,7 @@
 								  </span>
 								</a>
 								<ul class="treeview-menu">
-									<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i> 
+									<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i>
 									<span>Proveedores</span></a></li>
 									<li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
 									<li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
@@ -123,7 +123,7 @@
 									</a>
 									<ul class="treeview-menu">
 										<li class="treeview">
-												<a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Transaccional</span></a>
+												<a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Cálculo ABC</span></a>
 										</li>
 									</ul>
 								</li>

@@ -23,5 +23,10 @@ class Tran extends Model
         }
     }
 
+    public function temporal()
+    {
+        return $this->hasOne('App\Temporal');
+    }
+
 
 }

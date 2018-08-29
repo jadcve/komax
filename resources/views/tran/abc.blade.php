@@ -17,19 +17,26 @@
             <th>Cantidad</th>
             <th>%</th>
             <th>Acumulado</th>
+            <th>ABC</th>
 
 
         </thead>
         <tbody>
-        {!!$x=0!!}
-            @foreach($trans as $tran)
+            @foreach($temp as $tran)
             <tr>
                 <td>{!!$tran->cod_art!!}</td>
                 <td>{!!$tran->netamount!!}</td>
                 <td>{!!$tran->canal!!}</td>
                 <td>{!!$tran->qty!!}</td>
                 <td>{!!$tran->calc!!}</td>
-                <td>{!!$x += $tran->calc !!}</td>
+                <td>{!!$tran->acum !!}</td>
+                @if ($tran->acum < 60 )
+                    <td> {!!  "A" !!} </td>
+                @elseif ($tran->acum > 60 and $tran->acum < 80)
+                    <td> {!!  "B" !!} </td>
+                @else
+                    <td> {!!  "C" !!} </td>
+                @endif
             </tr>
             @endforeach
         </tbody>
