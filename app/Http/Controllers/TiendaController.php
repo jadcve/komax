@@ -27,19 +27,10 @@ class TiendaController extends Controller
     public function index()
     {
         $title = 'Index - tienda';
-        // $tiendas = Tienda::paginate(10);
-        // $tiendas = Tienda::where('id', 1)->firstOrFail();
 
         $tiendas = Tienda::with('user')->orderBy('id')->paginate(10);
 
-        // $t = $tiendas->user->name;
-        // $t = $tiendas->users->name;
-        // $tiendas = Tienda::where('id', 1);
-        // App\Post::find(1)->comments;
-        // echo $tiendas->user->name;
-        // var_dump($t);
-        // var_dump(User::getUser());
-        return view('tienda.index',compact('tiendas','title'));
+        return view('tienda.index',compact('tiendas','title','user_data'));
     }
 
     /**

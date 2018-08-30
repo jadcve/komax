@@ -8,6 +8,9 @@
     </h1>
     <a href='{!!url("tienda")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Tienda</a>
     <br><br>
+    @php
+    // var_dump();
+@endphp
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código</th>
@@ -35,7 +38,7 @@
                 <td>{!!$tienda->longitud!!}</td>
                 <td>{!!$tienda->direccion!!}</td>
                 <td>
-                        {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span></td>
+                       {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span></td>
                 <td>
                         <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/tienda/{!!$tienda->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
                         <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/tienda/{!!$tienda->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
