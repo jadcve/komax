@@ -25,6 +25,7 @@ class CreateTemporalsTable extends Migration
             $table->integer('qty');
             $table->float('calc');
             $table->float('acum');
+            $table->char('abc');
             $table->timestamps();
         });
     }

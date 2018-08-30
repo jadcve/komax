@@ -29,6 +29,9 @@ class TranController extends Controller
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
         $canal = $request->canal;
+        $a = $request->a;
+        $b = $request->b;
+        $c = $request->c;
 
 
         $suma = DB::table('trans')
@@ -57,6 +60,12 @@ class TranController extends Controller
             $temp->calc = $t->calc;
             $suma += $t->calc;
             $temp->acum = $suma;
+            if($suma < $a)
+                $temp->abc = 'A';
+            elseif($suma > $a and $suma < $b)
+                $temp->abc = 'B';
+            else
+                $temp->abc = 'C';
             $temp->save();
         }
 

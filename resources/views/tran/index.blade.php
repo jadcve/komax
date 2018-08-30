@@ -27,6 +27,21 @@
                     {!! Form::text('canal', null, ['class'=>'form-control'])!!}
                 </div>
 
+                <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
+                    {!! Form::label('a', 'A'); !!}
+                    {!! Form::text('a', null, ['class'=>'form-control'])!!}
+                </div>
+
+                <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
+                    {!! Form::label('b', 'B'); !!}
+                    {!! Form::text('b', null, ['class'=>'form-control'])!!}
+                </div>
+
+
+
+
+
+
                 <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
             </div>
         </div>
