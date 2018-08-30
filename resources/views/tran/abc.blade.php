@@ -22,21 +22,15 @@
 
         </thead>
         <tbody>
-            @foreach($temp as $tran)
+            @foreach($temp as $t)
             <tr>
-                <td>{!!$tran->cod_art!!}</td>
-                <td>{!!$tran->netamount!!}</td>
-                <td>{!!$tran->canal!!}</td>
-                <td>{!!$tran->qty!!}</td>
-                <td>{!!$tran->calc!!}</td>
-                <td>{!!$tran->acum !!}</td>
-                @if ($tran->acum < 60 )
-                    <td> {!!  "A" !!} </td>
-                @elseif ($tran->acum > 60 and $tran->acum < 80)
-                    <td> {!!  "B" !!} </td>
-                @else
-                    <td> {!!  "C" !!} </td>
-                @endif
+                <td>{!!$t->cod_art!!}</td>
+                <td>{!!$t->netamount!!}</td>
+                <td>{!!$t->canal!!}</td>
+                <td>{!!$t->qty!!}</td>
+                <td>{!!$t->calc!!}</td>
+                <td>{!!$t->acum !!}</td>
+                <td>{!!$t->abc !!}</td>
             </tr>
             @endforeach
         </tbody>
