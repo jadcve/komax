@@ -37,10 +37,6 @@
                     {!! Form::text('b', null, ['class'=>'form-control'])!!}
                 </div>
 
-                <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
-                    {!! Form::label('c', 'C'); !!}
-                    {!! Form::text('c', null, ['class'=>'form-control'])!!}
-                </div>
 
 
 
