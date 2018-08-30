@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tienda;
+use App\User;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 
@@ -25,8 +27,10 @@ class TiendaController extends Controller
     public function index()
     {
         $title = 'Index - tienda';
-        $tiendas = Tienda::paginate(6);
-        return view('tienda.index',compact('tiendas','title'));
+
+        $tiendas = Tienda::with('user')->orderBy('id')->paginate(10);
+
+        return view('tienda.index',compact('tiendas','title','user_data'));
     }
 
     /**
@@ -163,6 +167,7 @@ class TiendaController extends Controller
         
         $tienda->direccion = $request->direccion;
         
+        $tienda->user_id = Auth::user()->id;
         
         $tienda->save();
 

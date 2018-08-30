@@ -108,7 +108,6 @@
 								<ul class="treeview-menu">
 									<li class="treeview"><a href="{{url('/proveedor')}}"><i class="fa fa-truck"></i>
 									<span>Proveedores</span></a></li>
-									<li class="treeview"><a href="{{url('/semana')}}"><i class="fa fa-th"></i> <span>Semana</span></a></li>
 									<li class="treeview"><a href="{{url('/calendario')}}"><i class="fa fa-calendar-times-o"></i> <span>Calendario</span></a></li>
 									<li class="treeview"><a href="{{url('/nivel_servicio')}}"><i class="fa fa-line-chart"></i> <span>Nivel de Servicio</span></a></li>
 									<li class="treeview"><a href="{{url('/tienda')}}"><i class="fa fa-map"></i> <span>Tiendas</span></a></li>

@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Show')
+@section('title','Proveedores')
 @section('content')
 
 <section class="content">
@@ -11,24 +11,24 @@
     <br>
     <table class = 'table table-bordered'>
         <thead>
-            <th>Key</th>
-            <th>Value</th>
+            <th style="width:30%"></th>
+            <th>Información</th>
         </thead>
         <tbody>
             <tr>
-                <td> <b>cod_prov</b> </td>
+                <td> <b>Código del Proveedor</b> </td>
                 <td>{!!$proveedor->cod_prov!!}</td>
             </tr>
             <tr>
-                <td> <b>nombre_prov</b> </td>
+                <td> <b>Nombre del Proveedor</b> </td>
                 <td>{!!$proveedor->nombre_prov!!}</td>
             </tr>
             <tr>
-                <td> <b>leedt_prov</b> </td>
+                <td> <b>Leed Time del Proveedor</b> </td>
                 <td>{!!$proveedor->leedt_prov!!}</td>
             </tr>
             <tr>
-                <td> <b>tentrega_prov</b> </td>
+                <td> <b>Tiempo de Entrega del Proveedor</b> </td>
                 <td>{!!$proveedor->tentrega_prov!!}</td>
             </tr>
         </tbody>

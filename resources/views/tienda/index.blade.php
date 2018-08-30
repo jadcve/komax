@@ -7,8 +7,10 @@
         Tienda Index
     </h1>
     <a href='{!!url("tienda")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Tienda</a>
-    <br>
-    <br>
+    <br><br>
+    @php
+    // var_dump();
+@endphp
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código</th>
@@ -20,10 +22,11 @@
             <th>Latitud</th>
             <th>Longitud</th>
             <th>Dirección</th>
+            <th>Editado</th>
             <th></th>
         </thead>
         <tbody>
-            @foreach($tiendas as $tienda) 
+            @foreach($tiendas as $tienda)
             <tr>
                 <td>{!!$tienda->cod_tienda!!}</td>
                 <td>{!!$tienda->bodega!!}</td>
@@ -35,9 +38,11 @@
                 <td>{!!$tienda->longitud!!}</td>
                 <td>{!!$tienda->direccion!!}</td>
                 <td>
-                        <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/tienda/{!!$tienda->id!!}'><i class = 'fa fa-eye'> info</i></a>
-                        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/tienda/{!!$tienda->id!!}/edit'><i class = 'fa fa-edit'> edit</i></a>
-                        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/tienda/{!!$tienda->id!!}/deleteMsg" ><i class = 'fa fa-trash'> delete</i></a>    
+                       {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span></td>
+                <td>
+                        <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/tienda/{!!$tienda->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
+                        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/tienda/{!!$tienda->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
+                        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/tienda/{!!$tienda->id!!}/deleteMsg" ><i class = 'fa fa-trash'> Eliminar</i></a>    
                 </td>
             </tr>
             @endforeach 

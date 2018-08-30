@@ -51,6 +51,14 @@
                 <td> <b>Dirección</b> </td>
                 <td>{!!$tienda->direccion!!}</td>
             </tr>
+            <tr>
+                <td> <b>Ultima Edición</b> </td>
+                <td>
+                    {!!$tienda->user['name']!!}
+                    <br>
+                    {!!$tienda->updated_at!!}
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
