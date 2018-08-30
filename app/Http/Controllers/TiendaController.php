@@ -30,7 +30,7 @@ class TiendaController extends Controller
         // $tiendas = Tienda::paginate(10);
         // $tiendas = Tienda::where('id', 1)->firstOrFail();
 
-        $tiendas = Tienda::with('user')->paginate(10);
+        $tiendas = Tienda::with('user')->orderBy('id')->paginate(10);
 
         // $t = $tiendas->user->name;
         // $t = $tiendas->users->name;

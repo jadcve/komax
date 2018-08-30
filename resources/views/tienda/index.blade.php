@@ -7,8 +7,7 @@
         Tienda Index
     </h1>
     <a href='{!!url("tienda")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Tienda</a>
-    <br>
-    <br>
+    <br><br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código</th>
@@ -25,10 +24,6 @@
         </thead>
         <tbody>
             @foreach($tiendas as $tienda)
-            <br>
-            @php
-                // print_r($tienda->user);
-            @endphp
             <tr>
                 <td>{!!$tienda->cod_tienda!!}</td>
                 <td>{!!$tienda->bodega!!}</td>
