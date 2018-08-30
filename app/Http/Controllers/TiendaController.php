@@ -30,7 +30,7 @@ class TiendaController extends Controller
 
         $tiendas = Tienda::with('user')->orderBy('id')->paginate(10);
 
-        return view('tienda.index',compact('tiendas','title','user_data'));
+        return view('tienda.index',compact('tiendas','title'));
     }
 
     /**
@@ -82,7 +82,7 @@ class TiendaController extends Controller
         
         $tienda->direccion = $request->direccion;
 
-        
+        $tienda->user_id = Auth::user()->id;
         
         $tienda->save();
 

@@ -21,5 +21,7 @@ class Proveedor extends Model
 	
     protected $table = 'proveedors';
 
-	
+	public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

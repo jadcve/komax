@@ -27,6 +27,14 @@
                 <td> <b>Descripción</b> </td>
                 <td>{!!$nivel_servicio->descripcion!!}</td>
             </tr>
+            <tr>
+                    <td> <b>Ultima Edición</b> </td>
+                    <td>
+                        {!!$nivel_servicio->user['name']!!}
+                        <br>
+                        {!!$nivel_servicio->updated_at!!}
+                    </td>
+                </tr>
         </tbody>
     </table>
 </section>

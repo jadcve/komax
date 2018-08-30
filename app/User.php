@@ -34,4 +34,16 @@ class User extends Authenticatable
     public function tiendas(){
         return $this->hasMany(Tienda::class, 'users_id');
     }
+    
+    public function nivel_servicios(){
+        return $this->hasMany(Nivel_servicio::class);
+    }
+
+    public function calendarios(){
+        return $this->hasMany(Calendario::class);
+    }
+
+    public function proveedors(){
+        return $this->hasMany(Proveedor::class);
+    }
 }

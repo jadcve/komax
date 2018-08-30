@@ -21,5 +21,7 @@ class Nivel_servicio extends Model
 	
     protected $table = 'nivel_servicios';
 
-	
+	public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

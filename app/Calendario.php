@@ -21,5 +21,7 @@ class Calendario extends Model
 	
     protected $table = 'calendarios';
 
-	
+	public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -38,7 +38,8 @@
                 <td>{!!$tienda->longitud!!}</td>
                 <td>{!!$tienda->direccion!!}</td>
                 <td>
-                       {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span></td>
+                       {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span>
+                </td>
                 <td>
                         <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/tienda/{!!$tienda->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
                         <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/tienda/{!!$tienda->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
