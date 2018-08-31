@@ -27,7 +27,12 @@
                     {!! Form::text('canal', null, ['class'=>'form-control'])!!}
                 </div>
 
-                <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
+                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                    {!! Form::label('marca', 'Marca'); !!}
+                    {!! Form::text('marca', null, ['class'=>'form-control'])!!}
+                </div>
+
+                <div class="col-lg-1 col-sm-1col-md-1 col-xs-12">
                     {!! Form::label('a', 'A'); !!}
                     {!! Form::text('a', null, ['class'=>'form-control'])!!}
                 </div>
@@ -38,11 +43,8 @@
                 </div>
 
 
+                    <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
 
-
-
-
-                <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
             </div>
         </div>
         {!! Form::close() !!}

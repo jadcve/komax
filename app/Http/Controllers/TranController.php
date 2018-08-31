@@ -29,6 +29,7 @@ class TranController extends Controller
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
         $canal = $request->canal;
+        $marca = $request->marca;
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;
@@ -37,15 +38,17 @@ class TranController extends Controller
         $suma = DB::table('trans')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('canal','=',$canal)
+            ->where('marca','=',$marca)
             ->sum('netamount');
 
 
         $trans = DB::table('trans')
-            ->select('cod_art','canal', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
-            ->groupBy('cod_art', 'canal' )
+            ->select('cod_art','canal','marca', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
+            ->groupBy('cod_art', 'canal', 'marca' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('canal','=',$canal)
+            ->where('marca','=',$marca)
             ->get();
 
         DB::table('temporals')->truncate();
@@ -56,6 +59,7 @@ class TranController extends Controller
             $temp->cod_art = $t->cod_art;
             $temp->netamount = $t->netamount;
             $temp->canal = $t->canal;
+            $temp->marca = $t->marca;
             $temp->qty = $t->qty;
             $temp->calc = $t->calc;
             $suma += $t->calc;
@@ -85,9 +89,4 @@ class TranController extends Controller
     }
 
 
-
-    public function export()
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
-    }
 }
