@@ -12,13 +12,13 @@
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
-                        <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date"/>
+                        <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date" required/>
                     </div>
                 </div>
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         {!! Form::label('fecha_final', 'Fecha Final'); !!}
-                        <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date"/>
+                        <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
                     </div>
                 </div>
 
