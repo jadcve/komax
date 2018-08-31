@@ -28,8 +28,17 @@
                 </div>
                 <div class="form-group">
                     <label for="tienda_id">Tienda</label>
-                    <input id="tienda_id" name = "tienda_id" type="text" class="form-control" value="{!!$calendario->
-                    tienda_id!!}" required placeholder="Tienda"> 
+                    <select class="form-control" id="tienda_id" name="tienda_id">
+                        <option  value="">Seleccione</option>
+                        @foreach ($tiendas as $tienda)
+                        @php
+                            $selected = ($calendario->tienda_id == $tienda->id) ? 'selected' : '';
+                        @endphp
+                            <option value="{!! $tienda->id !!}" {!! $selected !!}>{!! $tienda->bodega !!}</option>
+                        @endforeach
+                    </select>
+                    {{-- <input id="tienda_id" name = "tienda_id" type="text" class="form-control" value="{!!$calendario->
+                    tienda_id!!}" required placeholder="Tienda">  --}}
                 </div>
                 <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
             </form>

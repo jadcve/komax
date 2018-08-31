@@ -24,7 +24,7 @@
                 <td>{!!$calendario->dia_despacho!!}</td>
                 <td>{!!$calendario->lead_time!!}</td>
                 <td>{!!$calendario->tiempo_entrega!!}</td>
-                <td>{!!$calendario->tienda_id!!}</td>
+                <td>{!!$calendario->tienda['bodega']!!}</td>
                 <td>
                         {!!$calendario->user['name']!!}<span style="font-size:8px"><br>{!!$calendario->updated_at!!}</span>
                 </td>

@@ -9,6 +9,7 @@ use App\Calendario;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 use Illuminate\Support\Facades\Auth;
+use App\Tienda;
 
 /**
  * Class CalendarioController.
@@ -26,7 +27,7 @@ class CalendarioController extends Controller
     public function index()
     {
         $title = 'Index - calendario';
-        $calendarios = Calendario::with('user')->orderBy('id', 'desc')->paginate(10);
+        $calendarios = Calendario::with('user', 'tienda')->orderBy('id', 'desc')->paginate(10);
         return view('calendario.index',compact('calendarios','title'));
     }
 
@@ -38,8 +39,8 @@ class CalendarioController extends Controller
     public function create()
     {
         $title = 'Create - calendario';
-        
-        return view('calendario.create');
+        $tiendas = Tienda::all()->sortBy('id');
+        return view('calendario.create', compact('tiendas'));
     }
 
     /**
@@ -117,7 +118,8 @@ class CalendarioController extends Controller
 
         
         $calendario = Calendario::findOrfail($id);
-        return view('calendario.edit',compact('title','calendario'  ));
+        $tiendas = Tienda::all()->sortBy('id');
+        return view('calendario.edit',compact('title','calendario','tiendas'));
     }
 
     /**

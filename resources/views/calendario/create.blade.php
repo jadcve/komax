@@ -26,7 +26,12 @@
                 </div>
                 <div class="form-group">
                     <label for="tienda_id">Tienda</label>
-                    <input id="tienda_id" name = "tienda_id" type="text" class="form-control" required placeholder="Tienda">
+                        <select class="form-control" id="tienda_id" name="tienda_id">
+                            <option  value="">Seleccione</option>
+                            @foreach ($tiendas as $tienda)
+                                <option value="{!! $tienda->id !!}">{!! $tienda->bodega !!}</option>
+                            @endforeach
+                        </select>
                 </div>
                 <button class = 'btn btn-success' type ='submit'> <i class="fa fa-floppy-o"></i> Guardar</button>
             </form>
