@@ -27,7 +27,7 @@ class TiendaController extends Controller
     public function index()
     {
         $title = 'Index - tienda';
-
+        
         $tiendas = Tienda::with('user')->orderBy('id')->paginate(10);
 
         return view('tienda.index',compact('tiendas','title'));
@@ -41,8 +41,13 @@ class TiendaController extends Controller
     public function create()
     {
         $title = 'Create - tienda';
+
+        $canales = Tienda::distinct()->groupBy('canal')->get(['canal'])->sortBy('canal');
+        $ciudades = Tienda::distinct()->groupBy('ciudad')->get(['ciudad'])->sortBy('ciudad');
+        $comunas = Tienda::distinct()->groupBy('comuna')->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
+        $regiones = Tienda::distinct()->groupBy('region')->get(['region'])->sortBy('region');
         
-        return view('tienda.create');
+        return view('tienda.create',compact('canales', 'ciudades', 'comunas', 'regiones'));
     }
 
     /**
@@ -54,25 +59,39 @@ class TiendaController extends Controller
     public function store(Request $request)
     {
         $tienda = new Tienda();
-
         
         $tienda->cod_tienda = $request->cod_tienda;
 
         
         $tienda->bodega = $request->bodega;
 
-        
-        $tienda->canal = $request->canal;
+        if (strlen(trim($request->canal)) >= 1){
+            $tienda->canal = $request->canal;
+        }
+        else{
+            $tienda->canal = strtoupper(trim($request->nuevo_canal));
+        }
 
+        if (strlen(trim($request->ciudad)) >= 1){
+            $tienda->ciudad = $request->ciudad;
+        }
+        else{
+            $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+        }
         
-        $tienda->ciudad = $request->ciudad;
-
+        if (strlen(trim($request->comuna)) >= 1){
+            $tienda->comuna = $request->comuna;
+        }
+        else{
+            $tienda->comuna = ucwords(trim($request->nueva_comuna));
+        }
         
-        $tienda->comuna = $request->comuna;
-
-        
-        $tienda->region = $request->region;
-
+        if (strlen(trim($request->region)) >= 1){
+            $tienda->region = $request->region;
+        }
+        else{
+            $tienda->region = ucwords(trim($request->nueva_region));
+        }
         
         $tienda->latitude = $request->latitude;
 
@@ -84,19 +103,19 @@ class TiendaController extends Controller
 
         $tienda->user_id = Auth::user()->id;
         
-        $tienda->save();
+        // $tienda->save();
 
-        $pusher = App::make('pusher');
+        // $pusher = App::make('pusher');
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
         //Here is a pusher notification example when you create a new resource in storage.
         //you can modify anything you want or use it wherever.
-        $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'Se ha creado una nueva bodega !!']);
+        // $pusher->trigger('test-channel',
+        //                  'test-event',
+        //                 ['message' => 'Se ha creado una nueva bodega !!']);
 
-        return redirect('tienda');
+        // return redirect('tienda');
     }
 
     /**
@@ -133,9 +152,13 @@ class TiendaController extends Controller
             return URL::to('tienda/'. $id . '/edit');
         }
 
-        
+        $canales = Tienda::distinct()->groupBy('canal')->get(['canal'])->sortBy('canal');
+        $ciudades = Tienda::distinct()->groupBy('ciudad')->get(['ciudad'])->sortBy('ciudad');
+        $comunas = Tienda::distinct()->groupBy('comuna')->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
+        $regiones = Tienda::distinct()->groupBy('region')->get(['region'])->sortBy('region');
+
         $tienda = Tienda::findOrfail($id);
-        return view('tienda.edit',compact('title','tienda'  ));
+        return view('tienda.edit',compact('title','tienda', 'canales', 'ciudades', 'comunas', 'regiones'));
     }
 
     /**

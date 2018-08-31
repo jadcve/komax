@@ -24,24 +24,69 @@
                     bodega!!}" required placeholder="Bodega"> 
                 </div>
                 <div class="form-group">
-                    <label for="canal">Canal</label>
-                    <input id="canal" name = "canal" type="text" class="form-control" value="{!!$tienda->
-                    canal!!}" required placeholder="Canal"> 
+                    <label for="tienda_id">Canal</label>
+                        <select class="form-control" id="canal" name="canal">
+                            <option  value="">Seleccione</option>
+                            @foreach ($canales as $canal)
+                            @php
+                                $selected = ($tienda->canal == $canal->canal) ? ' selected' : '';
+                                echo '<option value="'.$canal->canal.'"'.$selected.'>'.$canal->canal.'</option>';
+                            @endphp
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="nuevo_canal">Nuevo Canal</label>
+                    <input id="nuevo_canal" name = "nuevo_canal" type="text" class="form-control" placeholder="Agregar un Nuevo Canal">
                 </div>
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>
-                    <input id="ciudad" name = "ciudad" type="text" class="form-control" value="{!!$tienda->
-                    ciudad!!}" required placeholder="Ciudad"> 
+                        <select class="form-control" id="ciudad" name="ciudad">
+                            <option  value="">Seleccione</option>
+                            @foreach ($ciudades as $ciudad)
+                            @php
+                                $selected = ($tienda->ciudad == $ciudad->ciudad) ? ' selected' : '';
+                                echo '<option value="'.$ciudad->ciudad.'"'.$selected.'>'.$ciudad->ciudad.'</option>';
+                            @endphp
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="nueva_ciudad">Nueva Ciudad</label>
+                    <input id="nueva_ciudad" name = "nueva_ciudad" type="text" class="form-control" placeholder="Agregar una Nueva Ciudad">
                 </div>
                 <div class="form-group">
                     <label for="comuna">Comuna</label>
-                    <input id="comuna" name = "comuna" type="text" class="form-control" value="{!!$tienda->
-                    comuna!!}" placeholder="Comuna"> 
+                        <select class="form-control" id="comuna" name="comuna">
+                            <option  value="">Seleccione</option>
+                            @foreach ($comunas as $comuna)
+                            @php
+                                $selected = ($tienda->comuna == $comuna->comuna) ? ' selected' : '';
+                                $com_tit = ($comuna->comuna == '') ? "Dejar en Blanco" : $comuna->comuna;
+                                echo '<option value="'.$comuna->comuna.'"'.$selected.'>'.$com_tit.'</option>';
+                            @endphp
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="nueva_comuna">Nueva Comuna</label>
+                    <input id="nueva_comuna" name = "nueva_comuna" type="text" class="form-control" placeholder="Agregar una Nueva Comuna">
                 </div>
                 <div class="form-group">
                     <label for="region">Región</label>
-                    <input id="region" name = "region" type="text" class="form-control" value="{!!$tienda->
-                    region!!}" required placeholder="Región"> 
+                        <select class="form-control" id="region" name="region">
+                            <option  value="">Seleccione</option>
+                            @foreach ($regiones as $region)
+                            @php
+                                $selected = ($tienda->region == $region->region) ? ' selected' : '';
+                                echo '<option value="'.$region->region.'"'.$selected.'>'.$region->region.'</option>';
+                            @endphp
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="nueva_region">Nueva Región</label>
+                    <input id="nueva_region" name = "nueva_region" type="text" class="form-control" placeholder="Agregar una Nueva Región">
                 </div>
                 <div class="form-group">
                     <label for="latitude">Latitud</label>
