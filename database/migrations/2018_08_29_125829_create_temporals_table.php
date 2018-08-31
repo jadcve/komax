@@ -21,6 +21,7 @@ class CreateTemporalsTable extends Migration
             $table->increments('id');
             $table->String('cod_art');
             $table->String('canal');
+            $table->String('marca');
             $table->integer('netamount');
             $table->integer('qty');
             $table->float('calc');

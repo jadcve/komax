@@ -23,6 +23,13 @@ class Tran extends Model
         }
     }
 
+    public function scopeMarca($query, $marca)
+    {
+        if(trim($marca != "")){
+            $query->where(\DB::raw('canal', $marca), "like","%$marca%");
+        }
+    }
+
     public function temporal()
     {
         return $this->hasOne('App\Temporal');
