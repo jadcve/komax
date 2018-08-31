@@ -21,4 +21,8 @@ class Tienda extends Model
 	public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function calendarios(){
+        return $this->hasMany(Calendario::class);
+    }
 }

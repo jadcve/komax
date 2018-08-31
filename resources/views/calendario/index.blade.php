@@ -15,6 +15,7 @@
             <th>Lead Time</th>
             <th>Tiempo de Entrega</th>
             <th>Tienda</th>
+            <th>Editado</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -23,7 +24,10 @@
                 <td>{!!$calendario->dia_despacho!!}</td>
                 <td>{!!$calendario->lead_time!!}</td>
                 <td>{!!$calendario->tiempo_entrega!!}</td>
-                <td>{!!$calendario->tienda_id!!}</td>
+                <td>{!!$calendario->tienda['bodega']!!}</td>
+                <td>
+                        {!!$calendario->user['name']!!}<span style="font-size:8px"><br>{!!$calendario->updated_at!!}</span>
+                </td>
                 <td>
                     <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/calendario/{!!$calendario->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/calendario/{!!$calendario->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>

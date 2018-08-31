@@ -31,6 +31,14 @@
                 <td> <b>Tiempo de Entrega del Proveedor</b> </td>
                 <td>{!!$proveedor->tentrega_prov!!}</td>
             </tr>
+            <tr>
+                <td> <b>Ultima Edición</b> </td>
+                <td>
+                    {!!$proveedor->user['name']!!}
+                    <br>
+                    {!!$proveedor->updated_at!!}
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>

@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Calendario;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
+use Illuminate\Support\Facades\Auth;
+use App\Tienda;
 
 /**
  * Class CalendarioController.
@@ -25,7 +27,7 @@ class CalendarioController extends Controller
     public function index()
     {
         $title = 'Index - calendario';
-        $calendarios = Calendario::paginate(6);
+        $calendarios = Calendario::with('user', 'tienda')->orderBy('id', 'desc')->paginate(10);
         return view('calendario.index',compact('calendarios','title'));
     }
 
@@ -37,8 +39,8 @@ class CalendarioController extends Controller
     public function create()
     {
         $title = 'Create - calendario';
-        
-        return view('calendario.create');
+        $tiendas = Tienda::all()->sortBy('id');
+        return view('calendario.create', compact('tiendas'));
     }
 
     /**
@@ -63,7 +65,7 @@ class CalendarioController extends Controller
         
         $calendario->tienda_id = $request->tienda_id;
 
-        
+        $calendario->user_id = Auth::user()->id;
         
         $calendario->save();
 
@@ -116,7 +118,8 @@ class CalendarioController extends Controller
 
         
         $calendario = Calendario::findOrfail($id);
-        return view('calendario.edit',compact('title','calendario'  ));
+        $tiendas = Tienda::all()->sortBy('id');
+        return view('calendario.edit',compact('title','calendario','tiendas'));
     }
 
     /**
@@ -138,6 +141,7 @@ class CalendarioController extends Controller
         
         $calendario->tienda_id = $request->tienda_id;
         
+        $calendario->user_id = Auth::user()->id;
         
         $calendario->save();
 

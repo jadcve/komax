@@ -29,7 +29,15 @@
             </tr>
             <tr>
                 <td> <b>Tienda</b> </td>
-                <td>{!!$calendario->tienda_id!!}</td>
+                <td>{!!$calendario->tienda['bodega']!!}</td>
+            </tr>
+            <tr>
+                <td> <b>Ultima Edición</b> </td>
+                <td>
+                    {!!$calendario->user['name']!!}
+                    <br>
+                    {!!$calendario->updated_at!!}
+                </td>
             </tr>
         </tbody>
     </table>

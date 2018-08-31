@@ -14,6 +14,7 @@
             <th>Clasificación</th>
             <th>Nivel de Servicio</th>
             <th>Descripción</th>
+            <th>Editado</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -22,6 +23,9 @@
                 <td>{!!$nivel_servicio->letra!!}</td>
                 <td>{!!$nivel_servicio->nivel_servicio!!}</td>
                 <td>{!!$nivel_servicio->descripcion!!}</td>
+                <td>
+                        {!!$nivel_servicio->user['name']!!}<span style="font-size:8px"><br>{!!$nivel_servicio->updated_at!!}</span>
+                </td>
                 <td>
                     <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/nivel_servicio/{!!$nivel_servicio->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/nivel_servicio/{!!$nivel_servicio->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Proveedor;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ProveedorController.
@@ -25,7 +26,7 @@ class ProveedorController extends Controller
     public function index()
     {
         $title = 'Index - proveedor';
-        $proveedors = Proveedor::paginate(6);
+        $proveedors = Proveedor::with('user')->orderBy('id')->paginate(10);
         return view('proveedor.index',compact('proveedors','title'));
     }
 
@@ -63,7 +64,7 @@ class ProveedorController extends Controller
         
         $proveedor->tentrega_prov = $request->tentrega_prov;
 
-        
+        $proveedor->user_id = Auth::user()->id;
         
         $proveedor->save();
 
@@ -138,6 +139,7 @@ class ProveedorController extends Controller
         
         $proveedor->tentrega_prov = $request->tentrega_prov;
         
+        $proveedor->user_id = Auth::user()->id;
         
         $proveedor->save();
 

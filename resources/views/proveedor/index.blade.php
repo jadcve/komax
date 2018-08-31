@@ -16,6 +16,7 @@
             <th>Nombre</th>
             <th>Leed Time</th>
             <th>Tiempo de entrega</th>
+            <th>Editado</th>
             <th>Acciones</th>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@
                 <td>{!!$proveedor->nombre_prov!!}</td>
                 <td>{!!$proveedor->leedt_prov!!}</td>
                 <td>{!!$proveedor->tentrega_prov!!}</td>
+                <td>
+                        {!!$proveedor->user['name']!!}<span style="font-size:8px"><br>{!!$proveedor->updated_at!!}</span>
+                 </td>
                 <td>
                     <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/proveedor/{!!$proveedor->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>

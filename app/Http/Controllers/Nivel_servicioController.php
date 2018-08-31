@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,7 +26,7 @@ class Nivel_servicioController extends Controller
     public function index()
     {
         $title = 'Index - nivel_servicio';
-        $nivel_servicios = Nivel_servicio::paginate(6);
+        $nivel_servicios = Nivel_servicio::with('user')->orderBy('id', 'desc')->paginate(10);
         return view('nivel_servicio.index',compact('nivel_servicios','title'));
     }
 
@@ -60,7 +61,7 @@ class Nivel_servicioController extends Controller
         
         $nivel_servicio->descripcion = $request->descripcion;
 
-        
+        $nivel_servicio->user_id = Auth::user()->id;
         
         $nivel_servicio->save();
 
@@ -133,6 +134,7 @@ class Nivel_servicioController extends Controller
         
         $nivel_servicio->descripcion = $request->descripcion;
         
+        $nivel_servicio->user_id = Auth::user()->id;
         
         $nivel_servicio->save();
 
