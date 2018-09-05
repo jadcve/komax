@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){
-    console.log(window.location);
     url = window.location.href;
     // var to = url.lastIndexOf('/');
     // to = to == -1 ? url.length : to + 1;
