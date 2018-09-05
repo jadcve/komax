@@ -70,7 +70,7 @@ Route::group(['middleware'=> 'web'],function(){
 // Route::get('ajax',function(){
 //   return view('tran');
 // });
-Route::post('tran','\App\Http\Controllers\TranController@selectAjax')->name('marcas');
+Route::post('marcas','\App\Http\Controllers\TranController@selectAjax')->name('marcas');
 // Route::post('marcas', '\App\Http\Controllers\AjaxMarcasController@selectAjax')->name('marcas');
 
 // Route::resource('excel','ExcelController');

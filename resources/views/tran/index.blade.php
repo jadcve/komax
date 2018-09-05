@@ -37,7 +37,7 @@
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         <label>Marca</label>
-                        <select name="marca" id="marca" multiple class="form-control">
+                        <select name="marca" id="marca" class="form-control">
                         </select>
                         {{-- {!! Form::select('marca',[''=>'Seleccione'],null,['class'=>'form-control']) !!} --}}
                     </div>
@@ -46,12 +46,12 @@
                 </div>
 
                 <div class="col-lg-1 col-sm-1col-md-1 col-xs-12">
-                    {!! Form::label('a', 'Clasificación A'); !!}
+                    {!! Form::label('a', 'Clas. A'); !!}
                     {!! Form::text('a', null, ['class'=>'form-control'])!!}
                 </div>
 
                 <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
-                    {!! Form::label('b', 'Clasificación B'); !!}
+                    {!! Form::label('b', 'Clas. B'); !!}
                     {!! Form::text('b', null, ['class'=>'form-control'])!!}
                 </div>
 

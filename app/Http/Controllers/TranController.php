@@ -93,21 +93,10 @@ class TranController extends Controller
         return view('tran.index', compact('canales'));
     }
 
-    // public function getMarca(){
-    //     echo "hola";
-    //     $msg = "This is a simple message.";
-    //     return response()->json(array('msg'=> $msg), 200);
-    //  }
     public function selectAjax(Request $request)
     {
         if($request->ajax()){
-            // $marcas = Tran::distinct()->where('canal', $request->canal)->get(['marca'])->sortBy('marca');
             $marcas = Marca::where('canal', $request->canal)->get(['marca'])->sortBy('marca');
-            // $marcas = Tienda::distinct()->where('canal', $request->canal)->get(['canal'])->sortBy('canal');
-           //  $states = DB::table('states')->where('id_country',$request->id_country)->pluck("name","id")->all();
-            // $data = view('tran.index',compact('marcas'))->render();
-            // return response()->json(['options'=>$data]);
-            // return Response::json( $marcas);
             return response()->json($marcas);
         }
     }
