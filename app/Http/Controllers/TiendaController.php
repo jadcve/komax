@@ -42,10 +42,10 @@ class TiendaController extends Controller
     {
         $title = 'Create - tienda';
 
-        $canales = Tienda::distinct()->groupBy('canal')->get(['canal'])->sortBy('canal');
-        $ciudades = Tienda::distinct()->groupBy('ciudad')->get(['ciudad'])->sortBy('ciudad');
-        $comunas = Tienda::distinct()->groupBy('comuna')->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
-        $regiones = Tienda::distinct()->groupBy('region')->get(['region'])->sortBy('region');
+        $canales = Tienda::distinct()->get(['canal'])->sortBy('canal');
+        $ciudades = Tienda::distinct()->get(['ciudad'])->sortBy('ciudad');
+        $comunas = Tienda::distinct()->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
+        $regiones = Tienda::distinct()->get(['region'])->sortBy('region');
         
         return view('tienda.create',compact('canales', 'ciudades', 'comunas', 'regiones'));
     }

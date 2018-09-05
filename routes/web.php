@@ -67,4 +67,18 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('tran','\App\Http\Controllers\TranController@calculo');
 });
 
-Route::resource('excel','ExcelController');
+// Route::get('ajax',function(){
+//   return view('tran');
+// });
+Route::post('tran','\App\Http\Controllers\TranController@selectAjax')->name('marcas');
+// Route::post('marcas', '\App\Http\Controllers\AjaxMarcasController@selectAjax')->name('marcas');
+
+// Route::resource('excel','ExcelController');
+
+//marca Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('marca','\App\Http\Controllers\MarcaController');
+  Route::post('marca/{id}/update','\App\Http\Controllers\MarcaController@update');
+  Route::get('marca/{id}/delete','\App\Http\Controllers\MarcaController@destroy');
+  Route::get('marca/{id}/deleteMsg','\App\Http\Controllers\MarcaController@DeleteMsg');
+});
