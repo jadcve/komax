@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
                 $("#marca").empty();
                 $("#marca").append('<option id="select-option" value="">Seleccione</option>');
                  $.each(data,function(index,json){
-                      $("#select-option").after($("<option></option>").attr("value", json.marca).text(json.marca));
+                      $("#select-option").after($("<option></option>").attr("value", json.marca).text(json.marca.toUpperCase()));
                  });
             }
         });
