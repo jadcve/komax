@@ -17,19 +17,19 @@
         <tbody>
             <tr>
                 <td> <b>Código del Proveedor</b> </td>
-                <td>{!!$proveedor->cod_prov!!}</td>
+                <td>{!!$proveedor->codigo_proveedor!!}</td>
             </tr>
             <tr>
                 <td> <b>Nombre del Proveedor</b> </td>
-                <td>{!!$proveedor->nombre_prov!!}</td>
+                <td>{!!$proveedor->descripcion_proveedor!!}</td>
             </tr>
             <tr>
                 <td> <b>Leed Time del Proveedor</b> </td>
-                <td>{!!$proveedor->leedt_prov!!}</td>
+                <td>{!!$proveedor->lead_time_proveedor!!}</td>
             </tr>
             <tr>
                 <td> <b>Tiempo de Entrega del Proveedor</b> </td>
-                <td>{!!$proveedor->tentrega_prov!!}</td>
+                <td>{!!$proveedor->tiempo_entrega_proveedor!!}</td>
             </tr>
             <tr>
                 <td> <b>Ultima Edición</b> </td>

@@ -25,6 +25,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');
   Route::get('proveedor/{id}/deleteMsg','\App\Http\Controllers\ProveedorController@DeleteMsg');
+  Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
 });
 
 //tienda Routes
@@ -82,3 +83,6 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('marca/{id}/delete','\App\Http\Controllers\MarcaController@destroy');
   Route::get('marca/{id}/deleteMsg','\App\Http\Controllers\MarcaController@DeleteMsg');
 });
+
+	
+$router->post('import', 'ImportController@import');

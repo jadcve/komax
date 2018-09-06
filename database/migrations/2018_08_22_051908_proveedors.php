@@ -22,13 +22,13 @@ class Proveedors extends Migration
 
         $table->increments('id');
         
-        $table->String('cod_prov');
+        $table->String('codigo_proveedor');
         
-        $table->String('nombre_prov');
+        $table->String('descripcion_proveedor');
         
-        $table->String('leedt_prov');
+        $table->String('lead_time_proveedor');
         
-        $table->String('tentrega_prov');
+        $table->String('tiempo_entrega_proveedor');
         
         /**
          * Foreignkeys section

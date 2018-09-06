@@ -6,7 +6,15 @@
     <h1>
         Modulo de Proveedores
     </h1>
-    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a>
+    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a><br>
+    <form style="display:inline-block;" method = 'POST' action = '{!!url("import")!!}' enctype="multipart/form-data">
+        <div class="form-group">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <label for="up_csv">Cargar por CSV</label>
+            <input type="file" class="form-control-file" id="up_csv" name="up_csv">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
     <br>
     <br>
     <br>
@@ -22,10 +30,10 @@
         <tbody>
             @foreach($proveedors as $proveedor)
             <tr>
-                <td>{!!$proveedor->cod_prov!!}</td>
-                <td>{!!$proveedor->nombre_prov!!}</td>
-                <td>{!!$proveedor->leedt_prov!!}</td>
-                <td>{!!$proveedor->tentrega_prov!!}</td>
+                <td>{!!$proveedor->codigo_proveedor!!}</td>
+                <td>{!!$proveedor->descripcion_proveedor!!}</td>
+                <td>{!!$proveedor->lead_time_proveedor!!}</td>
+                <td>{!!$proveedor->tiempo_entrega_proveedor!!}</td>
                 <td>
                         {!!$proveedor->user['name']!!}<span style="font-size:8px"><br>{!!$proveedor->updated_at!!}</span>
                  </td>
