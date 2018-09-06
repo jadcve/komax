@@ -11,6 +11,7 @@
     <br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
+            <th>Día</th>
             <th>Día de Despacho</th>
             <th>Lead Time</th>
             <th>Tiempo de Entrega</th>
@@ -21,6 +22,7 @@
         <tbody>
             @foreach($calendarios as $calendario) 
             <tr>
+                <td>{!!$calendario->semana['dia']!!}</td>
                 <td>{!!$calendario->dia_despacho!!}</td>
                 <td>{!!$calendario->lead_time!!}</td>
                 <td>{!!$calendario->tiempo_entrega!!}</td>

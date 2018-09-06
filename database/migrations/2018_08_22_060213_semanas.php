@@ -26,8 +26,6 @@ class Semanas extends Migration
         
         $table->String('dia');
         
-        $table->integer('calendario_id');
-        
         /**
          * Foreignkeys section
          */

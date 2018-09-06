@@ -16,6 +16,10 @@
         </thead>
         <tbody>
             <tr>
+                <td> <b>Día</b> </td>
+                <td>{!!$calendario->semana['dia']!!}</td>
+            </tr>
+            <tr>
                 <td> <b>Día de Despacho</b> </td>
                 <td>{!!$calendario->dia_despacho!!}</td>
             </tr>

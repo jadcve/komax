@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,6 +61,20 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        //Komax connection
+        'komax' => [
+            'driver' => 'pgsql',
+            'host' => env('KOMAX_HOST', '192.168.20.12'),
+            'port' => env('KOMAX_PORT', '5432'),
+            'database' => env('KOMAX_DATABASE', 'komax'),
+            'username' => env('KOMAX_USERNAME', 'iowiser'),
+            'password' => env('KOMAX_PASSWORD', '10w1s3r.,2016'),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',

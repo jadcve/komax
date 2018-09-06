@@ -10,6 +10,7 @@ use Amranidev\Ajaxis\Ajaxis;
 use URL;
 use Illuminate\Support\Facades\Auth;
 use App\Tienda;
+use App\Semana;
 
 /**
  * Class CalendarioController.
@@ -27,7 +28,7 @@ class CalendarioController extends Controller
     public function index()
     {
         $title = 'Index - calendario';
-        $calendarios = Calendario::with('user', 'tienda')->orderBy('id', 'desc')->paginate(10);
+        $calendarios = Calendario::with('user', 'tienda', 'semana')->orderBy('id', 'desc')->paginate(10);
         return view('calendario.index',compact('calendarios','title'));
     }
 
@@ -40,7 +41,8 @@ class CalendarioController extends Controller
     {
         $title = 'Create - calendario';
         $tiendas = Tienda::all()->sortBy('id');
-        return view('calendario.create', compact('tiendas'));
+        $semanas = Semana::all()->sortBy('dia_semana');
+        return view('calendario.create', compact('tiendas', 'semanas'));
     }
 
     /**
@@ -66,6 +68,8 @@ class CalendarioController extends Controller
         $calendario->tienda_id = $request->tienda_id;
 
         $calendario->user_id = Auth::user()->id;
+
+        $calendario->semana_id = $request->semana;
         
         $calendario->save();
 
@@ -119,7 +123,8 @@ class CalendarioController extends Controller
         
         $calendario = Calendario::findOrfail($id);
         $tiendas = Tienda::all()->sortBy('id');
-        return view('calendario.edit',compact('title','calendario','tiendas'));
+        $semanas = Semana::all()->sortBy('dia_semana');
+        return view('calendario.edit',compact('title','calendario','tiendas', 'semanas'));
     }
 
     /**
@@ -142,6 +147,8 @@ class CalendarioController extends Controller
         $calendario->tienda_id = $request->tienda_id;
         
         $calendario->user_id = Auth::user()->id;
+
+        $calendario->semana_id = $request->semana;
         
         $calendario->save();
 

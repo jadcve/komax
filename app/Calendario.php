@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Calendario.
@@ -27,5 +28,9 @@ class Calendario extends Model
 
     public function tienda(){
         return $this->belongsTo(Tienda::class);
+    }
+
+    public function semana() {
+        return $this->BelongsTo('App\Semana');
     }
 }

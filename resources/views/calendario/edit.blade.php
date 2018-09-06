@@ -14,6 +14,19 @@
                 id!!}/update'> 
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
+                    <label for="semana">
+                        <select name="semana" id="semana" class="form-control">
+                            <option value="">Seleccione</option>
+                            @foreach ($semanas as $semana)
+                                @php
+                                    $selected = ($calendario->semana_id == $semana->id) ? 'selected' : '';
+                                @endphp
+                                <option value="{!! $semana->id !!}" {!! $selected !!}>{!! $semana->dia !!}</option>
+                            @endforeach
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
                     <label for="dia_despacho">Día de Despacho</label>
                     <input id="dia_despacho" name = "dia_despacho" type="text" class="form-control" value="{!!$calendario->dia_despacho!!}" required placeholder="Día de Despacho"> 
                 </div>
@@ -37,8 +50,6 @@
                             <option value="{!! $tienda->id !!}" {!! $selected !!}>{!! $tienda->bodega !!}</option>
                         @endforeach
                     </select>
-                    {{-- <input id="tienda_id" name = "tienda_id" type="text" class="form-control" value="{!!$calendario->
-                    tienda_id!!}" required placeholder="Tienda">  --}}
                 </div>
                 <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
             </form>

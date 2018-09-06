@@ -13,6 +13,16 @@
             <form method = 'POST' action = '{!!url("calendario")!!}'>
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
+                    <label for="semana">
+                        <select name="semana" id="semana" class="form-control">
+                            <option value="">Seleccione</option>
+                            @foreach ($semanas as $semana)
+                                <option value="{!!$semana->dia_semana!!}">{!!$semana->dia!!}</option>
+                            @endforeach
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
                     <label for="dia_despacho">Día de Despacho</label>
                     <input id="dia_despacho" name = "dia_despacho" type="text" class="form-control" required placeholder="Día de Despacho">
                 </div>
