@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <label for="up_csv">Carga masiva por CSV</label>
-                        <input type="file" class="form-control-file" id="up_csv" name="up_csv">
+                        <input type="file" class="form-control-file" id="up_csv" name="up_csv" required>
                         <button type="submit" class="btn btn-primary"><i class="fa fa-upload" aria-hidden="true"></i> Cargar</button>
                     </div>
                 </form>

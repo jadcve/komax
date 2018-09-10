@@ -209,14 +209,14 @@ class CalendarioController extends Controller
             //elimina los regiustros existenetes
             Calendario::truncate();
             //recorre el csv
-            foreach ($reader->get() as $proveedores) {
+            foreach ($reader->get() as $calendario) {
                 //agrega los datos del csv a la bd
                 Calendario::create([
-                    'dia_despacho' => $proveedores->dia_despacho,
-                    'lead_time' => $proveedores->lead_time,
-                    'tiempo_entrega' => $proveedores->tiempo_entrega,
-                    'tienda_id' => $proveedores->tienda_id,
-                    'semana_id' => $proveedores->semana_id,
+                    'dia_despacho' => $calendario->dia_despacho,
+                    'lead_time' => $calendario->lead_time,
+                    'tiempo_entrega' => $calendario->tiempo_entrega,
+                    'tienda_id' => $calendario->tienda_id,
+                    'semana_id' => $calendario->semana_id,
                     'user_id' => Auth::user()->id
                 ]);
             }

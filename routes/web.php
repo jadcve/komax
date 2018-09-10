@@ -40,6 +40,8 @@ Route::group(['middleware'=> 'web'],function(){
 //nivel_servicio Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('nivel_servicio','\App\Http\Controllers\Nivel_servicioController');
+  Route::post('nivel_servicio/import','\App\Http\Controllers\Nivel_servicioController@import');
+  Route::post('nivel_servicio/load', '\App\Http\Controllers\Nivel_servicioController@load');
   Route::post('nivel_servicio/{id}/update','\App\Http\Controllers\Nivel_servicioController@update');
   Route::get('nivel_servicio/{id}/delete','\App\Http\Controllers\Nivel_servicioController@destroy');
   Route::get('nivel_servicio/{id}/deleteMsg','\App\Http\Controllers\Nivel_servicioController@DeleteMsg');
