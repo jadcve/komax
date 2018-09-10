@@ -2,3 +2,29 @@
     height: 85vh;
     background: #1e282c;
 }
+
+.search-input{
+    float: right;
+    display: inline-block;
+    width: 65%;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    border-top: 1px #ccc solid;
+    border-right: 1px transparent;
+    border-bottom: 1px #ccc solid;
+    border-left: 1px #ccc solid;
+    border-radius: 3px 0 0 3px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.search-button{
+    float: right;
+    width: 30%;
+    padding: 6px 5px;
+    border-radius: 0 3px 3px 0;
+}

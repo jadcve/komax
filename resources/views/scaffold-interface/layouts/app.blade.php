@@ -15,6 +15,7 @@
 		<!-- Theme style -->
 		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/AdminLTE.min.css"> --}}
 	<link rel="stylesheet" href="{{ asset('css/AdminLTE.css') }}">
+	<link rel="stylesheet" href="{{ 'css/styles.css' }}">
 		<!-- AdminLTE Skins. Choose a skin from the css/skins
 		folder instead of downloading all of them to reduce the load. -->
 		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/_all-skins.min.css"> --}}
