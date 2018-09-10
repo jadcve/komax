@@ -6,7 +6,7 @@
     <h1>
         Editar proveedor {!!$proveedor->descripcion_proveedor!!}
     </h1>
-    <a href="{!!url('proveedor')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i>Lista de Proveedores</a>
+    <a href="{!!url('proveedor')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Proveedores</a>
     <br>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
