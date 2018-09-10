@@ -7,7 +7,7 @@
         Nivel de Servicio Detallado
     </h1>
     <br>
-    <a href='{!!url("nivel_servicio")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Lista de  Niveles de Servicio</a>
+    <a href='{!!url("nivel_servicio")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de  Niveles de Servicio</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>

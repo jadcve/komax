@@ -7,7 +7,8 @@
         Modulo de Proveedores
     </h1>
     <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a><br>
-    <form style="display:inline-block;" method = 'POST' action = '{!!url("import")!!}' enctype="multipart/form-data">
+    {{-- <form style="display:inline-block;" method = 'POST' action = '{!!url("import")!!}' enctype="multipart/form-data"> --}}
+        <form style="display:inline-block;" method = 'POST' action = '{!!url("proveedor/load")!!}' enctype="multipart/form-data">
         <div class="form-group">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <label for="up_csv">Cargar por CSV</label>

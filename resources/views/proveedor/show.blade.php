@@ -7,7 +7,7 @@
         Show proveedor
     </h1>
     <br>
-    <a href='{!!url("proveedor")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Proveedor Index</a>
+    <a href='{!!url("proveedor")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Proveedores</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>

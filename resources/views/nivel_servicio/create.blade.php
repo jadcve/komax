@@ -6,7 +6,7 @@
     <h1>
         Crear Nivel de Servicio
     </h1>
-    <a href="{!!url('nivel_servicio')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i>Lista de  Niveles de Servicio</a>
+    <a href="{!!url('nivel_servicio')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de  Niveles de Servicio</a>
     <br>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">

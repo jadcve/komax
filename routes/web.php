@@ -22,10 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 //proveedor Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('proveedor','\App\Http\Controllers\ProveedorController');
+  Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
+  Route::post('proveedor/load', '\App\Http\Controllers\ProveedorController@load');
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');
   Route::get('proveedor/{id}/deleteMsg','\App\Http\Controllers\ProveedorController@DeleteMsg');
-  Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
 });
 
 //tienda Routes
@@ -85,4 +86,4 @@ Route::group(['middleware'=> 'web'],function(){
 });
 
 	
-$router->post('import', 'ImportController@import');
+// $router->post('import', 'ImportController@import');
