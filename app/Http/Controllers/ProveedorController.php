@@ -160,7 +160,8 @@ class ProveedorController extends Controller
             //monta el csv
             $path = $request->file('up_csv')->storeAs('public/uploads/proveedor', $archivo);
         } else {
-            die("Formato de archivo no permitido. Solo cargar archivos de extención csv");
+            $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
+            return view('proveedor.fail',compact('message'));
         }
         //lee el csv
         Excel::load("storage\app\public\uploads\proveedor\\".$archivo, function($reader) {
@@ -197,13 +198,7 @@ class ProveedorController extends Controller
             Proveedor::truncate();
             //recorre el csv
             foreach ($reader->get() as $proveedores) {
-                // if (!Proveedor::where('name', '=', $proveedores->title)->where('author', '=', $proveedores->author)->where('year', '=', $proveedores->publication_year)->exists()){
-                // $proveedor = new User;
-                // $proveedor->codigo_proveedor = strtoupper($proveedores->codigo_proveedor);
-                // $proveedor->descripcion_proveedor = $proveedores->descripcion_proveedor;
-                // $proveedor->lead_time_proveedor = $proveedores->lead_time_proveedor;
-                // $proveedor->tiempo_entrega_proveedor = $proveedores->tiempo_entrega_proveedor;
-                // $proveedor->user_id = Auth::user()->id;
+                //agrega los datos del csv a la bd
                 Proveedor::create([
                     'codigo_proveedor' => strtoupper($proveedores->codigo_proveedor),
                     'descripcion_proveedor' => $proveedores->descripcion_proveedor,

@@ -56,6 +56,8 @@ Route::group(['middleware'=> 'web'],function(){
 //calendario Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('calendario','\App\Http\Controllers\CalendarioController');
+  Route::post('calendario/import','\App\Http\Controllers\CalendarioController@import');
+  Route::post('calendario/load', '\App\Http\Controllers\CalendarioController@load');
   Route::post('calendario/{id}/update','\App\Http\Controllers\CalendarioController@update');
   Route::get('calendario/{id}/delete','\App\Http\Controllers\CalendarioController@destroy');
   Route::get('calendario/{id}/deleteMsg','\App\Http\Controllers\CalendarioController@DeleteMsg');

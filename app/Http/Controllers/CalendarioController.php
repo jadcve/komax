@@ -11,6 +11,8 @@ use URL;
 use Illuminate\Support\Facades\Auth;
 use App\Tienda;
 use App\Semana;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class CalendarioController.
@@ -155,6 +157,75 @@ class CalendarioController extends Controller
         return redirect('calendario');
     }
 
+    public function load(Request $request){
+        global $validar;
+        $validar = false;
+        $archivo = $_FILES["up_csv"]["name"];
+        //validar y cargar la carga masiva
+        //obtiene la extencion
+        $extension = $request->file('up_csv')->getClientOriginalExtension();
+        //chequea la extencion
+        if($extension == 'csv'){
+            //monta el csv
+            $path = $request->file('up_csv')->storeAs('public/uploads/calendario', $archivo);
+        } else {
+            $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
+            return view('calendario.fail',compact('message'));
+        }
+        //lee el csv
+        Excel::load("storage\app\public\uploads\calendario\\".$archivo, function($reader) {
+            //recorre el csv
+            foreach ($reader->get() as $calendario) {
+                if ($calendario->dia_despacho == "" or is_null($calendario->dia_despacho) or !is_numeric($calendario->dia_despacho)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($calendario->lead_time == "" or is_null($calendario->lead_time) or !is_numeric($calendario->lead_time)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($calendario->tiempo_entrega == "" or is_null($calendario->tiempo_entrega) or !is_numeric($calendario->tiempo_entrega)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($calendario->tienda_id == "" or is_null($calendario->tienda_id) or !is_numeric($calendario->tienda_id)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($calendario->semana_id == "" or is_null($calendario->semana_id) or !is_numeric($calendario->semana_id)){
+                    $GLOBALS['validar'] = true;
+                }
+            }
+        });
+        if ($validar){
+            $message = 'La información que intenta cargar de Calendario tiene datos que no son validos.<br>Verifique la información. ';
+            return view('calendario.fail',compact('message'));
+        }
+        else{
+            return view('calendario.warning', compact('archivo'));
+        }
+    }
+
+    public function import(Request $request){
+        //montar los datos el la bd
+        //lee el csv
+        Excel::load("storage\app\public\uploads\calendario\\".$request->archivo, function($reader) {
+            //elimina los regiustros existenetes
+            Calendario::truncate();
+            //recorre el csv
+            foreach ($reader->get() as $proveedores) {
+                //agrega los datos del csv a la bd
+                Calendario::create([
+                    'dia_despacho' => $proveedores->dia_despacho,
+                    'lead_time' => $proveedores->lead_time,
+                    'tiempo_entrega' => $proveedores->tiempo_entrega,
+                    'tienda_id' => $proveedores->tienda_id,
+                    'semana_id' => $proveedores->semana_id,
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+        });
+        //elimina el csv
+        Storage::delete('public/uploads/calendario/'.$request->archivo);
+    //     // return Book::all();
+        return redirect('calendario');
+    }
     /**
      * Delete confirmation message by Ajaxis.
      *

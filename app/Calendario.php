@@ -15,11 +15,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Calendario extends Model
 {
 	
-	use SoftDeletes;
+	// use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	// protected $dates = ['deleted_at'];
     
-	
+    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id', 'user_id', 'semana_id'];
+
     protected $table = 'calendarios';
 
 	public function user(){
