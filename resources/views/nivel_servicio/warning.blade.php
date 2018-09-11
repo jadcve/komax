@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Nivel de Servicio')
+@section('title','Precaución')
 @section('content')
 
 <section class="content">
