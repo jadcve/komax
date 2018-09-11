@@ -7,47 +7,49 @@
         ABC
     </h1>
     {!! Form::open(['url' => 'tran', 'method'=>'POST']) !!}
-        <div class="form-group">
-            <div class="input-group">
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    <div class="form-group">
-                        {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
-                        <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date" required/>
-                    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
+                    <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date" required/>
                 </div>
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    <div class="form-group">
-                        {!! Form::label('fecha_final', 'Fecha Final'); !!}
-                        <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    {!! Form::label('canal', 'Canal'); !!}
-                    {!! Form::text('canal', null, ['class'=>'form-control'])!!}
-                </div>
-
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    {!! Form::label('marca', 'Marca'); !!}
-                    {!! Form::text('marca', null, ['class'=>'form-control'])!!}
-                </div>
-
-                <div class="col-lg-1 col-sm-1col-md-1 col-xs-12">
-                    {!! Form::label('a', 'A'); !!}
-                    {!! Form::text('a', null, ['class'=>'form-control'])!!}
-                </div>
-
-                <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
-                    {!! Form::label('b', 'B'); !!}
-                    {!! Form::text('b', null, ['class'=>'form-control'])!!}
-                </div>
-
-
-                    <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
-
             </div>
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('fecha_final', 'Fecha Final'); !!}
+                    <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                {!! Form::label('canal', 'Canal'); !!}
+                {!! Form::text('canal', null, ['class'=>'form-control'])!!}
+            </div>
+
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                {!! Form::label('marca', 'Marca'); !!}
+                {!! Form::text('marca', null, ['class'=>'form-control'])!!}
+            </div>
+
+            <div class="col-lg-1 col-sm-1col-md-1 col-xs-12">
+                {!! Form::label('a', 'A'); !!}
+                {!! Form::text('a', null, ['class'=>'form-control'])!!}
+            </div>
+
+            <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
+                {!! Form::label('b', 'B'); !!}
+                {!! Form::text('b', null, ['class'=>'form-control'])!!}
+            </div>
+
+
+
+
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
+
         </div>
-        {!! Form::close() !!}
+    </div>
+    {!! Form::close() !!}
 
 
 </section>
