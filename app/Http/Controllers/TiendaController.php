@@ -10,6 +10,8 @@ use App\Tienda;
 use App\User;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class TiendaController.
@@ -60,10 +62,9 @@ class TiendaController extends Controller
     {
         $tienda = new Tienda();
         
-        $tienda->cod_tienda = $request->cod_tienda;
+        $tienda->cod_tienda = strtoupper($request->cod_tienda);
 
-        
-        $tienda->bodega = $request->bodega;
+        $tienda->bodega = strtoupper($request->bodega);
 
         if (strlen(trim($request->canal)) >= 1){
             $tienda->canal = $request->canal;
@@ -99,7 +100,7 @@ class TiendaController extends Controller
         $tienda->longitud = $request->longitud;
 
         
-        $tienda->direccion = $request->direccion;
+        $tienda->direccion = ucfirst($request->direccion);
 
         $tienda->user_id = Auth::user()->id;
         
@@ -172,23 +173,23 @@ class TiendaController extends Controller
     {
         $tienda = Tienda::findOrfail($id);
     	
-        $tienda->cod_tienda = $request->cod_tienda;
+        $tienda->cod_tienda = strtoupper($request->cod_tienda);
         
-        $tienda->bodega = $request->bodega;
+        $tienda->bodega = strtoupper($request->bodega);
         
-        $tienda->canal = $request->canal;
+        $tienda->canal = strtoupper($request->canal);
         
-        $tienda->ciudad = $request->ciudad;
+        $tienda->ciudad = ucwords($request->ciudad);
         
-        $tienda->comuna = $request->comuna;
+        $tienda->comuna = ucwords($request->comuna);
         
-        $tienda->region = $request->region;
+        $tienda->region = ucwords($request->region);
         
         $tienda->latitude = $request->latitude;
         
         $tienda->longitud = $request->longitud;
         
-        $tienda->direccion = $request->direccion;
+        $tienda->direccion = ucfirst($request->direccion);
         
         $tienda->user_id = Auth::user()->id;
         
@@ -197,6 +198,92 @@ class TiendaController extends Controller
         return redirect('tienda');
     }
 
+    public function load(Request $request){
+        global $validar;
+        $validar = false;
+        $archivo = $_FILES["up_csv"]["name"];
+        //validar y cargar la carga masiva
+        //obtiene la extencion
+        $extension = $request->file('up_csv')->getClientOriginalExtension();
+        //chequea la extencion
+        if($extension == 'csv'){
+            //monta el csv
+            $path = $request->file('up_csv')->storeAs('public/uploads/tienda', $archivo);
+        } else {
+            $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
+            return view('tienda.fail',compact('message'));
+        }
+        //lee el csv
+        Excel::load("storage\app\public\uploads\\tienda\\".$archivo, function($reader) {
+            //recorre el csv
+            foreach ($reader->get() as $tiendas) {
+                // if ($tiendas->cod_tienda == "" or is_null($tiendas->cod_tienda)){
+                //     $GLOBALS['validar'] = true;
+                //     echo 'lat';
+                // }
+                if ($tiendas->bodega == "" or is_null($tiendas->bodega)){
+                    $GLOBALS['validar'] = true;
+                    echo 'lat';
+                }
+                if ($tiendas->canal == "" or is_null($tiendas->canal)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($tiendas->ciudad == "" or is_null($tiendas->ciudad)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($tiendas->region == "" or is_null($tiendas->region)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($tiendas->latitude == "" or is_null($tiendas->latitude) or !is_numeric($tiendas->latitude)){
+                    echo 'lat';
+                    $GLOBALS['validar'] = true;
+                }
+                if ($tiendas->longitud == "" or is_null($tiendas->longitud) or !is_numeric($tiendas->longitud)){
+                    echo 'long';
+                    $GLOBALS['validar'] = true;
+                }
+                if ($tiendas->direccion == "" or is_null($tiendas->direccion)){
+                    $GLOBALS['validar'] = true;
+                }
+            }
+        });
+        if ($validar){
+            $message = 'La información que intenta cargar de Tiendas tiene datos que no son validos.<br>Verifique la información. ';
+            return view('tienda.fail',compact('message'));
+        }
+        else{
+            return view('tienda.warning', compact('archivo'));
+        }
+    }
+
+    public function import(Request $request){
+        //montar los datos el la bd
+        //lee el csv
+        Excel::load("storage\app\public\uploads\\tienda\\".$request->archivo, function($reader) {
+            //elimina los regiustros existenetes
+            Tienda::truncate();
+            //recorre el csv
+            foreach ($reader->get() as $tiendas) {
+                //agrega los datos del csv a la bd
+                Tienda::create([
+                    'cod_tienda' => strtoupper($tiendas->cod_tienda),
+                    'bodega' => strtoupper($tiendas->bodega),
+                    'canal' => strtoupper($tiendas->canal),
+                    'ciudad' => ucwords($tiendas->ciudad),
+                    'comuna' => ucwords($tiendas->comuna),
+                    'region' => ucwords($tiendas->region),
+                    'latitude' => $tiendas->latitude,
+                    'longitud' => $tiendas->longitud,
+                    'direccion' => ucfirst($tiendas->direccion),
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+        });
+        //elimina el csv
+        Storage::delete('public/uploads/tienda/'.$request->archivo);
+    //     // return Book::all();
+        return redirect('tienda');
+    }
     /**
      * Delete confirmation message by Ajaxis.
      *

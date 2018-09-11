@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Calendario')
+@section('title','Error')
 @section('content')
 
 <section class="content">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <br>
-    <a href='{!!url("calendario")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Calendario Lista</a>
+    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista</a>
     <br><br>
 </section>
 @endsection

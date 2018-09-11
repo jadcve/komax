@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Calendario')
+@section('title','Precaución')
 @section('content')
 
 <section class="content">
@@ -15,10 +15,10 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-xs-6"><a href='{!!url("calendario")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Calendario Lista</a></div>
+        <div class="col-xs-6"><a href='{!!url("Lista")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista</a></div>
         <div class="col-xs-6 pull-right">
             {{-- <a href='{!!url("import")!!}' class = 'btn btn-success'><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Sí. Estoy seguro.</a> --}}
-            <form style="display:inline-block;" method = 'POST' action = '{!!url("calendario/import")!!}' enctype="multipart/form-data">
+            <form style="display:inline-block;" method = 'POST' action = '{!!url("tienda/import")!!}' enctype="multipart/form-data">
                 <div class="form-group">
                         <input type="hidden" name="archivo" value="{!!$archivo!!}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

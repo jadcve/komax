@@ -14,8 +14,9 @@ use App\User;
  */
 class Tienda extends Model
 {
-	
-	// protected $primaryKey = 'canal';
+    
+    protected $fillable = ['cod_tienda', 'bodega', 'canal', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
+    
     protected $table = 'tiendas';
 
 	public function user(){

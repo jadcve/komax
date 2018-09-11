@@ -32,6 +32,8 @@ Route::group(['middleware'=> 'web'],function(){
 //tienda Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('tienda','\App\Http\Controllers\TiendaController');
+  Route::post('tienda/import','\App\Http\Controllers\TiendaController@import');
+  Route::post('tienda/load', '\App\Http\Controllers\TiendaController@load');
   Route::post('tienda/{id}/update','\App\Http\Controllers\TiendaController@update');
   Route::get('tienda/{id}/delete','\App\Http\Controllers\TiendaController@destroy');
   Route::get('tienda/{id}/deleteMsg','\App\Http\Controllers\TiendaController@DeleteMsg');
