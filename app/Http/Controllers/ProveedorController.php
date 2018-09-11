@@ -9,6 +9,8 @@ use App\Proveedor;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class ProveedorController.
@@ -53,16 +55,16 @@ class ProveedorController extends Controller
         $proveedor = new Proveedor();
 
         
-        $proveedor->cod_prov = $request->cod_prov;
+        $proveedor->codigo_proveedor = strtoupper($request->codigo_proveedor);
 
         
-        $proveedor->nombre_prov = $request->nombre_prov;
+        $proveedor->descripcion_proveedor = $request->descripcion_proveedor;
 
         
-        $proveedor->leedt_prov = $request->leedt_prov;
+        $proveedor->lead_time_proveedor = $request->lead_time_proveedor;
 
         
-        $proveedor->tentrega_prov = $request->tentrega_prov;
+        $proveedor->tiempo_entrega_proveedor = $request->tiempo_entrega_proveedor;
 
         $proveedor->user_id = Auth::user()->id;
         
@@ -131,13 +133,13 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::findOrfail($id);
     	
-        $proveedor->cod_prov = $request->cod_prov;
+        $proveedor->codigo_proveedor = strtoupper($request->codigo_proveedor);
         
-        $proveedor->nombre_prov = $request->nombre_prov;
+        $proveedor->descripcion_proveedor = $request->descripcion_proveedor;
         
-        $proveedor->leedt_prov = $request->leedt_prov;
+        $proveedor->lead_time_proveedor = $request->lead_time_proveedor;
         
-        $proveedor->tentrega_prov = $request->tentrega_prov;
+        $proveedor->tiempo_entrega_proveedor = $request->tiempo_entrega_proveedor;
         
         $proveedor->user_id = Auth::user()->id;
         
@@ -146,6 +148,71 @@ class ProveedorController extends Controller
         return redirect('proveedor');
     }
 
+    public function load(Request $request){
+        global $validar;
+        $validar = false;
+        $archivo = $_FILES["up_csv"]["name"];
+        //validar y cargar la carga masiva
+        //obtiene la extencion
+        $extension = $request->file('up_csv')->getClientOriginalExtension();
+        //chequea la extencion
+        if($extension == 'csv'){
+            //monta el csv
+            $path = $request->file('up_csv')->storeAs('public/uploads/proveedor', $archivo);
+        } else {
+            $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
+            return view('proveedor.fail',compact('message'));
+        }
+        //lee el csv
+        Excel::load("storage\app\public\uploads\proveedor\\".$archivo, function($reader) {
+            //recorre el csv
+            foreach ($reader->get() as $proveedores) {
+                if ($proveedores->codigo_proveedor == "" or is_null($proveedores->codigo_proveedor)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($proveedores->descripcion_proveedor == "" or is_null($proveedores->descripcion_proveedor)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($proveedores->lead_time_proveedor == "" or is_null($proveedores->lead_time_proveedor) or !is_numeric($proveedores->lead_time_proveedor)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($proveedores->tiempo_entrega_proveedor == "" or is_null($proveedores->tiempo_entrega_proveedor) or !is_numeric($proveedores->tiempo_entrega_proveedor)){
+                    $GLOBALS['validar'] = true;
+                }
+            }
+        });
+        if ($validar){
+            $message = 'La información que intenta cargar de Proveedores tiene datos que no son validos.<br>Verifique la información. ';
+            return view('proveedor.fail',compact('message'));
+        }
+        else{
+            return view('proveedor.warning', compact('archivo'));
+        }
+    }
+
+    public function import(Request $request){
+        //montar los datos el la bd
+        //lee el csv
+        Excel::load("storage\app\public\uploads\proveedor\\".$request->archivo, function($reader) {
+            //elimina los regiustros existenetes
+            Proveedor::truncate();
+            //recorre el csv
+            foreach ($reader->get() as $proveedores) {
+                //agrega los datos del csv a la bd
+                Proveedor::create([
+                    'codigo_proveedor' => strtoupper($proveedores->codigo_proveedor),
+                    'descripcion_proveedor' => $proveedores->descripcion_proveedor,
+                    'lead_time_proveedor' => $proveedores->lead_time_proveedor,
+                    'tiempo_entrega_proveedor' => $proveedores->tiempo_entrega_proveedor,
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+        });
+        //elimina el csv
+        Storage::delete('public/uploads/proveedor/'.$request->archivo);
+    //     // return Book::all();
+        return redirect('proveedor');
+    }
     /**
      * Delete confirmation message by Ajaxis.
      *

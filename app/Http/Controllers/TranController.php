@@ -10,6 +10,8 @@ Use App\Temporal;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use URL;
+use App\Tienda;
+use App\Marca;
 
 /**
  * Class TranController.
@@ -85,10 +87,19 @@ class TranController extends Controller
      */
     public function index()
     {
-        return view('tran.index');
+        // $tiendas = Tran::with('tiendas');
+        $canales = Tienda::distinct()->get(['canal'])->sortBy('canal');
+
+        return view('tran.index', compact('canales'));
     }
 
 
-
+    public function selectAjax(Request $request)
+    {
+        if($request->ajax()){
+            $marcas = Marca::where('canal', $request->canal)->get(['marca'])->sortBy('marca');
+            return response()->json($marcas);
+        }
+    }
 
 }

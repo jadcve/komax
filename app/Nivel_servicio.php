@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Nivel_servicio extends Model
 {
 	
-	use SoftDeletes;
+	// use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	// protected $dates = ['deleted_at'];
     
-	
+    protected $fillable = ['letra', 'nivel_servicio', 'descripcion', 'user_id'];
+
     protected $table = 'nivel_servicios';
 
 	public function user(){

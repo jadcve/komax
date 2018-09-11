@@ -14,6 +14,7 @@ class Tran extends Model
 {
     public $timestamps = false;
     protected $table = 'trans';
+    // protected $primaryKey = 'bodega';
 
 
     public function scopeCanal($query, $canal)
@@ -35,5 +36,7 @@ class Tran extends Model
         return $this->hasOne('App\Temporal');
     }
 
-
+    public function tiendas(){
+        return $this->belongsTo('App\Tienda', 'bodega', 'bodega');
+    }
 }

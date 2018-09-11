@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Calendario.
@@ -14,11 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Calendario extends Model
 {
 	
-	use SoftDeletes;
+	// use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	// protected $dates = ['deleted_at'];
     
-	
+    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id', 'user_id', 'semana_id'];
+
     protected $table = 'calendarios';
 
 	public function user(){
@@ -27,5 +29,9 @@ class Calendario extends Model
 
     public function tienda(){
         return $this->belongsTo(Tienda::class);
+    }
+
+    public function semana() {
+        return $this->BelongsTo('App\Semana');
     }
 }

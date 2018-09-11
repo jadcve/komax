@@ -8,9 +8,37 @@
     </h1>
     <a href='{!!url("tienda")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Tienda</a>
     <br><br>
-    @php
-    // var_dump();
-@endphp
+    <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("tienda/load")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label for="up_csv">Carga masiva por CSV</label>
+                        <input type="file" class="form-control-file" id="up_csv" name="up_csv" required>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-upload" aria-hidden="true"></i> Cargar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label for="">Descargar datos</label><br>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary search-button"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <input type="text" class="form-control-file search-input" id="buscar" name="buscar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    <br><br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código</th>

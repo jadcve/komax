@@ -7,7 +7,7 @@
         Calendario Detalles
     </h1>
     <br>
-    <a href='{!!url("calendario")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Calendario Lista</a>
+    <a href='{!!url("calendario")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Calendario Lista</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
@@ -15,6 +15,10 @@
             <th>Información</th>
         </thead>
         <tbody>
+            <tr>
+                <td> <b>Día</b> </td>
+                <td>{!!$calendario->semana['dia']!!}</td>
+            </tr>
             <tr>
                 <td> <b>Día de Despacho</b> </td>
                 <td>{!!$calendario->dia_despacho!!}</td>

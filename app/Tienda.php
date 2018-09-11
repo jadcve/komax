@@ -14,8 +14,9 @@ use App\User;
  */
 class Tienda extends Model
 {
-	
-	
+    
+    protected $fillable = ['cod_tienda', 'bodega', 'canal', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
+    
     protected $table = 'tiendas';
 
 	public function user(){
@@ -25,4 +26,40 @@ class Tienda extends Model
     public function calendarios(){
         return $this->hasMany(Calendario::class);
     }
+
+    public function trans(){
+        return $this->hasMany('App\Tran', 'bodega', 'bodega');
+    }
+
+	/**
+     * marca.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function marcas()
+    {
+        return $this->belongsToMany('App\Marca');
+    }
+
+    /**
+     * Assign a marca.
+     *
+     * @param  $marca
+     * @return  mixed
+     */
+    public function assignMarca($marca)
+    {
+        return $this->marcas()->attach($marca);
+    }
+    /**
+     * Remove a marca.
+     *
+     * @param  $marca
+     * @return  mixed
+     */
+    public function removeMarca($marca)
+    {
+        return $this->marcas()->detach($marca);
+    }
+
 }

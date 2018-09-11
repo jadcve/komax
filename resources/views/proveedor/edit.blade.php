@@ -4,9 +4,9 @@
 
 <section class="content">
     <h1>
-        Editar proveedor {!!$proveedor->nombre_prov!!}
+        Editar proveedor {!!$proveedor->descripcion_proveedor!!}
     </h1>
-    <a href="{!!url('proveedor')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i>Lista de Proveedores</a>
+    <a href="{!!url('proveedor')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Proveedores</a>
     <br>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -14,23 +14,20 @@
                 id!!}/update'> 
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
-                    <label for="cod_prov">Código de Proveedor</label>
-                    <input id="cod_prov" name = "cod_prov" type="text" class="form-control" value="{!!$proveedor->
-                    cod_prov!!}" required placeholder="Código de Proveedor"> 
+                    <label for="codigo_proveedor">Código de Proveedor</label>
+                    <input id="codigo_proveedor" name = "codigo_proveedor" type="text" class="form-control" value="{!!$proveedor->codigo_proveedor!!}" required placeholder="Código de Proveedor"> 
                 </div>
                 <div class="form-group">
-                    <label for="nombre_prov">Nombre del Proveedor</label>
-                    <input id="nombre_prov" name = "nombre_prov" type="text" class="form-control" value="{!!$proveedor->
-                    nombre_prov!!}" required placeholder="Nombre del Proveedor"> 
+                    <label for="descripcion_proveedor">Nombre del Proveedor</label>
+                    <input id="descripcion_proveedor" name = "descripcion_proveedor" type="text" class="form-control" value="{!!$proveedor->descripcion_proveedor!!}" required placeholder="Nombre del Proveedor"> 
                 </div>
                 <div class="form-group">
-                    <label for="leedt_prov">Leed Time Proveedor</label>
-                    <input id="leedt_prov" name = "leedt_prov" type="text" class="form-control" value="{!!$proveedor->
-                    leedt_prov!!}" required placeholder="Leed Time Proveedor"> 
+                    <label for="lead_time_proveedor">Lead Time Proveedor</label>
+                    <input id="lead_time_proveedor" name = "lead_time_proveedor" type="text" class="form-control" value="{!!$proveedor->lead_time_proveedor!!}" required placeholder="Leed Time Proveedor"> 
                 </div>
                 <div class="form-group">
-                    <label for="tentrega_prov">Tiempo de entrega de Proveedor</label>
-                    <input id="tentrega_prov" name = "tentrega_prov" type="text" class="form-control" value="{!!$proveedor->tentrega_prov!!}" required placeholder="Tiempo de entrega de Proveedor"> 
+                    <label for="tiempo_entrega_proveedor">Tiempo de entrega de Proveedor</label>
+                    <input id="tiempo_entrega_proveedor" name = "tiempo_entrega_proveedor" type="text" class="form-control" value="{!!$proveedor->tiempo_entrega_proveedor!!}" required placeholder="Tiempo de entrega de Proveedor"> 
                 </div>
                 <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
             </form>

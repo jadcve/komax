@@ -14,10 +14,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Proveedor extends Model
 {
 	
-	use SoftDeletes;
+	// use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	// protected $dates = ['deleted_at'];
     
+    protected $fillable = ['codigo_proveedor', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor', 'user_id'];
 	
     protected $table = 'proveedors';
 

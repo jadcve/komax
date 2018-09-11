@@ -19,5 +19,7 @@ class Semana extends Model
     
     protected $table = 'semanas';
 
-	
+	public function calendarios(){
+        return $this->hasMany('App\Calendario');
+    }
 }

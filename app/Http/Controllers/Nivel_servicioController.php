@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Nivel_servicio;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Nivel_servicioController.
@@ -53,7 +55,7 @@ class Nivel_servicioController extends Controller
         $nivel_servicio = new Nivel_servicio();
 
         
-        $nivel_servicio->letra = $request->letra;
+        $nivel_servicio->letra = strtoupper($request->letra);
 
         
         $nivel_servicio->nivel_servicio = $request->nivel_servicio;
@@ -128,7 +130,7 @@ class Nivel_servicioController extends Controller
     {
         $nivel_servicio = Nivel_servicio::findOrfail($id);
     	
-        $nivel_servicio->letra = $request->letra;
+        $nivel_servicio->letra = strtoupper($request->letra);
         
         $nivel_servicio->nivel_servicio = $request->nivel_servicio;
         
@@ -141,6 +143,67 @@ class Nivel_servicioController extends Controller
         return redirect('nivel_servicio');
     }
 
+    public function load(Request $request){
+        global $validar;
+        $validar = false;
+        $archivo = $_FILES["up_csv"]["name"];
+        //validar y cargar la carga masiva
+        //obtiene la extencion
+        $extension = $request->file('up_csv')->getClientOriginalExtension();
+        //chequea la extencion
+        if($extension == 'csv'){
+            //monta el csv
+            $path = $request->file('up_csv')->storeAs('public/uploads/nivel_servicio', $archivo);
+        } else {
+            $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
+            return view('nivel_servicio.fail',compact('message'));
+        }
+        //lee el csv
+        Excel::load("storage\app\public\uploads\\nivel_servicio\\".$archivo, function($reader) {
+            //recorre el csv
+            foreach ($reader->get() as $nivel) {
+                if ($nivel->letra == "" or is_null($nivel->letra) or !is_string($nivel->letra) or (strlen($nivel->letra) > 1)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($nivel->nivel_servicio == "" or is_null($nivel->nivel_servicio) or !is_numeric($nivel->nivel_servicio)){
+                    $GLOBALS['validar'] = true;
+                }
+                if ($nivel->descripcion == "" or is_null($nivel->descripcion)){
+                    $GLOBALS['validar'] = true;
+                }
+            }
+        });
+        if ($validar){
+            $message = 'La información que intenta cargar de Nivel de Servicio tiene datos que no son validos.<br>Verifique la información. ';
+            return view('nivel_servicio.fail',compact('message'));
+        }
+        else{
+            return view('nivel_servicio.warning', compact('archivo'));
+        }
+    }
+
+    public function import(Request $request){
+        //montar los datos el la bd
+        //lee el csv
+        Excel::load("storage\app\public\uploads\\nivel_servicio\\".$request->archivo, function($reader) {
+            //elimina los regiustros existenetes
+            Nivel_servicio::truncate();
+            //recorre el csv
+            foreach ($reader->get() as $nivel) {
+                //agrega los datos del csv a la bd
+                Nivel_servicio::create([
+                    'letra' => strtoupper($nivel->letra),
+                    'nivel_servicio' => $nivel->nivel_servicio,
+                    'descripcion' => $nivel->descripcion,
+                    'user_id' => Auth::user()->id
+                ]);
+            }
+        });
+        //elimina el csv
+        Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
+    //     // return Book::all();
+        return redirect('nivel_servicio');
+    }
     /**
      * Delete confirmation message by Ajaxis.
      *

@@ -6,8 +6,38 @@
     <h1>
         Modulo de Proveedores
     </h1>
-    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a>
-    <br>
+    <a href='{!!url("proveedor")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Proveedor</a><br><br>
+    {{-- <form style="display:inline-block;" method = 'POST' action = '{!!url("import")!!}' enctype="multipart/form-data"> --}}
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("proveedor/load")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label for="up_csv">Carga masiva por CSV</label>
+                        <input type="file" class="form-control-file" id="up_csv" name="up_csv" required>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-upload" aria-hidden="true"></i> Cargar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label for="">Descargar datos</label><br>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-primary search-button"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <input type="text" class="form-control-file search-input" id="buscar" name="buscar">
+                    </div>
+                </form>
+            </div>
+        </div>
     <br>
     <br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
@@ -22,10 +52,10 @@
         <tbody>
             @foreach($proveedors as $proveedor)
             <tr>
-                <td>{!!$proveedor->cod_prov!!}</td>
-                <td>{!!$proveedor->nombre_prov!!}</td>
-                <td>{!!$proveedor->leedt_prov!!}</td>
-                <td>{!!$proveedor->tentrega_prov!!}</td>
+                <td>{!!$proveedor->codigo_proveedor!!}</td>
+                <td>{!!$proveedor->descripcion_proveedor!!}</td>
+                <td>{!!$proveedor->lead_time_proveedor!!}</td>
+                <td>{!!$proveedor->tiempo_entrega_proveedor!!}</td>
                 <td>
                         {!!$proveedor->user['name']!!}<span style="font-size:8px"><br>{!!$proveedor->updated_at!!}</span>
                  </td>

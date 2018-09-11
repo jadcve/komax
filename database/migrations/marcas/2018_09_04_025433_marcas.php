@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Semanas.
+ * Class Marcas.
  *
- * @author  The scaffold-interface created at 2018-08-22 06:02:13pm
+ * @author  The scaffold-interface created at 2018-09-04 02:54:33pm
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Semanas extends Migration
+class Marcas extends Migration
 {
     /**
      * Run the migrations.
@@ -18,19 +18,23 @@ class Semanas extends Migration
      */
     public function up()
     {
-        Schema::create('semanas',function (Blueprint $table){
+        Schema::create('marcas',function (Blueprint $table){
 
         $table->increments('id');
         
-        $table->integer('dia_semana');
+        $table->String('canal');
         
-        $table->String('dia');
+        $table->String('marca');
         
         /**
          * Foreignkeys section
          */
         
         
+        $table->timestamps();
+        
+        
+        $table->softDeletes();
         
         // type your addition here
 
@@ -44,6 +48,6 @@ class Semanas extends Migration
      */
     public function down()
     {
-        Schema::drop('semanas');
+        Schema::drop('marcas');
     }
 }
