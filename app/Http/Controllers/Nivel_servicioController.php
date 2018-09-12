@@ -11,6 +11,7 @@ use Amranidev\Ajaxis\Ajaxis;
 use URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Convert_to_csv;
 
 /**
  * Class Nivel_servicioController.
@@ -158,6 +159,35 @@ class Nivel_servicioController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('nivel_servicio.fail',compact('message'));
         }
+        //arreglo con los headers de nivel_servicio
+        $headersRequeridos = array('letra', 'nivel_servicio', 'descripcion');
+        $headersRequeridos2 = array('"letra"', 'nivel_servicio', 'descripcion');
+        // abre el archivo
+        $file = fopen("../storage\app\public\uploads\\nivel_servicio\\".$archivo, 'r');
+        //tomo la primera linea
+        $lineaUno = fgets($file);
+        //cierra el archivo
+        fclose($file);
+        //extrae los headers del csv
+        $headersEncontrados = str_getcsv($lineaUno, ',', '"');
+
+        array_walk($headersEncontrados, function (&$value){
+            $value = mb_convert_encoding($value, 'utf-8','ASCII');
+        });
+       
+       $leng = strlen($headersEncontrados[0]) - strlen($headersRequeridos2[0]);
+       $headersEncontrados[0] = substr($headersEncontrados[0], $leng);
+       
+        if ($headersEncontrados == $headersRequeridos or $headersEncontrados == $headersRequeridos2) {
+        }
+        else{
+            $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
+                La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+            //elimina el csv
+            Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
+            return view('nivel_servicio.fail',compact('message'));
+         }
         //lee el csv
         Excel::load("storage\app\public\uploads\\nivel_servicio\\".$archivo, function($reader) {
             //recorre el csv
@@ -175,6 +205,8 @@ class Nivel_servicioController extends Controller
         });
         if ($validar){
             $message = 'La información que intenta cargar de Nivel de Servicio tiene datos que no son validos.<br>Verifique la información. ';
+            //elimina el csv
+            Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
             return view('nivel_servicio.fail',compact('message'));
         }
         else{
@@ -203,6 +235,27 @@ class Nivel_servicioController extends Controller
         Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
     //     // return Book::all();
         return redirect('nivel_servicio');
+    }
+
+    public function download(){
+        
+        $datos = Nivel_servicio::all();
+
+        $contenidoCsv = [];
+        //headers del csv
+        array_push($contenidoCsv, array('letra', 'nivel_servicio', 'descripcion'));
+        //agrego los datos al array
+        foreach ($datos as $registro) {
+            array_push($contenidoCsv, array($registro->letra, $registro->nivel_servicio, $registro->descripcion));
+        }
+        //fecha para crear el nombre
+        $fecha = date('Ymdhis');
+        $nombreCsv = "nivel_servicio_".$fecha.'.csv';
+
+        //llama al metodo para crear el csv
+        Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
+
+        return view('nivel_servicio/download');
     }
     /**
      * Delete confirmation message by Ajaxis.

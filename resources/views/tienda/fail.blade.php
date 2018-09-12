@@ -12,7 +12,7 @@
         </div>
     </div>
     <br>
-    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista</a>
+    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de tiendas</a>
     <br><br>
 </section>
 @endsection

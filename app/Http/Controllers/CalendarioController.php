@@ -13,6 +13,7 @@ use App\Tienda;
 use App\Semana;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Convert_to_csv;
 
 /**
  * Class CalendarioController.
@@ -172,6 +173,33 @@ class CalendarioController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('calendario.fail',compact('message'));
         }
+        //arreglo con los headers de calendario
+        $headersRequeridos = array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id');
+        $headersRequeridos2 = array('"semana_id"', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id');
+        // abre el archivo
+        $file = fopen("../storage\app\public\uploads\calendario\\".$archivo, 'r');
+        //tomo la primera linea
+        $lineaUno = fgets($file);
+        //cierra el archivo
+        fclose($file);
+        //extrae los headers del csv
+        $headersEncontrados = str_getcsv($lineaUno, ',', '"');
+        //elimina los espacios en blanco del los elementos del array
+        $headersEncontrados = array_walk($headersEncontrados, function (&$value) 
+        { 
+            $value = trim($value); 
+        });
+        
+        if ($headersEncontrados == $headersRequeridos or $headersEncontrados == $headersRequeridos2) {
+        }
+        else{
+            $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
+                La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+            //elimina el csv
+            Storage::delete('public/uploads/calendario/'.$request->archivo);
+            return view('calendario.fail',compact('message'));
+         }
         //lee el csv
         Excel::load("storage\app\public\uploads\calendario\\".$archivo, function($reader) {
             //recorre el csv
@@ -195,6 +223,8 @@ class CalendarioController extends Controller
         });
         if ($validar){
             $message = 'La información que intenta cargar de Calendario tiene datos que no son validos.<br>Verifique la información. ';
+            //elimina el csv
+            Storage::delete('public/uploads/calendario/'.$request->archivo);
             return view('calendario.fail',compact('message'));
         }
         else{
@@ -225,6 +255,27 @@ class CalendarioController extends Controller
         Storage::delete('public/uploads/calendario/'.$request->archivo);
     //     // return Book::all();
         return redirect('calendario');
+    }
+
+    public function download(){
+        
+        $datos = Calendario::all();
+
+        $contenidoCsv = [];
+        //headers del csv
+        array_push($contenidoCsv, array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id'));
+        //agrego los datos al array
+        foreach ($datos as $registro) {
+            array_push($contenidoCsv, array($registro->semana_id, $registro->dia_despacho, $registro->lead_time, $registro->tiempo_entrega, $registro->tienda_id));
+        }
+        //fecha para crear el nombre
+        $fecha = date('Ymdhis');
+        $nombreCsv = "calendario_".$fecha.'.csv';
+
+        //llama al metodo para crear el csv
+        Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
+
+        return view('calendario/download');
     }
     /**
      * Delete confirmation message by Ajaxis.

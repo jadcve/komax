@@ -15,7 +15,7 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-xs-6"><a href='{!!url("Lista")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista</a></div>
+        <div class="col-xs-6"><a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Tiendas</a></div>
         <div class="col-xs-6 pull-right">
             {{-- <a href='{!!url("import")!!}' class = 'btn btn-success'><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Sí. Estoy seguro.</a> --}}
             <form style="display:inline-block;" method = 'POST' action = '{!!url("tienda/import")!!}' enctype="multipart/form-data">
