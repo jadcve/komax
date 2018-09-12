@@ -7,20 +7,21 @@
         ABC
     </h1>
     {!! Form::open(['url' => 'tran', 'method'=>'POST']) !!}
-        <div class="form-group">
-            <div class="input-group">
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    <div class="form-group">
-                        {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
-                        <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date"/>
-                    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
+                    <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date" required/>
                 </div>
-                <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-                    <div class="form-group">
-                        {!! Form::label('fecha_final', 'Fecha Final'); !!}
-                        <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date"/>
-                    </div>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('fecha_final', 'Fecha Final'); !!}
+                    <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
                 </div>
+            </div>
+
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                       <label for="canal">Canal</label>
@@ -33,7 +34,7 @@
                     </div>
                     {{-- <label>Select Country:</label>
                         {!! Form::select('canal',[''=>'Seleccione']+$canales,null,['class'=>'form-control']) !!}--}}
-                </div> 
+                </div>
                 <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
                     <div class="form-group">
                         <label>Marca</label>
@@ -56,11 +57,11 @@
                 </div>
 
 
-                    <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary">Buscar</button></span>
 
-            </div>
         </div>
-        {!! Form::close() !!}
+    </div>
+    {!! Form::close() !!}
 
 
 </section>

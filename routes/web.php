@@ -79,6 +79,12 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('tran','\App\Http\Controllers\TranController@calculo');
 });
 
+
+Route::group(['middleware'=> 'web'],function(){
+    Route::resource('body','\App\Http\Controllers\BodyController');
+    Route::post('body','\App\Http\Controllers\BodyController@body');
+});
+
 // Route::get('ajax',function(){
 //   return view('tran');
 // });
@@ -95,5 +101,5 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('marca/{id}/deleteMsg','\App\Http\Controllers\MarcaController@DeleteMsg');
 });
 
-	
+
 // $router->post('import', 'ImportController@import');

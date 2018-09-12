@@ -93,6 +93,7 @@ class TranController extends Controller
         return view('tran.index', compact('canales'));
     }
 
+
     public function selectAjax(Request $request)
     {
         if($request->ajax()){
@@ -100,4 +101,5 @@ class TranController extends Controller
             return response()->json($marcas);
         }
     }
+
 }
