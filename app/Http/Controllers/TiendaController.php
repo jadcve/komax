@@ -105,7 +105,7 @@ class TiendaController extends Controller
 
         $tienda->user_id = Auth::user()->id;
         
-        // $tienda->save();
+        $tienda->save();
 
         // $pusher = App::make('pusher');
 
@@ -214,34 +214,31 @@ class TiendaController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('tienda.fail',compact('message'));
         }
-        // arreglo con los headers de tienda
-         $headersRequeridos = array('cod_tienda', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'longitud', 'direccion', 'latitude');
-         $headersRequeridos2 = array('"cod_tienda"', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'longitud', 'direccion', 'latitude');
 
         //  abre el archivo
          $file = fopen("../storage\app\public\uploads\\tienda\\".$archivo, 'r');
          //tomo la primera linea
          $lineaUno = fgets($file);
-        // $lineaUno = explode(',', $lineaUno);
-         var_dump($lineaUno);
          //cierra el archivo
          fclose($file);
          //extrae los headers del string de la primera linea
          $headersEncontrados = str_getcsv($lineaUno, ',', '"');
-
+        //elimina los espacios en blanco y simbolos de los elementos del array
          array_walk($headersEncontrados, function (&$value){
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
              $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
          });
-        
-        $leng = strlen($headersEncontrados[0]) - strlen($headersRequeridos2[0]);
-        $headersEncontrados[0] = substr($headersEncontrados[0], $leng);
-        
-         if ($headersEncontrados == $headersRequeridos or $headersEncontrados === $headersRequeridos2) {
+
+        $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('cod_tienda', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion') : array('"cod_tienda"', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion');
+
+         if ($headersEncontrados == $headersRequeridos) {
          }
          else{
              $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
                  La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
-                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
              //elimina el csv
              Storage::delete('public/uploads/tienda/'.$request->archivo);
              return view('tienda.fail',compact('message'));

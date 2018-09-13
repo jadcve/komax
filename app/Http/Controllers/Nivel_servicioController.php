@@ -159,9 +159,7 @@ class Nivel_servicioController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('nivel_servicio.fail',compact('message'));
         }
-        //arreglo con los headers de nivel_servicio
-        $headersRequeridos = array('letra', 'nivel_servicio', 'descripcion');
-        $headersRequeridos2 = array('"letra"', 'nivel_servicio', 'descripcion');
+
         // abre el archivo
         $file = fopen("../storage\app\public\uploads\\nivel_servicio\\".$archivo, 'r');
         //tomo la primera linea
@@ -170,20 +168,22 @@ class Nivel_servicioController extends Controller
         fclose($file);
         //extrae los headers del csv
         $headersEncontrados = str_getcsv($lineaUno, ',', '"');
-
+        //elimina los espacios en blanco y simbolos de los elementos del array
         array_walk($headersEncontrados, function (&$value){
-            $value = mb_convert_encoding($value, 'utf-8','ASCII');
-        });
-       
-       $leng = strlen($headersEncontrados[0]) - strlen($headersRequeridos2[0]);
-       $headersEncontrados[0] = substr($headersEncontrados[0], $leng);
-       
-        if ($headersEncontrados == $headersRequeridos or $headersEncontrados == $headersRequeridos2) {
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
+             $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
+         });
+        //arreglo con los headers de nivel_servicio
+         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('letra', 'nivel_servicio', 'descripcion') : array('"letra"', 'nivel_servicio', 'descripcion');
+
+        if ($headersEncontrados == $headersRequeridos) {
         }
         else{
             $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
-                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
             Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
             return view('nivel_servicio.fail',compact('message'));

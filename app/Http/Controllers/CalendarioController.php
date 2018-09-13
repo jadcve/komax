@@ -173,9 +173,6 @@ class CalendarioController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('calendario.fail',compact('message'));
         }
-        //arreglo con los headers de calendario
-        $headersRequeridos = array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id');
-        $headersRequeridos2 = array('"semana_id"', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id');
         // abre el archivo
         $file = fopen("../storage\app\public\uploads\calendario\\".$archivo, 'r');
         //tomo la primera linea
@@ -184,18 +181,22 @@ class CalendarioController extends Controller
         fclose($file);
         //extrae los headers del csv
         $headersEncontrados = str_getcsv($lineaUno, ',', '"');
-        //elimina los espacios en blanco del los elementos del array
-        $headersEncontrados = array_walk($headersEncontrados, function (&$value) 
-        { 
-            $value = trim($value); 
-        });
-        
-        if ($headersEncontrados == $headersRequeridos or $headersEncontrados == $headersRequeridos2) {
+        //elimina los espacios en blanco y simbolos de los elementos del array
+        array_walk($headersEncontrados, function (&$value){
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
+             $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
+         });
+        //arreglo con los headers de calendario
+         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id') : array('"semana_id"', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id');
+
+        if ($headersEncontrados == $headersRequeridos) {
         }
         else{
             $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
-                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
             Storage::delete('public/uploads/calendario/'.$request->archivo);
             return view('calendario.fail',compact('message'));

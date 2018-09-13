@@ -164,9 +164,6 @@ class ProveedorController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('proveedor.fail',compact('message'));
         }
-        //arreglo con los headers de proveedor
-        $headersRequeridos = array('codigo_proveedor', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor');
-        $headersRequeridos2 = array('"codigo_proveedor"', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor');
         // abre el archivo
         $file = fopen("../storage\app\public\uploads\proveedor\\".$archivo, 'r');
         //tomo la primera linea
@@ -175,21 +172,22 @@ class ProveedorController extends Controller
         fclose($file);
         //extrae los headers del csv
         $headersEncontrados = str_getcsv($lineaUno, ',', '"');
-        //elimina los espacios en blanco del los elementos del array
-
+        //elimina los espacios en blanco y simbolos de los elementos del array
         array_walk($headersEncontrados, function (&$value){
-            $value = mb_convert_encoding($value, 'utf-8','ASCII');
-        });
-       
-       $leng = strlen($headersEncontrados[0]) - strlen($headersRequeridos2[0]);
-       $headersEncontrados[0] = substr($headersEncontrados[0], $leng);
-       
-        if ($headersEncontrados == $headersRequeridos or $headersEncontrados == $headersRequeridos2) {
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
+             $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
+         });
+        //arreglo con los headers de proveedor
+         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('codigo_proveedor', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor') : array('"codigo_proveedor"', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor');
+
+        if ($headersEncontrados == $headersRequeridos) {
         }
         else{
             $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
-                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.implode(', ', $headersEncontrados).'</h4>';
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
             Storage::delete('public/uploads/proveedor/'.$request->archivo);
             return view('proveedor.fail',compact('message'));
