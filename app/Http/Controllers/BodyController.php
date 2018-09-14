@@ -2,16 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Tran;
-Use App\Temporal;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use URL;
-use Carbon\Carbon;
-
 
 class bodyController extends Controller
 {
@@ -21,15 +14,9 @@ class bodyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-
-
-
     public function body(Request $request)
     {
         $fecha = $request->fecha;
-        $carbon = new \Carbon\Carbon();
-        $date = $carbon->now()->format('Y-m-d');
 
         //$bodega = $request->bodega;
         $bodega = 'RUTA68';
@@ -50,13 +37,37 @@ class bodyController extends Controller
             ->where(\DB::raw('qty_requested-qty_received'),'>',0)
             ->groupBy('bodega_hasta','sku');
 
-        $diasx = $mov_salida1
-            ->select('bodega','sku', \DB::raw('case when sum(qty)=0 then 0 else sum(netamount)/sum(qty) end as p1'))
-            ->whereBetween('fecha',[$date, $date->subDay(16)])
-            ->groupBy('bodega','sku')
+        /**
+        *  Llamado a la función que calcula el precio de los productos
+        */
+
+        $diasx = $this->diasx($mov_salida1, 8,1);
+        $diasx1 = $this->diasx($mov_salida1, 16,9);
+        $dias3 = $this->dias_sumatoria($mov_salida1,8,1);
+        $dias4 = $this->dias_sumatoria($mov_salida1,16,9);
+        $dias5 = $this->dias_sumatoria($mov_salida1,24,17);
+        $dias6 = $this->dias_sumatoria($mov_salida1,32,25);
+        $dias7 = $this->dias_sumatoria($mov_salida1,33,40);
+        $dias8 = $this->dias_sumatoria($mov_salida1,41,48);
+        $dias9 = $this->dias_sumatoria($mov_salida1,49,56);
+        $dias10 = $this->dias_sumatoria($mov_salida1,57,64);
+        $dias11 = $this->dias_sumatoria($mov_salida1,65,72);
+        $dias12 = $this->dias_sumatoria($mov_salida1,73,80);
+        $dias13 = $this->dias_sumatoria($mov_salida1,81,88);
+        $dias14 = $this->dias_sumatoria($mov_salida1,89,96);
+
+
+        $total = $mov_salida1
+            ->select('bodega','sku',DB::raw('sum(qty) as cantidad'))
+            ->groupBy('bodega','sku');
+
+        $totalx = $mov_salida1
+            ->select('sku',DB::raw('sum(qty) as cantidad'))
+            ->where(\DB::raw('(case when bodega like \'%TAG%\' then \'TMAR\' when bodega like \'%TKIV%\' then \'TMAR\' when bodega like \'%TMAR%\' then \'TMAR\' end) =\'TMAR\''))
             ->get();
 
-        return view('body.body', compact('mov_salida1','stockcd','tran', 'diasx'));
+
+        return view('body.body', compact('diasx','diasx1','totalx'));
     }
 
     /**
@@ -65,11 +76,31 @@ class bodyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function diasx ($query, $start, $end)
+    public function diasx($query,$d1,$d2)
     {
+        $carbon = new \Carbon\Carbon();
+        $date_inicial = $carbon->now();
+        $date_final = $carbon->now();
 
-        //Aquí  la lógica usando QueryBuilder o Eloquent
+         return $query
+            ->select('bodega','sku', \DB::raw('case when sum(qty)=0 then 0 else sum(netamount)/sum(qty) end as p1'))
+            ->whereBetween( 'fecha',[$date_inicial->subDay($d1), $date_final->subDay($d2)])
+            ->groupBy('fecha','bodega','sku')
+            ->get();
 
+    }
+
+    public function dias_sumatoria($query, $d1, $d2)
+    {
+        $carbon = new \Carbon\Carbon();
+        $date_inicial = $carbon->now();
+        $date_final = $carbon->now();
+
+        return $query
+            ->select('bodega','sku', \DB::raw('sum(qty) as cantidad'))
+            ->whereBetween( 'fecha',[$date_inicial->subDay($d1), $date_final->subDay($d2)])
+            ->groupBy('fecha','bodega','sku')
+            ->get();
     }
 
 
@@ -79,59 +110,4 @@ class bodyController extends Controller
         return view('body.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
