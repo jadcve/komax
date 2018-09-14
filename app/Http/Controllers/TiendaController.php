@@ -12,6 +12,7 @@ use Amranidev\Ajaxis\Ajaxis;
 use URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Convert_to_csv;
 
 /**
  * Class TiendaController.
@@ -104,7 +105,7 @@ class TiendaController extends Controller
 
         $tienda->user_id = Auth::user()->id;
         
-        // $tienda->save();
+        $tienda->save();
 
         // $pusher = App::make('pusher');
 
@@ -213,6 +214,35 @@ class TiendaController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('tienda.fail',compact('message'));
         }
+
+        //  abre el archivo
+         $file = fopen("../storage\app\public\uploads\\tienda\\".$archivo, 'r');
+         //tomo la primera linea
+         $lineaUno = fgets($file);
+         //cierra el archivo
+         fclose($file);
+         //extrae los headers del string de la primera linea
+         $headersEncontrados = str_getcsv($lineaUno, ',', '"');
+        //elimina los espacios en blanco y simbolos de los elementos del array
+         array_walk($headersEncontrados, function (&$value){
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
+             $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
+         });
+
+        $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('cod_tienda', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion') : array('"cod_tienda"', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion');
+
+         if ($headersEncontrados == $headersRequeridos) {
+         }
+         else{
+             $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
+                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
+                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
+             //elimina el csv
+             Storage::delete('public/uploads/tienda/'.$request->archivo);
+             return view('tienda.fail',compact('message'));
+          }
         //lee el csv
         Excel::load("storage\app\public\uploads\\tienda\\".$archivo, function($reader) {
             //recorre el csv
@@ -223,7 +253,6 @@ class TiendaController extends Controller
                 // }
                 if ($tiendas->bodega == "" or is_null($tiendas->bodega)){
                     $GLOBALS['validar'] = true;
-                    echo 'lat';
                 }
                 if ($tiendas->canal == "" or is_null($tiendas->canal)){
                     $GLOBALS['validar'] = true;
@@ -235,11 +264,9 @@ class TiendaController extends Controller
                     $GLOBALS['validar'] = true;
                 }
                 if ($tiendas->latitude == "" or is_null($tiendas->latitude) or !is_numeric($tiendas->latitude)){
-                    echo 'lat';
                     $GLOBALS['validar'] = true;
                 }
                 if ($tiendas->longitud == "" or is_null($tiendas->longitud) or !is_numeric($tiendas->longitud)){
-                    echo 'long';
                     $GLOBALS['validar'] = true;
                 }
                 if ($tiendas->direccion == "" or is_null($tiendas->direccion)){
@@ -249,6 +276,7 @@ class TiendaController extends Controller
         });
         if ($validar){
             $message = 'La información que intenta cargar de Tiendas tiene datos que no son validos.<br>Verifique la información. ';
+            Storage::delete('public/uploads/tienda/'.$request->archivo);
             return view('tienda.fail',compact('message'));
         }
         else{
@@ -282,7 +310,28 @@ class TiendaController extends Controller
         //elimina el csv
         Storage::delete('public/uploads/tienda/'.$request->archivo);
     //     // return Book::all();
-        return redirect('tienda');
+        // return redirect('tienda');
+    }
+
+    public function download(){
+        
+        $datos = Tienda::all();
+
+        $contenidoCsv = [];
+        //headers del csv
+        array_push($contenidoCsv, array('cod_tienda', 'bodega', 'canal', 'ciudad','comuna', 'region', 'latitude', 'longitud', 'direccion'));
+        //agrego los datos al array
+        foreach ($datos as $registro) {
+            array_push($contenidoCsv, array($registro->cod_tienda, $registro->bodega, $registro->canal, $registro->ciudad, $registro->comuna, $registro->region, $registro->latitude, $registro->longitud, $registro->direccion));
+        }
+        //fecha para crear el nombre
+        $fecha = date('Ymdhis');
+        $nombreCsv = "tiendas_".$fecha.'.csv';
+
+        //llama al metodo para crear el csv
+        Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
+
+        return view('tienda/download');
     }
     /**
      * Delete confirmation message by Ajaxis.

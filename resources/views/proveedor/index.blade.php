@@ -20,7 +20,7 @@
                 </form>
             </div>
             <div class="col-xs-12 col-md-4">
-                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("proveedor/download")!!}'>
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <label for="">Descargar datos</label><br>
@@ -29,7 +29,7 @@
                 </form>
             </div>
             <div class="col-xs-12 col-md-4">
-                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}'>
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-primary search-button"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>

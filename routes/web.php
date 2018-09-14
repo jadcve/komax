@@ -24,6 +24,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::resource('proveedor','\App\Http\Controllers\ProveedorController');
   Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
   Route::post('proveedor/load', '\App\Http\Controllers\ProveedorController@load');
+  Route::post('proveedor/download', '\App\Http\Controllers\ProveedorController@download');
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');
   Route::get('proveedor/{id}/deleteMsg','\App\Http\Controllers\ProveedorController@DeleteMsg');
@@ -34,6 +35,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::resource('tienda','\App\Http\Controllers\TiendaController');
   Route::post('tienda/import','\App\Http\Controllers\TiendaController@import');
   Route::post('tienda/load', '\App\Http\Controllers\TiendaController@load');
+  Route::post('tienda/download', '\App\Http\Controllers\TiendaController@download');
   Route::post('tienda/{id}/update','\App\Http\Controllers\TiendaController@update');
   Route::get('tienda/{id}/delete','\App\Http\Controllers\TiendaController@destroy');
   Route::get('tienda/{id}/deleteMsg','\App\Http\Controllers\TiendaController@DeleteMsg');
@@ -44,6 +46,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::resource('nivel_servicio','\App\Http\Controllers\Nivel_servicioController');
   Route::post('nivel_servicio/import','\App\Http\Controllers\Nivel_servicioController@import');
   Route::post('nivel_servicio/load', '\App\Http\Controllers\Nivel_servicioController@load');
+  Route::post('nivel_servicio/download', '\App\Http\Controllers\Nivel_servicioController@download');
   Route::post('nivel_servicio/{id}/update','\App\Http\Controllers\Nivel_servicioController@update');
   Route::get('nivel_servicio/{id}/delete','\App\Http\Controllers\Nivel_servicioController@destroy');
   Route::get('nivel_servicio/{id}/deleteMsg','\App\Http\Controllers\Nivel_servicioController@DeleteMsg');
@@ -62,6 +65,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::resource('calendario','\App\Http\Controllers\CalendarioController');
   Route::post('calendario/import','\App\Http\Controllers\CalendarioController@import');
   Route::post('calendario/load', '\App\Http\Controllers\CalendarioController@load');
+  Route::post('calendario/download', '\App\Http\Controllers\CalendarioController@download');
   Route::post('calendario/{id}/update','\App\Http\Controllers\CalendarioController@update');
   Route::get('calendario/{id}/delete','\App\Http\Controllers\CalendarioController@destroy');
   Route::get('calendario/{id}/deleteMsg','\App\Http\Controllers\CalendarioController@DeleteMsg');

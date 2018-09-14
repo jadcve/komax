@@ -11,6 +11,7 @@ use URL;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Convert_to_csv;
 
 /**
  * Class ProveedorController.
@@ -163,6 +164,34 @@ class ProveedorController extends Controller
             $message = 'Formato de archivo no permitido. Solo cargar archivos de extención csv';
             return view('proveedor.fail',compact('message'));
         }
+        // abre el archivo
+        $file = fopen("../storage\app\public\uploads\proveedor\\".$archivo, 'r');
+        //tomo la primera linea
+        $lineaUno = fgets($file);
+        //cierra el archivo
+        fclose($file);
+        //extrae los headers del csv
+        $headersEncontrados = str_getcsv($lineaUno, ',', '"');
+        //elimina los espacios en blanco y simbolos de los elementos del array
+        array_walk($headersEncontrados, function (&$value){
+            $replase_simbols = array("\\", "¨", "º", "-", "~", "#", "@", "|", "!", "\"", "·", "$", "%", "&", "/", "(", ")", "?", "'", "¡", "¿", "[", "^", "<code>", "]", "+", "}", "{", "¨", "´", ">", "< ", ";", ",", ":", ".", " ");
+             $value = mb_convert_encoding($value, 'utf-8','ASCII');
+             $value = mb_convert_encoding($value, 'ASCII','utf-8');
+             $value = trim(str_replace($replase_simbols, '', $value));
+         });
+        //arreglo con los headers de proveedor
+         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('codigo_proveedor', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor') : array('"codigo_proveedor"', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor');
+
+        if ($headersEncontrados == $headersRequeridos) {
+        }
+        else{
+            $message = 'Los headers del archivo que intenta cargar no coinciden. <br>
+                La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
+                <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
+            //elimina el csv
+            Storage::delete('public/uploads/proveedor/'.$request->archivo);
+            return view('proveedor.fail',compact('message'));
+         }
         //lee el csv
         Excel::load("storage\app\public\uploads\proveedor\\".$archivo, function($reader) {
             //recorre el csv
@@ -183,6 +212,8 @@ class ProveedorController extends Controller
         });
         if ($validar){
             $message = 'La información que intenta cargar de Proveedores tiene datos que no son validos.<br>Verifique la información. ';
+            //elimina el csv
+            Storage::delete('public/uploads/proveedor/'.$request->archivo);
             return view('proveedor.fail',compact('message'));
         }
         else{
@@ -212,6 +243,31 @@ class ProveedorController extends Controller
         Storage::delete('public/uploads/proveedor/'.$request->archivo);
     //     // return Book::all();
         return redirect('proveedor');
+    }
+
+    // private function convert_to_csv($input_array, $output_file_name, $delimiter){
+
+    // }
+
+    public function download(){
+        
+        $datos = Proveedor::all();
+
+        $contenidoCsv = [];
+        //headers del csv
+        array_push($contenidoCsv, array('codigo_proveedor', 'descripcion_proveedor', 'lead_time_proveedor', 'tiempo_entrega_proveedor'));
+        //agrego los datos al array
+        foreach ($datos as $registro) {
+            array_push($contenidoCsv, array($registro->codigo_proveedor, $registro->descripcion_proveedor, $registro->lead_time_proveedor, $registro->tiempo_entrega_proveedor));
+        }
+        //fecha para crear el nombre
+        $fecha = date('Ymdhis');
+        $nombreCsv = "proveedor_".$fecha.'.csv';
+
+        //llama al metodo para crear el csv
+        Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
+
+        return view('proveedor/download');
     }
     /**
      * Delete confirmation message by Ajaxis.

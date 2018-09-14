@@ -15,7 +15,7 @@ use App\User;
 class Tienda extends Model
 {
     
-    protected $fillable = ['cod_tienda', 'bodega', 'canal', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
+    protected $fillable = ['cod_tienda', 'bodega', 'canal', 'comuna', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
     
     protected $table = 'tiendas';
 

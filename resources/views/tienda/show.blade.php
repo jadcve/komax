@@ -7,7 +7,7 @@
         Detalles de {!!$tienda->bodega!!}
     </h1>
     <br>
-    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Lista</a>
+    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Tiendas</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
