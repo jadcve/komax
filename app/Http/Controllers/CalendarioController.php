@@ -14,6 +14,7 @@ use App\Semana;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class CalendarioController.
@@ -277,6 +278,24 @@ class CalendarioController extends Controller
         Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
 
         return view('calendario/download');
+    }
+
+    public function search(Request $request){
+        $request->busqueda = strtoupper($request->busqueda);
+        $result = DB::select( DB::raw("SELECT
+            calendarios.lead_time,
+            calendarios.dia_despacho,
+            calendarios.tiempo_entrega,
+            calendarios.updated_at,
+            tiendas.bodega,
+            semanas.dia,
+            users.name
+        FROM
+            calendarios INNER JOIN tiendas ON (calendarios.tienda_id = tiendas.id) INNER JOIN semanas ON (calendarios.semana_id = semanas.id) INNER JOIN users ON (calendarios.user_id = users.id) 
+        WHERE
+            CAST(dia_despacho AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(lead_time AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(tiempo_entrega AS VARCHAR(100)) like '%".$request->busqueda."%' or semanas.dia ilike '%".$request->busqueda."%' or tiendas.bodega ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(calendarios.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
+        return response()->json($result);
     }
     /**
      * Delete confirmation message by Ajaxis.

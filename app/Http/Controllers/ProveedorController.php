@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ProveedorController.
@@ -268,6 +269,23 @@ class ProveedorController extends Controller
         Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
 
         return view('proveedor/download');
+    }
+
+    public function search(Request $request){
+        $request->busqueda = strtoupper($request->busqueda);
+        $result = DB::select( DB::raw("SELECT
+        proveedors.codigo_proveedor,
+        proveedors.descripcion_proveedor,
+        proveedors.lead_time_proveedor,
+        proveedors.tiempo_entrega_proveedor,
+        proveedors.updated_at,
+        users.name
+    FROM
+        proveedors INNER JOIN users ON (proveedors.user_id = users.id) 
+    WHERE
+        CAST(descripcion_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(codigo_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(lead_time_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(tiempo_entrega_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(proveedors.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
+        return response()->json($result);
     }
     /**
      * Delete confirmation message by Ajaxis.

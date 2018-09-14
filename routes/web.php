@@ -28,6 +28,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');
   Route::get('proveedor/{id}/deleteMsg','\App\Http\Controllers\ProveedorController@DeleteMsg');
+  Route::post('proveedor/search', '\App\Http\Controllers\ProveedorController@search');
 });
 
 //tienda Routes
@@ -69,6 +70,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('calendario/{id}/update','\App\Http\Controllers\CalendarioController@update');
   Route::get('calendario/{id}/delete','\App\Http\Controllers\CalendarioController@destroy');
   Route::get('calendario/{id}/deleteMsg','\App\Http\Controllers\CalendarioController@DeleteMsg');
+  Route::post('calendario/search', '\App\Http\Controllers\CalendarioController@search');
 });
 
 

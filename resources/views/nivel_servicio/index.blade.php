@@ -32,8 +32,8 @@
             <div class="col-xs-12 col-md-4">
                 <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("")!!}' enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="btn btn-primary search-button"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+                        <button type="submit" id="buscar_btn" class="btn btn-primary search-button"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
                         <input type="text" class="form-control-file search-input" id="buscar" name="buscar">
                     </div>
                 </form>
