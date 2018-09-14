@@ -17,6 +17,7 @@
         <thead>
 
 
+
             <th>Bodega</th>
             <th>Sku</th>
             <th>Cantidad</th>
@@ -25,7 +26,7 @@
         </thead>
         <tbody>
 
-            @foreach($diasx as $t)
+            @foreach($diasx1 as $t)
             <tr>
                 <td>{!!$t->bodega!!}</td>
                 <td>{!!$t->sku!!}</td>
