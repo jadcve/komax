@@ -2,17 +2,22 @@ jQuery(document).ready(function () {
     var busqueda;
     var url = window.location.href;
     var to = url.lastIndexOf('/');
+    var end = url.lastIndexOf('?');
     to = to == -1 ? url.length : to + 1;
-    url = url.substring(to);
+    url = end == -1 ? url.substring(to) : url.substring(to, end);
     console.log('url', url);
 
     $("#buscar_btn").click(function (e) { 
         e.preventDefault();
-        
+        buscar();
     });
 
     $("#buscar").keyup(function (e) {
         e.preventDefault();
+        buscar();
+    });
+
+    function buscar(){
         busqueda = $("#buscar").val();
         var token = $("#_token").val();
 
@@ -24,6 +29,11 @@ jQuery(document).ready(function () {
                 console.log('response', response)
                 $("#no-result-box").remove();
                 $("tbody").empty();
+                $("ul.pagination").fadeOut();
+                if (busqueda.length <= 0){
+                    $("ul.pagination").fadeIn();
+                    location.reload();
+                }
                 if (response.length === 0){
                     noResult();
                     $("#no-result-box").fadeIn(1000);
@@ -34,7 +44,7 @@ jQuery(document).ready(function () {
                 });
             }
         });
-    });
+    }
     
     function noResult(){
         var element = $("table").after('<div id="no-result-box" class="row">'+
@@ -43,6 +53,15 @@ jQuery(document).ready(function () {
         '</div>'+
         '</div>');
         return element;
+    }
+
+    function resaltar(dato){
+        dato = dato.toString();
+        var iniString = dato.search(RegExp(busqueda.toString(), "i"));
+        var finString = iniString + busqueda.length;
+        var segString = dato.substring(iniString, finString);
+
+        return dato.replace(RegExp(busqueda, "i"), "<em>"+segString+"</em>");
     }
 
     function createTables(seccion, json){
@@ -66,13 +85,13 @@ jQuery(document).ready(function () {
                 break;
             case "calendario":
                 contenido ='<tr>'+
-                    '<td>'+json.dia+'</td>'+
-                    '<td>'+json.dia_despacho+'</td>'+
-                    '<td>'+json.lead_time+'</td>'+
-                    '<td>'+json.tiempo_entrega+'</td>'+
-                    '<td>'+json.bodega+'</td>'+
+                    '<td>'+resaltar(json.dia)+'</td>'+
+                    '<td>'+resaltar(json.dia_despacho)+'</td>'+
+                    '<td>'+resaltar(json.lead_time)+'</td>'+
+                    '<td>'+resaltar(json.tiempo_entrega)+'</td>'+
+                    '<td>'+resaltar(json.bodega)+'</td>'+
                     '<td>'+
-                        json.name+'<span style="font-size:8px"><br>'+json.updated_at+
+                    resaltar(json.name)+'<span style="font-size:8px"><br>'+resaltar(json.updated_at)+
                         '</span></td>'+
                     '<td>'+
                         '<a href = "#" class = "viewShow btn btn-warning btn-xs" data-link = "/calendario/'+json.id+'><i class = "fa fa-eye"> Detalles</i></a>'+
@@ -81,11 +100,43 @@ jQuery(document).ready(function () {
                     '</td>'+
                 '</tr>';
                 break;
+                case "nivel_servicio":
+                contenido ='<tr>'+
+                    '<td>'+resaltar(json.letra)+'</td>'+
+                    '<td>'+resaltar(json.nivel_servicio)+'</td>'+
+                    '<td>'+resaltar(json.descripcion)+'</td>'+
+                    '<td>'+
+                    resaltar(json.name)+'<span style="font-size:8px"><br>'+resaltar(json.updated_at)+
+                        '</span></td>'+
+                    '<td>'+
+                        '<a href = "#" class = "viewShow btn btn-warning btn-xs" data-link = "/nivel_servicio/'+json.id+'><i class = "fa fa-eye"> Detalles</i></a>'+
+                        '<a href = "#" class = "viewEdit btn btn-primary btn-xs" data-link = "/nivel_servicio/'+json.id+'/edit"><i class = "fa fa-edit"> Editar</i></a>'+
+                        '<a data-toggle="modal" data-target="#myModal" class = "delete btn btn-danger btn-xs" data-link = "/nivel_servicio/'+json.id+'/deleteMsg" ><i class = "fa fa-trash"> Eliminar</i></a>'+
+                    '</td>'+
+                '</tr>';
+                break;
+                case "tienda":
+                contenido ='<tr>'+
+                    '<td>'+resaltar(json.cod_tienda)+'</td>'+
+                    '<td>'+resaltar(json.bodega)+'</td>'+
+                    '<td>'+resaltar(json.canal)+'</td>'+
+                    '<td>'+resaltar(json.ciudad)+'</td>'+
+                    '<td>'+resaltar(json.comuna)+'</td>'+
+                    '<td>'+resaltar(json.region)+'</td>'+
+                    '<td>'+resaltar(json.latitude)+'</td>'+
+                    '<td>'+resaltar(json.longitud)+'</td>'+
+                    '<td>'+resaltar(json.direccion)+'</td>'+
+                    '<td>'+
+                    resaltar(json.name)+'<span style="font-size:8px"><br>'+resaltar(json.updated_at)+
+                        '</span></td>'+
+                    '<td>'+
+                        '<a href = "#" class = "viewShow btn btn-warning btn-xs" data-link = "/tienda/'+json.id+'><i class = "fa fa-eye"> Detalles</i></a>'+
+                        '<a href = "#" class = "viewEdit btn btn-primary btn-xs" data-link = "/tienda/'+json.id+'/edit"><i class = "fa fa-edit"> Editar</i></a>'+
+                        '<a data-toggle="modal" data-target="#myModal" class = "delete btn btn-danger btn-xs" data-link = "/tienda/'+json.id+'/deleteMsg" ><i class = "fa fa-trash"> Eliminar</i></a>'+
+                    '</td>'+
+                '</tr>';
+                break;
         }
         return contenido;
-    }
-
-    function resaltar(dato){
-        return dato.toLowerCase().replace(busqueda, "<em>"+busqueda+"</em>");
     }
 });

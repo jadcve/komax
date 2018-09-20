@@ -12,6 +12,7 @@ use URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Nivel_servicioController.
@@ -256,6 +257,23 @@ class Nivel_servicioController extends Controller
         Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
 
         return view('nivel_servicio/download');
+    }
+
+    public function search(Request $request){
+        $request->busqueda = strtoupper($request->busqueda);
+        $result = DB::select( DB::raw("SELECT
+        nivel_servicios.id,
+        nivel_servicios.letra,
+        nivel_servicios.nivel_servicio,
+        nivel_servicios.descripcion,
+        nivel_servicios.updated_at,
+        users.name
+    FROM
+        nivel_servicios INNER JOIN users ON (nivel_servicios.user_id = users.id) 
+    WHERE
+        CAST(nivel_servicio AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(letra AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(descripcion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(nivel_servicios.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
+        return response()->json($result);
     }
     /**
      * Delete confirmation message by Ajaxis.

@@ -274,6 +274,7 @@ class ProveedorController extends Controller
     public function search(Request $request){
         $request->busqueda = strtoupper($request->busqueda);
         $result = DB::select( DB::raw("SELECT
+        proveedors.id,
         proveedors.codigo_proveedor,
         proveedors.descripcion_proveedor,
         proveedors.lead_time_proveedor,

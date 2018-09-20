@@ -13,6 +13,7 @@ use URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TiendaController.
@@ -332,6 +333,29 @@ class TiendaController extends Controller
         Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
 
         return view('tienda/download');
+    }
+
+    public function search(Request $request){
+        $request->busqueda = strtoupper($request->busqueda);
+        $result = DB::select( DB::raw("SELECT
+        tiendas.id,
+        tiendas.cod_tienda,
+        tiendas.bodega,
+        tiendas.canal,
+        tiendas.ciudad,
+        tiendas.comuna,
+        tiendas.region,
+        tiendas.latitude,
+        tiendas.longitud,
+        tiendas.direccion,
+        tiendas.updated_at,
+        users.name
+    FROM
+        tiendas INNER JOIN users ON (tiendas.user_id = users.id) 
+    WHERE
+        CAST(bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(cod_tienda AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(canal AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(ciudad AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(comuna AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(region AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(latitude AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(longitud AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(direccion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(tiendas.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
+        return response()->json($result);
     }
     /**
      * Delete confirmation message by Ajaxis.

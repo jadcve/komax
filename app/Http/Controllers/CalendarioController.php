@@ -283,6 +283,7 @@ class CalendarioController extends Controller
     public function search(Request $request){
         $request->busqueda = strtoupper($request->busqueda);
         $result = DB::select( DB::raw("SELECT
+            calendarios.id, 
             calendarios.lead_time,
             calendarios.dia_despacho,
             calendarios.tiempo_entrega,
