@@ -23,11 +23,11 @@
                 </div>
                 <div class="form-group">
                     <label for="lead_time_proveedor">Lead Time Proveedor</label>
-                    <input id="lead_time_proveedor" name = "lead_time_proveedor" type="text" class="form-control" value="{!!$proveedor->lead_time_proveedor!!}" required placeholder="Leed Time Proveedor"> 
+                    <input id="lead_time_proveedor" name = "lead_time_proveedor" type="number" class="form-control" value="{!!$proveedor->lead_time_proveedor!!}" required placeholder="Leed Time Proveedor"> 
                 </div>
                 <div class="form-group">
                     <label for="tiempo_entrega_proveedor">Tiempo de entrega de Proveedor</label>
-                    <input id="tiempo_entrega_proveedor" name = "tiempo_entrega_proveedor" type="text" class="form-control" value="{!!$proveedor->tiempo_entrega_proveedor!!}" required placeholder="Tiempo de entrega de Proveedor"> 
+                    <input id="tiempo_entrega_proveedor" name = "tiempo_entrega_proveedor" type="number" class="form-control" value="{!!$proveedor->tiempo_entrega_proveedor!!}" required placeholder="Tiempo de entrega de Proveedor"> 
                 </div>
                 <button class = 'btn btn-success' type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>
             </form>
