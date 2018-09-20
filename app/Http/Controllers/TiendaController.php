@@ -72,28 +72,52 @@ class TiendaController extends Controller
             $tienda->canal = $request->canal;
         }
         else{
-            $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
+                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            }
+            else{
+                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
+                echo $tienda->canal = $result[0]->canal;
+            }
         }
 
         if (strlen(trim($request->ciudad)) >= 1){
             $tienda->ciudad = $request->ciudad;
         }
         else{
-            $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            if (!Tienda::where('ciudad', '=', strtoupper($request->nueva_ciudad))->exists()){
+                $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            }
+            else{
+                $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
+                echo $tienda->ciudad = $result[0]->ciudad;
+            }
         }
         
         if (strlen(trim($request->comuna)) >= 1){
             $tienda->comuna = $request->comuna;
         }
         else{
-            $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            if (!Tienda::where('comuna', '=', strtoupper($request->nueva_comuna))->exists()){
+                $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            }
+            else{
+                $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
+                echo $tienda->comuna = $result[0]->comuna;
+            }
         }
         
         if (strlen(trim($request->region)) >= 1){
             $tienda->region = $request->region;
         }
         else{
-            $tienda->region = ucwords(trim($request->nueva_region));
+            if (!Tienda::where('region', '=', strtoupper($request->nueva_region))->exists()){
+                $tienda->region = ucwords(trim($request->nueva_region));
+            }
+            else{
+                $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
+                echo $tienda->region = $result[0]->region;
+            }
         }
         
         $tienda->latitude = $request->latitude;
@@ -118,7 +142,7 @@ class TiendaController extends Controller
         //                  'test-event',
         //                 ['message' => 'Se ha creado una nueva bodega !!']);
 
-        // return redirect('tienda');
+        return redirect('tienda');
     }
 
     /**
@@ -179,13 +203,57 @@ class TiendaController extends Controller
         
         $tienda->bodega = strtoupper($request->bodega);
         
-        $tienda->canal = strtoupper($request->canal);
+        if (strlen(trim($request->canal)) >= 1){
+            $tienda->canal = $request->canal;
+        }
+        else{
+            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
+                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            }
+            else{
+                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
+                echo $tienda->canal = $result[0]->canal;
+            }
+        }
+
+        if (strlen(trim($request->ciudad)) >= 1){
+            $tienda->ciudad = $request->ciudad;
+        }
+        else{
+            if (!Tienda::where('ciudad', '=', strtoupper($request->nueva_ciudad))->exists()){
+                $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            }
+            else{
+                $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
+                echo $tienda->ciudad = $result[0]->ciudad;
+            }
+        }
         
-        $tienda->ciudad = ucwords($request->ciudad);
+        if (strlen(trim($request->comuna)) >= 1){
+            $tienda->comuna = $request->comuna;
+        }
+        else{
+            if (!Tienda::where('comuna', '=', strtoupper($request->nueva_comuna))->exists()){
+                $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            }
+            else{
+                $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
+                echo $tienda->comuna = $result[0]->comuna;
+            }
+        }
         
-        $tienda->comuna = ucwords($request->comuna);
-        
-        $tienda->region = ucwords($request->region);
+        if (strlen(trim($request->region)) >= 1){
+            $tienda->region = $request->region;
+        }
+        else{
+            if (!Tienda::where('region', '=', strtoupper($request->nueva_region))->exists()){
+                $tienda->region = ucwords(trim($request->nueva_region));
+            }
+            else{
+                $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
+                echo $tienda->region = $result[0]->region;
+            }
+        }
         
         $tienda->latitude = $request->latitude;
         
@@ -197,7 +265,7 @@ class TiendaController extends Controller
         
         $tienda->save();
 
-        return redirect('tienda');
+        // return redirect('tienda');
     }
 
     public function load(Request $request){
