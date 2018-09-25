@@ -19,18 +19,25 @@
 
 
             <th>Bodega</th>
-            <th>Sku</th>
-            <th>Cantidad</th>
+            <th>Codigo Articulo</th>
+            <th>Overcicle</th>
+            <th>Orderlevel</th>
+            <th>Minimo</th>
+
 
 
         </thead>
         <tbody>
 
-            @foreach($diasx1 as $t)
+            @foreach($dennis as $t)
             <tr>
-                <td>{!!$t->bodega!!}</td>
-                <td>{!!$t->sku!!}</td>
-                <td>{!!$t->p1!!}</td>
+                <td>{!!$t->tienda!!}</td>
+                <td>{!!$t->articlecode!!}</td>
+                <td>{!!$t->ordercicle!!}</td>
+                <td>{!!$t->orderlevel!!}</td>
+                <td>{!!$t->minimo!!}</td>
+                
+
 
             </tr>
             @endforeach
