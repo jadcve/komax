@@ -52,3 +52,37 @@ em{
     font-style: normal;
     text-decoration: underline;
 }
+
+/* botones de acciones */
+.table>thead:first-child>tr:last-child>th{
+    width: 10%;
+}
+td>a{
+    width: 100%;
+}
+
+td>.btn-warning {
+    background-color: #12b5f3;
+    border-color: #128cbb;
+}
+
+td>.btn-warning:hover, td>.btn-warning:active, td>.btn-warning:focus, td>.btn-warning:link {
+    color: #fff;
+    background-color: #128cbb;
+    border-color: #0f7097;
+}
+
+td>.btn-primary {
+    background-color: #3cbc63;
+    border-color: #298043;
+}
+
+td>.btn-primary:hover, td>.btn-primary:active, td>.btn-primary:focus, td>.btn-primary:link {
+    background-color: #298043;
+    border-color: #144222;
+}
+
+td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-danger:link {
+    background-color: #d73925;
+    border-color: #922618;
+}

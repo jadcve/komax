@@ -47,7 +47,7 @@
             <th>Leed Time</th>
             <th>Tiempo de entrega</th>
             <th>Editado</th>
-            <th>Acciones</th>
+            <th style="width: 5%;"></th>
         </thead>
         <tbody>
             @foreach($proveedors as $proveedor)

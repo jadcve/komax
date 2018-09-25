@@ -48,7 +48,7 @@
             <th>Tiempo de Entrega</th>
             <th>Tienda</th>
             <th>Editado</th>
-            <th>Acciones</th>
+            <th style="width: 5%;"></th>
         </thead>
         <tbody>
             @foreach($calendarios as $calendario) 

@@ -46,7 +46,7 @@
             <th>Nivel de Servicio</th>
             <th>Descripción</th>
             <th>Editado</th>
-            <th>Acciones</th>
+            <th style="width: 5%;"></th>
         </thead>
         <tbody>
             @foreach($nivel_servicios as $nivel_servicio) 

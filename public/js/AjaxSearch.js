@@ -5,7 +5,8 @@ jQuery(document).ready(function () {
     var end = url.lastIndexOf('?');
     to = to == -1 ? url.length : to + 1;
     url = end == -1 ? url.substring(to) : url.substring(to, end);
-    console.log('url', url);
+    // $("#buscar").focus();
+    console.log('url:', url);
 
     $("#buscar_btn").click(function (e) { 
         e.preventDefault();
@@ -41,6 +42,7 @@ jQuery(document).ready(function () {
                 $.each(response, function (index, json) {
                     $("#no-result-box").fadeOut(300);
                      $("tbody").append(createTables(url, json));
+                    //  $("#buscar").focus();
                 });
             }
         });
