@@ -20,7 +20,15 @@
                 </div>
                 <div class="form-group">
                     <label for="nivel_servicio">Nivel de Servicio</label>
-                    <input id="nivel_servicio" name = "nivel_servicio" type="text" class="form-control" value="{!!$nivel_servicio->nivel_servicio!!}" required placeholder="Nivel de Servicio"> 
+                    <select class="form-control" name="nivel_servicio" id="nivel_servicio" required>
+                        <option  value="">Seleccione</option>
+                        @for ($i = 60; $i <= 100; $i+=5)
+                        @php
+                            $selected = ($i == $nivel_servicio->nivel_servicio) ? 'selected' : '';
+                        @endphp
+                        <option  value="{!! $i !!}" {!! $selected !!}>{!! $i !!}</option>
+                        @endfor
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>

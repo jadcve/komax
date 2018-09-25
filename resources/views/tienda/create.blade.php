@@ -78,11 +78,11 @@
                 </div>
                 <div class="form-group">
                     <label for="latitude">Latitud</label>
-                    <input id="latitude" name = "latitude" type="text" class="form-control" placeholder="Latitud" required>
+                    <input id="latitude" name = "latitude" type="number" step="any" class="form-control" placeholder="Latitud" required>
                 </div>
                 <div class="form-group">
                     <label for="longitud">Longitud</label>
-                    <input id="longitud" name = "longitud" type="text" class="form-control" placeholder="Longitud" required>
+                    <input id="longitud" name = "longitud" type="number" step="any" class="form-control" placeholder="Longitud" required>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Dirección</label>

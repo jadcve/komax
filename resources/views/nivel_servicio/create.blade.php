@@ -18,7 +18,18 @@
                 </div>
                 <div class="form-group">
                     <label for="nivel_servicio">Nivel de Servicio</label>
-                    <input id="nivel_servicio" name = "nivel_servicio" type="text" class="form-control" required placeholder="Nivel de Servicio">
+                    <select class="form-control" name="nivel_servicio" id="nivel_servicio" required>
+                        <option  value="">Seleccione</option>
+                        <option  value="60">60</option>
+                        <option  value="60">65</option>
+                        <option  value="60">70</option>
+                        <option  value="60">75</option>
+                        <option  value="60">80</option>
+                        <option  value="60">85</option>
+                        <option  value="60">90</option>
+                        <option  value="60">95</option>
+                        <option  value="60">100</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>

@@ -28,16 +28,16 @@
                 </div>
                 <div class="form-group">
                     <label for="dia_despacho">Día de Despacho</label>
-                    <input id="dia_despacho" name = "dia_despacho" type="text" class="form-control" value="{!!$calendario->dia_despacho!!}" required placeholder="Día de Despacho"> 
+                    <input id="dia_despacho" name = "dia_despacho" type="number" class="form-control" value="{!!$calendario->dia_despacho!!}" required placeholder="Día de Despacho"> 
                 </div>
                 <div class="form-group">
                     <label for="lead_time">Lead Time</label>
-                    <input id="lead_time" name = "lead_time" type="text" class="form-control" value="{!!$calendario->
+                    <input id="lead_time" name = "lead_time" type="number" class="form-control" value="{!!$calendario->
                     lead_time!!}" required placeholder="Lead Time"> 
                 </div>
                 <div class="form-group">
                     <label for="tiempo_entrega">Tiempo de Entrega</label>
-                    <input id="tiempo_entrega" name = "tiempo_entrega" type="text" class="form-control" value="{!!$calendario->tiempo_entrega!!}" required placeholder="Tiempo de Entrega"> 
+                    <input id="tiempo_entrega" name = "tiempo_entrega" type="number" class="form-control" value="{!!$calendario->tiempo_entrega!!}" required placeholder="Tiempo de Entrega"> 
                 </div>
                 <div class="form-group">
                     <label for="tienda_id">Tienda</label>

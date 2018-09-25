@@ -1,9 +1,9 @@
 jQuery(document).ready(function(){
-    url = window.location.href;
+    var url = window.location.href;
     var to = url.lastIndexOf('/');
     to = to == -1 ? url.length : to + 1;
     url = url.substring(0, to);
-    console.log(url);
+    // console.log(url);
     $("select[name='canal']").change(function(){
         var canal = $(this).val();
         var token = $("input[name='_token']").val();

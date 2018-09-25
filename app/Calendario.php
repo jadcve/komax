@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use PhpParser\Node\Expr\Cast;
 
 /**
  * Class Calendario.
@@ -17,7 +18,7 @@ class Calendario extends Model
 	
 	// use SoftDeletes;
 
-	// protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
     
     protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id', 'user_id', 'semana_id'];
 

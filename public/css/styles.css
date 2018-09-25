@@ -27,3 +27,62 @@
     padding: 6px 5px;
     border-radius: 0 3px 3px 0;
 }
+
+#no-result-box{
+    display: none;
+}
+
+.no-result{
+    color: #ea4966;
+    background: #FFF;
+    padding: 3vh 2vw;
+    text-align: center;
+    border: 1px solid #9fc3e6;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px #ccc;
+}
+
+.no-result h3{
+    margin: 0;
+}
+
+em{
+    color: #126ca0;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: underline;
+}
+
+/* botones de acciones */
+.table>thead:first-child>tr:last-child>th{
+    width: 10%;
+}
+td>a{
+    width: 100%;
+}
+
+td>.btn-warning {
+    background-color: #12b5f3;
+    border-color: #128cbb;
+}
+
+td>.btn-warning:hover, td>.btn-warning:active, td>.btn-warning:focus, td>.btn-warning:link {
+    color: #fff;
+    background-color: #128cbb;
+    border-color: #0f7097;
+}
+
+td>.btn-primary {
+    background-color: #3cbc63;
+    border-color: #298043;
+}
+
+td>.btn-primary:hover, td>.btn-primary:active, td>.btn-primary:focus, td>.btn-primary:link {
+    background-color: #298043;
+    border-color: #144222;
+}
+
+td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-danger:link {
+    background-color: #d73925;
+    border-color: #922618;
+}

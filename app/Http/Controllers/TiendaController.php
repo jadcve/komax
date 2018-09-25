@@ -13,6 +13,7 @@ use URL;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TiendaController.
@@ -71,28 +72,52 @@ class TiendaController extends Controller
             $tienda->canal = $request->canal;
         }
         else{
-            $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
+                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            }
+            else{
+                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
+                echo $tienda->canal = $result[0]->canal;
+            }
         }
 
         if (strlen(trim($request->ciudad)) >= 1){
             $tienda->ciudad = $request->ciudad;
         }
         else{
-            $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            if (!Tienda::where('ciudad', '=', strtoupper($request->nueva_ciudad))->exists()){
+                $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            }
+            else{
+                $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
+                echo $tienda->ciudad = $result[0]->ciudad;
+            }
         }
         
         if (strlen(trim($request->comuna)) >= 1){
             $tienda->comuna = $request->comuna;
         }
         else{
-            $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            if (!Tienda::where('comuna', '=', strtoupper($request->nueva_comuna))->exists()){
+                $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            }
+            else{
+                $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
+                echo $tienda->comuna = $result[0]->comuna;
+            }
         }
         
         if (strlen(trim($request->region)) >= 1){
             $tienda->region = $request->region;
         }
         else{
-            $tienda->region = ucwords(trim($request->nueva_region));
+            if (!Tienda::where('region', '=', strtoupper($request->nueva_region))->exists()){
+                $tienda->region = ucwords(trim($request->nueva_region));
+            }
+            else{
+                $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
+                echo $tienda->region = $result[0]->region;
+            }
         }
         
         $tienda->latitude = $request->latitude;
@@ -117,7 +142,7 @@ class TiendaController extends Controller
         //                  'test-event',
         //                 ['message' => 'Se ha creado una nueva bodega !!']);
 
-        // return redirect('tienda');
+        return redirect('tienda');
     }
 
     /**
@@ -178,13 +203,57 @@ class TiendaController extends Controller
         
         $tienda->bodega = strtoupper($request->bodega);
         
-        $tienda->canal = strtoupper($request->canal);
+        if (strlen(trim($request->canal)) >= 1){
+            $tienda->canal = $request->canal;
+        }
+        else{
+            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
+                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            }
+            else{
+                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
+                echo $tienda->canal = $result[0]->canal;
+            }
+        }
+
+        if (strlen(trim($request->ciudad)) >= 1){
+            $tienda->ciudad = $request->ciudad;
+        }
+        else{
+            if (!Tienda::where('ciudad', '=', strtoupper($request->nueva_ciudad))->exists()){
+                $tienda->ciudad = ucwords(trim($request->nueva_ciudad));
+            }
+            else{
+                $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
+                echo $tienda->ciudad = $result[0]->ciudad;
+            }
+        }
         
-        $tienda->ciudad = ucwords($request->ciudad);
+        if (strlen(trim($request->comuna)) >= 1){
+            $tienda->comuna = $request->comuna;
+        }
+        else{
+            if (!Tienda::where('comuna', '=', strtoupper($request->nueva_comuna))->exists()){
+                $tienda->comuna = ucwords(trim($request->nueva_comuna));
+            }
+            else{
+                $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
+                echo $tienda->comuna = $result[0]->comuna;
+            }
+        }
         
-        $tienda->comuna = ucwords($request->comuna);
-        
-        $tienda->region = ucwords($request->region);
+        if (strlen(trim($request->region)) >= 1){
+            $tienda->region = $request->region;
+        }
+        else{
+            if (!Tienda::where('region', '=', strtoupper($request->nueva_region))->exists()){
+                $tienda->region = ucwords(trim($request->nueva_region));
+            }
+            else{
+                $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
+                echo $tienda->region = $result[0]->region;
+            }
+        }
         
         $tienda->latitude = $request->latitude;
         
@@ -196,7 +265,7 @@ class TiendaController extends Controller
         
         $tienda->save();
 
-        return redirect('tienda');
+        // return redirect('tienda');
     }
 
     public function load(Request $request){
@@ -332,6 +401,29 @@ class TiendaController extends Controller
         Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
 
         return view('tienda/download');
+    }
+
+    public function search(Request $request){
+        $request->busqueda = strtoupper($request->busqueda);
+        $result = DB::select( DB::raw("SELECT
+        tiendas.id,
+        tiendas.cod_tienda,
+        tiendas.bodega,
+        tiendas.canal,
+        tiendas.ciudad,
+        tiendas.comuna,
+        tiendas.region,
+        tiendas.latitude,
+        tiendas.longitud,
+        tiendas.direccion,
+        tiendas.updated_at,
+        users.name
+    FROM
+        tiendas INNER JOIN users ON (tiendas.user_id = users.id) 
+    WHERE
+        CAST(bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(cod_tienda AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(canal AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(ciudad AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(comuna AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(region AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(latitude AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(longitud AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(direccion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(tiendas.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
+        return response()->json($result);
     }
     /**
      * Delete confirmation message by Ajaxis.

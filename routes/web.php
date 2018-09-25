@@ -28,6 +28,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');
   Route::get('proveedor/{id}/deleteMsg','\App\Http\Controllers\ProveedorController@DeleteMsg');
+  Route::post('proveedor/search', '\App\Http\Controllers\ProveedorController@search');
 });
 
 //tienda Routes
@@ -39,6 +40,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('tienda/{id}/update','\App\Http\Controllers\TiendaController@update');
   Route::get('tienda/{id}/delete','\App\Http\Controllers\TiendaController@destroy');
   Route::get('tienda/{id}/deleteMsg','\App\Http\Controllers\TiendaController@DeleteMsg');
+  Route::post('tienda/search', '\App\Http\Controllers\TiendaController@search');
 });
 
 //nivel_servicio Routes
@@ -50,6 +52,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('nivel_servicio/{id}/update','\App\Http\Controllers\Nivel_servicioController@update');
   Route::get('nivel_servicio/{id}/delete','\App\Http\Controllers\Nivel_servicioController@destroy');
   Route::get('nivel_servicio/{id}/deleteMsg','\App\Http\Controllers\Nivel_servicioController@DeleteMsg');
+  Route::post('nivel_servicio/search', '\App\Http\Controllers\Nivel_servicioController@search');
 });
 
 //semana Routes
@@ -69,6 +72,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('calendario/{id}/update','\App\Http\Controllers\CalendarioController@update');
   Route::get('calendario/{id}/delete','\App\Http\Controllers\CalendarioController@destroy');
   Route::get('calendario/{id}/deleteMsg','\App\Http\Controllers\CalendarioController@DeleteMsg');
+  Route::post('calendario/search', '\App\Http\Controllers\CalendarioController@search');
 });
 
 
