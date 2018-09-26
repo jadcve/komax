@@ -4,10 +4,10 @@
 
 <section class="content">
     <h1>
-        ABC
+        Envio Sugerido
     </h1>
     <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-        <a href="{!!url('body')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> ABC</a>
+        <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Sugerido</a>
     </div>
     <br/>
     <br/>
@@ -18,24 +18,22 @@
 
 
 
-            <th>Bodega</th>
+        
             <th>Codigo Articulo</th>
-            <th>Overcicle</th>
-            <th>Orderlevel</th>
-            <th>Minimo</th>
-
-
-
+            <th>Forecast</th>
+            <th>Ordercicle</th>
+            <th>Mínimo</th>
+            <th>Sugerido</th>
         </thead>
         <tbody>
 
-            @foreach($dennis as $t)
+            @foreach($sugerido as $t)
             <tr>
-                <td>{!!$t->tienda!!}</td>
-                <td>{!!$t->articlecode!!}</td>
+                <td>{!!$t->cod_art!!}</td>
+                <td>{!!$t->score_m1!!}</td>
                 <td>{!!$t->ordercicle!!}</td>
-                <td>{!!$t->orderlevel!!}</td>
                 <td>{!!$t->minimo!!}</td>
+                <td>{!!$t->sugerido!!}</td>
                 
 
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use URL;
+use App\Http\Controllers\Controller;    
+use Illuminate\Support\Facades\Schema;
+use App\Sugerido;
 
 class bodyController extends Controller
 {
@@ -25,9 +28,10 @@ class bodyController extends Controller
         //$bodega = $request->bodega;
         $bodega = 'RUTA68';
 
-
-        $dennis = $this->dennis($fecha,$bodega);
-
+        $sugerido = $this->sugerido();
+        //$calculo = $this->calculo($fecha, $bodega);
+        
+/*
         $mov_salida1 = $this->mov_salida($fecha);
         $mov_salida2 = $this->mov_salida($fecha);
         $mov_salida3 = $this->mov_salida($fecha);
@@ -56,11 +60,11 @@ class bodyController extends Controller
             ->select('bodega_hasta', 'sku', \DB::raw('sum(qty_requested-qty_received) as transito'))
             ->where(\DB::raw('qty_requested-qty_received'),'>',0)
             ->groupBy('bodega_hasta','sku');
-
+*/
         /**
         *  Llamado a la función que calcula el precio de los productos
         */
-
+/*
         $diasx = $this->diasx($mov_salida_1, 8,1);
         $diasx1 = $this->diasx($mov_salida_2, 16,9);
         $dias3 = $this->dias_sumatoria($mov_salida_3,8,1);
@@ -91,6 +95,7 @@ class bodyController extends Controller
             ->select('bodega','sku', \DB::raw('sum(qty) as cantidad'))
             ->where(\DB::raw('(extract(week from fecha))=(extract(week from current_date - 20))'))
             ->groupBy('bodega','sku');
+*/
 /*
         $base =  $mov_salida_base
             ->leftJoin('dias3','dias3.bodega', '=','mov_salida_base.bodega')
@@ -98,10 +103,7 @@ class bodyController extends Controller
             ->get();
 */
 
-
-
-
-        return view('body.body', compact('dennis'));
+        return view('sugerido.body', compact('tabla'));
 
 
     }
@@ -145,7 +147,7 @@ class bodyController extends Controller
             ->where('fecha','>',$fecha);
     }
 
-    public function dennis($fecha,$bodega)
+    public function calculo($fecha,$bodega)
     {
         DB::table('calculos')->truncate();
 
@@ -751,7 +753,33 @@ where marca=\'MARMOT\''));
 
     public function index()
     {
-        return view('body.index');
+        return view('sugerido.index');
     }
+
+    public function sugerido()
+    {
+        DB::table('sugeridos')->truncate();
+
+        $cuenta = DB::table('calculos')
+        ->leftjoin('forecast_marmot','forecast_marmot.cod_art', '=', 'calculos.articlecode')
+        ->select(\DB::raw('calculos.articlecode as cod_art, calculos.minimo as minimo, 
+                           calculos.ordercicle as ordercicle, round(score_m1) as score_m1,
+                           case when round(score_m1) >= orderlevel then round(score_m1) else orderlevel end as sugerido'))
+        ->get();
+       
+        foreach($cuenta as $s){
+            $sugerido = new Sugerido();
+            $sugerido->cod_art = $s->cod_art;
+            $sugerido->minimo = $s->minimo;
+            $sugerido->forecast = $s->score_m1;
+            $sugerido->ordercicle = $s->ordercicle;
+            $sugerido->sugerido = $s->sugerido;
+            $sugerido->save();  
+        }
+        
+        return $tabla = DB::table('sugeridos')->get();
+        
+    }
+
 
 }

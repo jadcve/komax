@@ -85,9 +85,10 @@ Route::group(['middleware'=> 'web'],function(){
 
 
 Route::group(['middleware'=> 'web'],function(){
-    Route::resource('body','\App\Http\Controllers\BodyController');
-    Route::post('body','\App\Http\Controllers\BodyController@body');
+    Route::resource('sugerido','\App\Http\Controllers\BodyController');
+    Route::post('sugerido','\App\Http\Controllers\BodyController@body');
 });
+
 
 // Route::get('ajax',function(){
 //   return view('tran');
