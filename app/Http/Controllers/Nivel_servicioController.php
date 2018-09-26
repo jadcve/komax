@@ -147,6 +147,8 @@ class Nivel_servicioController extends Controller
 
     public function load(Request $request){
         global $validar;
+        global $columna;
+        $columna = '';
         $validar = false;
         $archivo = $_FILES["up_csv"]["name"];
         //validar y cargar la carga masiva
@@ -186,28 +188,33 @@ class Nivel_servicioController extends Controller
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
-            Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
+            Storage::delete('public/uploads/nivel_servicio/'.$archivo);
             return view('nivel_servicio.fail',compact('message'));
          }
         //lee el csv
         Excel::load("storage\app\public\uploads\\nivel_servicio\\".$archivo, function($reader) {
             //recorre el csv
+            $fila = 1;
             foreach ($reader->get() as $nivel) {
-                if ($nivel->letra == "" or is_null($nivel->letra) or !is_string($nivel->letra) or (strlen($nivel->letra) > 1)){
+                $fila ++;
+                if (trim($nivel->letra) == "" or is_null($nivel->letra) or !is_string($nivel->letra) or (strlen($nivel->letra) > 1)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' letra <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($nivel->nivel_servicio == "" or is_null($nivel->nivel_servicio) or !is_numeric($nivel->nivel_servicio)){
+                if (trim($nivel->nivel_servicio) == "" or is_null($nivel->nivel_servicio) or !is_numeric($nivel->nivel_servicio)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' nivel_servicio <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($nivel->descripcion == "" or is_null($nivel->descripcion)){
+                if (trim($nivel->descripcion) == "" or is_null($nivel->descripcion)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' descripcion <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
             }
         });
         if ($validar){
-            $message = 'La información que intenta cargar de Nivel de Servicio tiene datos que no son validos.<br>Verifique la información. ';
+            $message = 'La información que intenta cargar de Nivel de Servicio tiene datos que no son validos en:<br><span style="font-size: 1.5vw;"><strong>'.$columna.'</strong></span><br><span style="color: red; font-weight:bold;">Verifique la información.</span>';
             //elimina el csv
-            Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
+            Storage::delete('public/uploads/nivel_servicio/'.$archivo);
             return view('nivel_servicio.fail',compact('message'));
         }
         else{
@@ -216,9 +223,10 @@ class Nivel_servicioController extends Controller
     }
 
     public function import(Request $request){
+        $archivo = $request->archivo;
         //montar los datos el la bd
         //lee el csv
-        Excel::load("storage\app\public\uploads\\nivel_servicio\\".$request->archivo, function($reader) {
+        Excel::load("storage\app\public\uploads\\nivel_servicio\\".$archivo, function($reader) {
             //elimina los regiustros existenetes
             Nivel_servicio::truncate();
             //recorre el csv
@@ -233,7 +241,7 @@ class Nivel_servicioController extends Controller
             }
         });
         //elimina el csv
-        Storage::delete('public/uploads/nivel_servicio/'.$request->archivo);
+        Storage::delete('public/uploads/nivel_servicio/'.$archivo);
     //     // return Book::all();
         return redirect('nivel_servicio');
     }

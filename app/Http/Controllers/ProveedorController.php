@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class ProveedorController.
@@ -152,6 +154,8 @@ class ProveedorController extends Controller
 
     public function load(Request $request){
         global $validar;
+        global $columna;
+        $columna = '';
         $validar = false;
         $archivo = $_FILES["up_csv"]["name"];
         //validar y cargar la carga masiva
@@ -190,31 +194,38 @@ class ProveedorController extends Controller
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
-            Storage::delete('public/uploads/proveedor/'.$request->archivo);
+            Storage::delete('public/uploads/proveedor/'.$archivo);
             return view('proveedor.fail',compact('message'));
          }
         //lee el csv
         Excel::load("storage\app\public\uploads\proveedor\\".$archivo, function($reader) {
             //recorre el csv
+            $fila = 1;
             foreach ($reader->get() as $proveedores) {
-                if ($proveedores->codigo_proveedor == "" or is_null($proveedores->codigo_proveedor)){
+                $fila ++;
+                if (trim($proveedores->codigo_proveedor) == "" or is_null($proveedores->codigo_proveedor)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' codigo_proveedor <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($proveedores->descripcion_proveedor == "" or is_null($proveedores->descripcion_proveedor)){
+                if (trim($proveedores->descripcion_proveedor) == "" or is_null($proveedores->descripcion_proveedor)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' descripcion_proveedor <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($proveedores->lead_time_proveedor == "" or is_null($proveedores->lead_time_proveedor) or !is_numeric($proveedores->lead_time_proveedor)){
+                if (trim($proveedores->lead_time_proveedor) == "" or is_null($proveedores->lead_time_proveedor) or !is_numeric($proveedores->lead_time_proveedor)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' lead_time_proveedor <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
+                    
                 }
-                if ($proveedores->tiempo_entrega_proveedor == "" or is_null($proveedores->tiempo_entrega_proveedor) or !is_numeric($proveedores->tiempo_entrega_proveedor)){
+                if (trim($proveedores->tiempo_entrega_proveedor) == "" or is_null($proveedores->tiempo_entrega_proveedor) or !is_numeric($proveedores->tiempo_entrega_proveedor)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' tiempo_entrega_proveedor <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
             }
         });
         if ($validar){
-            $message = 'La información que intenta cargar de Proveedores tiene datos que no son validos.<br>Verifique la información. ';
+            $message = 'La información que intenta cargar de Proveedores tiene datos que no son validos en:<br><span style="font-size: 1.5vw;"><strong>'.$columna.'</strong></span><br><span style="color: red; font-weight:bold;">Verifique la información.</span>';
             //elimina el csv
-            Storage::delete('public/uploads/proveedor/'.$request->archivo);
+            Storage::delete('public/uploads/proveedor/'.$archivo);
             return view('proveedor.fail',compact('message'));
         }
         else{
@@ -223,9 +234,10 @@ class ProveedorController extends Controller
     }
 
     public function import(Request $request){
+        $archivo = $request->archivo;
         //montar los datos el la bd
         //lee el csv
-        Excel::load("storage\app\public\uploads\proveedor\\".$request->archivo, function($reader) {
+        Excel::load("storage\app\public\uploads\proveedor\\".$archivo, function($reader) {
             //elimina los regiustros existenetes
             Proveedor::truncate();
             //recorre el csv
@@ -241,7 +253,7 @@ class ProveedorController extends Controller
             }
         });
         //elimina el csv
-        Storage::delete('public/uploads/proveedor/'.$request->archivo);
+        Storage::delete('public/uploads/proveedor/'.$archivo);
     //     // return Book::all();
         return redirect('proveedor');
     }
@@ -285,9 +297,18 @@ class ProveedorController extends Controller
         proveedors INNER JOIN users ON (proveedors.user_id = users.id) 
     WHERE
         CAST(descripcion_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(codigo_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(lead_time_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(tiempo_entrega_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(proveedors.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
-
+        // $result = $this->arrayPaginator($result, $request);
         return response()->json($result);
     }
+    // public function arrayPaginator($array, $request)
+    // {
+    //     $page = Input::get('page', 1);
+    //     $perPage = 10;
+    //     $offset = ($page * $perPage) - $perPage;
+
+    //     return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+    //         ['path' => $request->url(), 'query' => $request->query()]);
+    // }
     /**
      * Delete confirmation message by Ajaxis.
      *
