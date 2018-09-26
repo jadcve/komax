@@ -270,6 +270,8 @@ class TiendaController extends Controller
 
     public function load(Request $request){
         global $validar;
+        global $columna;
+        $columna = '';
         $validar = false;
         $archivo = $_FILES["up_csv"]["name"];
         //validar y cargar la carga masiva
@@ -309,43 +311,52 @@ class TiendaController extends Controller
                  La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
                  <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
              //elimina el csv
-             Storage::delete('public/uploads/tienda/'.$request->archivo);
+             Storage::delete('public/uploads/tienda/'.$archivo);
              return view('tienda.fail',compact('message'));
           }
         //lee el csv
         Excel::load("storage\app\public\uploads\\tienda\\".$archivo, function($reader) {
             //recorre el csv
+            $fila = 1;
             foreach ($reader->get() as $tiendas) {
-                // if ($tiendas->cod_tienda == "" or is_null($tiendas->cod_tienda)){
+                $fila ++;
+                // if (trim($tiendas->cod_tienda) == "" or is_null($tiendas->cod_tienda)){
                 //     $GLOBALS['validar'] = true;
-                //     echo 'lat';
+                //     $GLOBALS['columna'] .= ' cod_tienda <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 // }
-                if ($tiendas->bodega == "" or is_null($tiendas->bodega)){
+                if (trim($tiendas->bodega) == "" or is_null($tiendas->bodega)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' bodega <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->canal == "" or is_null($tiendas->canal)){
+                if (trim($tiendas->canal) == "" or is_null($tiendas->canal)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' canal <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->ciudad == "" or is_null($tiendas->ciudad)){
+                if (trim($tiendas->ciudad) == "" or is_null($tiendas->ciudad)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' ciudad <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->region == "" or is_null($tiendas->region)){
+                if (trim($tiendas->region) == "" or is_null($tiendas->region)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' region <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->latitude == "" or is_null($tiendas->latitude) or !is_numeric($tiendas->latitude)){
+                if (trim($tiendas->latitude) == "" or is_null($tiendas->latitude) or !is_numeric($tiendas->latitude)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' latitude <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->longitud == "" or is_null($tiendas->longitud) or !is_numeric($tiendas->longitud)){
+                if (trim($tiendas->longitud) == "" or is_null($tiendas->longitud) or !is_numeric($tiendas->longitud)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' longitud <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($tiendas->direccion == "" or is_null($tiendas->direccion)){
+                if (trim($tiendas->direccion) == "" or is_null($tiendas->direccion)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' direccion <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
             }
         });
         if ($validar){
-            $message = 'La información que intenta cargar de Tiendas tiene datos que no son validos.<br>Verifique la información. ';
-            Storage::delete('public/uploads/tienda/'.$request->archivo);
+            $message = 'La información que intenta cargar de Tiendas tiene datos que no son validos en:<br><span style="font-size: 1.5vw;"><strong>'.$columna.'</strong></span><br><span style="color: red; font-weight:bold;">Verifique la información.</span>';
+            Storage::delete('public/uploads/tienda/'.$archivo);
             return view('tienda.fail',compact('message'));
         }
         else{
@@ -354,9 +365,10 @@ class TiendaController extends Controller
     }
 
     public function import(Request $request){
+        $archivo = $request->archivo;
         //montar los datos el la bd
         //lee el csv
-        Excel::load("storage\app\public\uploads\\tienda\\".$request->archivo, function($reader) {
+        Excel::load("storage\app\public\uploads\\tienda\\".$archivo, function($reader) {
             //elimina los regiustros existenetes
             Tienda::truncate();
             //recorre el csv
@@ -377,7 +389,7 @@ class TiendaController extends Controller
             }
         });
         //elimina el csv
-        Storage::delete('public/uploads/tienda/'.$request->archivo);
+        Storage::delete('public/uploads/tienda/'.$archivo);
     //     // return Book::all();
         // return redirect('tienda');
     }

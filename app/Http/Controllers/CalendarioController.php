@@ -161,6 +161,8 @@ class CalendarioController extends Controller
 
     public function load(Request $request){
         global $validar;
+        global $columna;
+        $columna = '';
         $validar = false;
         $archivo = $_FILES["up_csv"]["name"];
         //validar y cargar la carga masiva
@@ -199,34 +201,41 @@ class CalendarioController extends Controller
                 La estructura del csv debe ser la siguiente:<br></h2><h4>'.implode(', ', $headersRequeridos).'</h4><br>
                 <h2>Y la del archivo que intenta cargar es:</h2><br><h4>'.$lineaUno.'</h4>';
             //elimina el csv
-            Storage::delete('public/uploads/calendario/'.$request->archivo);
+            Storage::delete('public/uploads/calendario/'.$archivo);
             return view('calendario.fail',compact('message'));
          }
         //lee el csv
         Excel::load("storage\app\public\uploads\calendario\\".$archivo, function($reader) {
             //recorre el csv
+            $fila = 1;
             foreach ($reader->get() as $calendario) {
-                if ($calendario->dia_despacho == "" or is_null($calendario->dia_despacho) or !is_numeric($calendario->dia_despacho)){
+                $fila ++;
+                if (trim($calendario->semana_id) == "" or is_null($calendario->semana_id) or !is_numeric($calendario->semana_id)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' semana_id <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($calendario->lead_time == "" or is_null($calendario->lead_time) or !is_numeric($calendario->lead_time)){
+                if (trim($calendario->dia_despacho) == "" or is_null($calendario->dia_despacho) or !is_numeric($calendario->dia_despacho)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' dia_despacho <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($calendario->tiempo_entrega == "" or is_null($calendario->tiempo_entrega) or !is_numeric($calendario->tiempo_entrega)){
+                if (trim($calendario->lead_time) == "" or is_null($calendario->lead_time) or !is_numeric($calendario->lead_time)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' lead_time <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($calendario->tienda_id == "" or is_null($calendario->tienda_id) or !is_numeric($calendario->tienda_id)){
+                if (trim($calendario->tiempo_entrega) == "" or is_null($calendario->tiempo_entrega) or !is_numeric($calendario->tiempo_entrega)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' tiempo_entrega <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if ($calendario->semana_id == "" or is_null($calendario->semana_id) or !is_numeric($calendario->semana_id)){
+                if (trim($calendario->tienda_id) == "" or is_null($calendario->tienda_id) or !is_numeric($calendario->tienda_id)){
                     $GLOBALS['validar'] = true;
+                    $GLOBALS['columna'] .= ' tienda_id <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
             }
         });
         if ($validar){
-            $message = 'La información que intenta cargar de Calendario tiene datos que no son validos.<br>Verifique la información. ';
+            $message = 'La información que intenta cargar de Calendario tiene datos que no son validos en:<br><span style="font-size: 1.5vw;"><strong>'.$columna.'</strong></span><br><span style="color: red; font-weight:bold;">Verifique la información.</span>';
             //elimina el csv
-            Storage::delete('public/uploads/calendario/'.$request->archivo);
+            Storage::delete('public/uploads/calendario/'.$archivo);
             return view('calendario.fail',compact('message'));
         }
         else{
@@ -235,9 +244,10 @@ class CalendarioController extends Controller
     }
 
     public function import(Request $request){
+        $archivo = $request->archivo;
         //montar los datos el la bd
         //lee el csv
-        Excel::load("storage\app\public\uploads\calendario\\".$request->archivo, function($reader) {
+        Excel::load("storage\app\public\uploads\calendario\\".$archivo, function($reader) {
             //elimina los regiustros existenetes
             Calendario::truncate();
             //recorre el csv
@@ -254,7 +264,7 @@ class CalendarioController extends Controller
             }
         });
         //elimina el csv
-        Storage::delete('public/uploads/calendario/'.$request->archivo);
+        Storage::delete('public/uploads/calendario/'.$archivo);
     //     // return Book::all();
         return redirect('calendario');
     }
