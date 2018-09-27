@@ -27,7 +27,7 @@
         </thead>
         <tbody>
 
-            {{-- @foreach($sugerido as $t)
+            @foreach($sugerido as $t)
             <tr>
                 <td>{!!$t->cod_art!!}</td>
                 <td>{!!$t->score_m1!!}</td>
@@ -38,7 +38,7 @@
 
 
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
     </table>
 </section>
