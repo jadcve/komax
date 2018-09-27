@@ -15,7 +15,6 @@ class CreateSugeridosTable extends Migration
     {
         Schema::create('sugeridos', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('cod_art')->nullable();
 			$table->integer('forecast')->nullable();
             $table->integer('ordercicle')->nullable();

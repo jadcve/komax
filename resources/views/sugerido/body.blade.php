@@ -16,9 +16,6 @@
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
 
-
-
-        
             <th>Codigo Articulo</th>
             <th>Forecast</th>
             <th>Ordercicle</th>
@@ -40,6 +37,7 @@
             </tr>
             @endforeach
         </tbody>
+        
     </table>
 </section>
 @endsection
