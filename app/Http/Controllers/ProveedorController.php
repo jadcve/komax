@@ -258,10 +258,6 @@ class ProveedorController extends Controller
         return redirect('proveedor');
     }
 
-    // private function convert_to_csv($input_array, $output_file_name, $delimiter){
-
-    // }
-
     public function download(){
         
         $datos = Proveedor::all();
