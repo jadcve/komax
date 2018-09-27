@@ -39,7 +39,10 @@
             </div>
         </div>
     <br><br>
-    <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
+    <div id="temp" style="width: 100%; text-align: center; background: white;">
+            <img src="{{URL::asset('/images/spinner.gif')}}" alt="" srcset="" style="width:7vw;">
+    </div>
+    <table id="tabla"  class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código</th>
             <th>Bodega</th>

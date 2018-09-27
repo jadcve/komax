@@ -40,7 +40,7 @@
         </div>
     <br>
     <br>
-    <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
+    <table id="tabla" class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Código Proveedor</th>
             <th>Nombre</th>
@@ -71,4 +71,6 @@
     {!! $proveedors->render() !!}
 
 </section>
+<script>
+</script>
 @endsection

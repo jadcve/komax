@@ -12,8 +12,8 @@
     <br/>
     <br/>
     <br/>
-
-    <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
+   @if (count($temp) != 0)
+   <table id="tabla" class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
 
 
@@ -29,8 +29,16 @@
 
         </thead>
         <tbody>
-
+            @php
+                $registros = 0;
+            @endphp
             @foreach($temp as $t)
+            @php
+                if ($registros == 20){
+                    break;
+                }
+                $registros++;
+            @endphp
             <tr>
                 <td>{!!$t->cod_art!!}</td>
                 <td>{!!$t->netamount!!}</td>
@@ -44,5 +52,9 @@
             @endforeach
         </tbody>
     </table>
+   @else
+       <h2>No se encontrarón resultados para esta consulta</h2>
+   @endif
+    
 </section>
 @endsection
