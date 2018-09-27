@@ -22,15 +22,15 @@ class bodyController extends Controller
     {
         $fechaentrada = $request->fecha;
         $fecha = date("Y/m/d", strtotime($fechaentrada));
-        $bodega = "RUTA68";
+        $bodega = $request->bodega;
 
 
 
-        //$bodega = $request->bodega;
-        $bodega = 'RUTA68';
+        //$bodega = 'RUTA68';
 
-        $sugerido = $this->sugerido();
+       
         $calculo = $this->calculo($fecha, $bodega);
+        $sugerido = $this->sugerido();
         
 /*
         $mov_salida1 = $this->mov_salida($fecha);
@@ -104,9 +104,7 @@ class bodyController extends Controller
             ->get();
 */
 
-        return view('sugerido.body', compact('tabla'));
-
-
+        return view('sugerido.body', compact('sugerido'));
     }
 
     /**
@@ -778,7 +776,7 @@ where marca=\'MARMOT\''));
             $sugerido->save();  
         }
         
-        return $tabla = DB::table('sugeridos')->get();
+        return $cuenta->take(10);
         
     }
 
