@@ -87,6 +87,7 @@ Route::group(['middleware'=> 'web'],function(){
 Route::group(['middleware'=> 'web'],function(){
     Route::resource('sugerido','\App\Http\Controllers\BodyController');
     Route::post('sugerido','\App\Http\Controllers\BodyController@body');
+    Route::post('sugerido/download', '\App\Http\Controllers\BodyController@download');
 });
 
 

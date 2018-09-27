@@ -8,6 +8,7 @@ use URL;
 use App\Http\Controllers\Controller;    
 use Illuminate\Support\Facades\Schema;
 use App\Sugerido;
+use App\Convert_to_csv;
 
 class bodyController extends Controller
 {
@@ -781,5 +782,24 @@ where marca=\'MARMOT\''));
         
     }
 
+    public function download(){
+        
+        $datos = DB::table('sugeridos')->get();
 
+        $contenidoCsv = [];
+        //headers del csv
+        array_push($contenidoCsv, array('id', 'cod_art', 'forecast', 'ordercicle', 'minimo', 'sugerido'));
+        //agrego los datos al array
+        foreach ($datos as $registro) {
+            array_push($contenidoCsv, array($registro->id, $registro->cod_art, $registro->forecast, $registro->ordercicle, $registro->minimo, $registro->sugerido));
+        }
+        //fecha para crear el nombre
+        $fecha = date('Ymdhis');
+        $nombreCsv = "sugeridos_".$fecha.'.csv';
+
+        //llama al metodo para crear el csv
+        Convert_to_csv::create($contenidoCsv, $nombreCsv, ',');
+
+        return view('sugerido/download');
+    }
 }

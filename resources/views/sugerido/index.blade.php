@@ -29,6 +29,16 @@
     </div>
     {!! Form::close() !!}
 
-
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("sugerido/download")!!}'>
+                <div class="form-group">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <label for="">Descargar datos</label><br>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </section>
 @endsection

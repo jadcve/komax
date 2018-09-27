@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','pruebas')
+@section('title','Calculos')
 @section('content')
 
 <section class="content">
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
 
-            @foreach($sugerido as $t)
+            {{-- @foreach($sugerido as $t)
             <tr>
                 <td>{!!$t->cod_art!!}</td>
                 <td>{!!$t->score_m1!!}</td>
@@ -38,7 +38,7 @@
 
 
             </tr>
-            @endforeach
+            @endforeach --}}
         </tbody>
     </table>
 </section>
