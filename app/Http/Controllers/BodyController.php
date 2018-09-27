@@ -30,7 +30,7 @@ class bodyController extends Controller
         $bodega = 'RUTA68';
 
         $sugerido = $this->sugerido();
-        //$calculo = $this->calculo($fecha, $bodega);
+        $calculo = $this->calculo($fecha, $bodega);
         
 /*
         $mov_salida1 = $this->mov_salida($fecha);

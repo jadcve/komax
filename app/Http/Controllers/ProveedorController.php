@@ -30,7 +30,7 @@ class ProveedorController extends Controller
      * @return  \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $title = 'Index - proveedor';
         $proveedors = Proveedor::with('user')->orderBy('id')->paginate(10);
         return view('proveedor.index',compact('proveedors','title'));
