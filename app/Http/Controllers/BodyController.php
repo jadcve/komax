@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
 use App\Sugerido;
 use App\Convert_to_csv;
+use App\Tienda;
 
 class bodyController extends Controller
 {
@@ -752,7 +753,9 @@ where marca=\'MARMOT\''));
 
     public function index()
     {
-        return view('sugerido.index');
+        $bodegas = Tienda::distinct()->get(['bodega'])->sortBy('bodega');
+        
+        return view('sugerido.index', compact('bodegas'));
     }
 
     public function sugerido()

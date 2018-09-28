@@ -3,9 +3,8 @@
 @section('content')
 
 <section class="content">
-    <h1>
-        ABC
-    </h1>
+    <h1>Cálculos para Obtener el ABC</h1>
+    <br>
     {!! Form::open(['url' => 'tran', 'method'=>'POST', 'class'=>'form-inline']) !!}
         <div class="form-group">
             {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}

@@ -7,15 +7,24 @@
         Envio Sugerido
     </h1>
     <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-        <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Sugerido</a>
+        <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-left'><i class="fa fa-home"></i> Sugerido</a>
     </div>
     <br/>
+    <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("sugerido/download")!!}'>
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <label for="">Descargar datos</label><br>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Descargar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     <br/>
     <br/>
-
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-
             <th>Codigo Articulo</th>
             <th>Forecast</th>
             <th>Ordercicle</th>
@@ -23,7 +32,6 @@
             <th>Sugerido</th>
         </thead>
         <tbody>
-
             @foreach($sugerido as $t)
             <tr>
                 <td>{!!$t->cod_art!!}</td>
@@ -31,13 +39,9 @@
                 <td>{!!$t->ordercicle!!}</td>
                 <td>{!!$t->minimo!!}</td>
                 <td>{!!$t->sugerido!!}</td>
-                
-
-
             </tr>
             @endforeach
         </tbody>
-        
     </table>
 </section>
 @endsection
