@@ -391,7 +391,7 @@ class TiendaController extends Controller
         //elimina el csv
         Storage::delete('public/uploads/tienda/'.$archivo);
     //     // return Book::all();
-        // return redirect('tienda');
+        return redirect('tienda');
     }
 
     public function download(){

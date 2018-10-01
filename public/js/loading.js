@@ -14,16 +14,4 @@ jQuery(document).ready(function (){
             $("#loading_sugerido").fadeIn();
         }
     });
-
-    $("#bodega").keyup(function (e) { 
-        $("#bodega").val($("#bodega").val().trim());
-    });
-
-    $('#a').keyup(function (e) { 
-        $("#a").val($("#a").val().trim());
-    });
-    
-    $('#b').keyup(function (e) { 
-        $("#b").val($("#b").val().trim());
-    });
 });

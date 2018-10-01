@@ -27,7 +27,6 @@ jQuery(document).ready(function () {
             url: url+"/search",
             data: {busqueda:busqueda, _token:token},
             success: function (response) {
-                console.log('response', response)
                 $("#no-result-box").remove();
                 $("tbody").empty();
                 $("ul.pagination").fadeOut();

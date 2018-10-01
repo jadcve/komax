@@ -167,6 +167,7 @@
 		<script src = "{{URL::asset('js/AjaxisBootstrap.js') }}"></script>
 		<script src = "{{URL::asset('js/scaffold-interface-js/customA.js') }}"></script>
 		<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+		<script src = "{{URL::asset('js/general.js') }}"></script>
 		<script src = "{{URL::asset('js/AjaxMarcas.js') }}"></script>
 		<script src = "{{URL::asset('js/AjaxSearch.js')}}"></script>
 		<script src = "{{URL::asset('js/loading.js')}}"></script>
