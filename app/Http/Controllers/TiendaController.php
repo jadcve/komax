@@ -77,7 +77,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('agrupacion1', 'ilike', "%".$request->nuevo_agrupacion1."%")->distinct('agrupacion1')->get(['agrupacion1']);
-                echo $tienda->agrupacion1 = $result[0]->agrupacion1;
+                $tienda->agrupacion1 = $result[0]->agrupacion1;
             }
         }
 
@@ -90,7 +90,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
-                echo $tienda->ciudad = $result[0]->ciudad;
+                $tienda->ciudad = $result[0]->ciudad;
             }
         }
         
@@ -103,7 +103,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
-                echo $tienda->comuna = $result[0]->comuna;
+                $tienda->comuna = $result[0]->comuna;
             }
         }
         
@@ -116,7 +116,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
-                echo $tienda->region = $result[0]->region;
+                $tienda->region = $result[0]->region;
             }
         }
         
@@ -212,7 +212,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('agrupacion1', 'ilike', "%".$request->nuevo_agrupacion1."%")->distinct('agrupacion1')->get(['agrupacion1']);
-                echo $tienda->agrupacion1 = $result[0]->agrupacion1;
+                $tienda->agrupacion1 = $result[0]->agrupacion1;
             }
         }
 
@@ -225,7 +225,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('ciudad', 'ilike', "%".$request->nueva_ciudad."%")->distinct('ciudad')->get(['ciudad']);
-                echo $tienda->ciudad = $result[0]->ciudad;
+                $tienda->ciudad = $result[0]->ciudad;
             }
         }
         
@@ -238,7 +238,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('comuna', 'ilike', "%".$request->nueva_comuna."%")->distinct('comuna')->get(['comuna']);
-                echo $tienda->comuna = $result[0]->comuna;
+                $tienda->comuna = $result[0]->comuna;
             }
         }
         
@@ -251,7 +251,7 @@ class TiendaController extends Controller
             }
             else{
                 $result = Tienda::where('region', 'ilike', "%".$request->nueva_region."%")->distinct('region')->get(['region']);
-                echo $tienda->region = $result[0]->region;
+                $tienda->region = $result[0]->region;
             }
         }
         
