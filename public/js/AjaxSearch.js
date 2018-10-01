@@ -1,10 +1,12 @@
 jQuery(document).ready(function () {
     var busqueda;
+    var pagina = 1;
     var url = window.location.href;
     var to = url.lastIndexOf('/');
     var end = url.lastIndexOf('?');
     to = to == -1 ? url.length : to + 1;
     url = end == -1 ? url.substring(to) : url.substring(to, end);
+    var response;
     // $("#buscar").focus();
     console.log('url:', url);
 
@@ -27,24 +29,72 @@ jQuery(document).ready(function () {
             url: url+"/search",
             data: {busqueda:busqueda, _token:token},
             success: function (response) {
-                console.log('response', response);
+                // console.log('response', response);
+                // console.log('responsexxxxx', response.length);
+
                 $("#no-result-box").remove();
                 $("tbody").empty();
-                $("ul.pagination").fadeOut();
-                if (busqueda.length <= 0){
-                    $("ul.pagination").fadeIn();
-                    location.reload();
-                }
+                // $("ul.pagination").fadeOut();
+                // if (busqueda.length <= 0){
+                //     // $("ul.pagination").fadeIn();
+                //     // location.reload();
+                // }
                 if (response.length === 0){
                     noResult();
                     $("#no-result-box").fadeIn(1000);
                 }
-                $.each(response, function (index, json) {
-                    $("#no-result-box").fadeOut(300);
-                     $("tbody").append(createTables(url, json));
-                    //  $("#buscar").focus();
-                });
+                paginator(response, 1);
             }
+        });
+    }
+
+    function paginator(response, pagina){
+       
+        var porPagina = 5;
+        var totalPaginas = Math.round(response.length / porPagina);
+        inicio = Math.max(pagina - 1, 0) * 5;
+        // console.log('inicio', inicio)
+        fin = inicio + porPagina;
+        // console.log('fin', fin)
+        mostrarElementos = response.slice(inicio, fin);
+        // console.log('mostrarElementos', mostrarElementos)
+        
+        // console.log('totalPaginas', totalPaginas)
+        $(".pagination").empty();
+        $(".pagination").append('<li class="page-item" aria-disabled="true" aria-label="« Previous"><a class="page-link" href="" value="1" rel="prev" aria-label="Prev »">‹</a></li>');
+        
+        for (let numeroPagina = 1; numeroPagina <= totalPaginas; numeroPagina++) {
+            console.log('numeroPagina', numeroPagina)
+            // totalPaginas > 10 ? console.log('dd') : '';
+            active = (pagina == numeroPagina) ? ' active' : '';
+            aria = (pagina == numeroPagina) ? ' aria-current="page"' : '';
+            $(".pagination").append('<li class="page-item'+active+'"'+aria+'><a class="page-link" href="" value="'+numeroPagina+'">'+numeroPagina+'</a></li>');
+            if (numeroPagina == 5) $(".pagination").append('<li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>');
+        }
+
+        $(".pagination").append('<li class="page-item"><a class="page-link" href="" value="'+totalPaginas+'" rel="next" aria-label="Next »">›</a></li>');
+
+        (pagina == 1) ? $('.pagination li:first').addClass('disabled') : $('.pagination li:first').removeClass('disabled');
+        (pagina == totalPaginas) ? $('.pagination li:last-child').addClass('disabled') : $('.pagination li:last-child').removeClass('disabled');
+
+        $(".page-link").click(function (e) {
+            e.preventDefault();
+
+            pagina =  e.currentTarget.attributes[2].value;
+            inicio = parseInt(pagina) * 5;
+
+            $("tbody").empty();
+            paginator(response, pagina);
+        });
+
+        // console.log('mostrarElementospagian xxxxxxxx', mostrarElementos)
+        data(mostrarElementos);
+    }
+
+    function data(mostrarElementos){
+        $.each(mostrarElementos, function (index, json) {
+            $("#no-result-box").fadeOut(300);
+             $("tbody").append(createTables(url, json));
         });
     }
     
