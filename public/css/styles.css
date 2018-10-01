@@ -86,3 +86,12 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
     background-color: #d73925;
     border-color: #922618;
 }
+
+.loading_abc {
+    display:none;
+    width: 100%;
+    text-align: center;
+    height: 30vh;
+    vertical-align: middle;
+    line-height: 30vh;
+}

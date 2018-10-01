@@ -20,7 +20,7 @@ class Calendario extends Model
 
     // protected $dates = ['deleted_at'];
     
-    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'tienda_id', 'user_id', 'semana_id'];
+    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id', 'user_id', 'semana_id'];
 
     protected $table = 'calendarios';
 
@@ -28,8 +28,8 @@ class Calendario extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tienda(){
-        return $this->belongsTo(Tienda::class);
+    public function bodega(){
+        return $this->belongsTo(Bodega::class);
     }
 
     public function semana() {

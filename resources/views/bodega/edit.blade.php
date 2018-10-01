@@ -4,40 +4,38 @@
 
 <section class="content">
     <h1>
-        Editar {!!$tienda->bodega!!}
+        Editar {!!$bodega->bodega!!}
     </h1>
-    <a href="{!!url('tienda')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Tiendas</a>
+    <a href="{!!url('bodega')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Bodegas</a>
     <br>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
-            <form method = 'POST' action = '{!! url("tienda")!!}/{!!$tienda->
-                id!!}/update'> 
+            <form method = 'POST' action = '{!! url("bodega")!!}/{!!$bodega->id!!}/update'> 
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
-                    <label for="cod_tienda">Código</label>
-                    <input id="cod_tienda" name = "cod_tienda" type="text" class="form-control" value="{!!$tienda->
-                    cod_tienda!!}" placeholder="Código"> 
+                    <label for="cod_bodega">Código</label>
+                    <input id="cod_bodega" name = "cod_bodega" type="text" class="form-control" value="{!!$bodega->cod_bodega!!}" placeholder="Código"> 
                 </div>
                 <div class="form-group">
                     <label for="bodega">Bodega</label>
-                    <input id="bodega" name = "bodega" type="text" class="form-control" value="{!!$tienda->
+                    <input id="bodega" name = "bodega" type="text" class="form-control" value="{!!$bodega->
                     bodega!!}" required placeholder="Bodega"> 
                 </div>
                 <div class="form-group">
-                    <label for="tienda_id">Canal</label>
-                        <select class="form-control" id="canal" name="canal">
+                    <label for="agrupacion1">Agrupacion1</label>
+                        <select class="form-control" id="agrupacion1" name="agrupacion1">
                             <option  value="">Seleccione</option>
-                            @foreach ($canales as $canal)
+                            @foreach ($agrupaciones1 as $agrupacion1)
                             @php
-                                $selected = ($tienda->canal == $canal->canal) ? ' selected' : '';
-                                echo '<option value="'.$canal->canal.'"'.$selected.'>'.$canal->canal.'</option>';
+                                $selected = ($bodega->agrupacion1 == $agrupacion1->agrupacion1) ? ' selected' : '';
+                                echo '<option value="'.$agrupacion1->agrupacion1.'"'.$selected.'>'.$agrupacion1->agrupacion1.'</option>';
                             @endphp
                             @endforeach
                         </select>
                 </div>
                 <div class="form-group">
-                    <label for="nuevo_canal">Nuevo Canal</label>
-                    <input id="nuevo_canal" name = "nuevo_canal" type="text" class="form-control" placeholder="Agregar un Nuevo Canal">
+                    <label for="nuevo_agrupacion1">Nueva Agrupacion1</label>
+                    <input id="nuevo_agrupacion1" name = "nuevo_agrupacion1" type="text" class="form-control" placeholder="Agregar una Nueva Agrupacion1">
                 </div>
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>
@@ -45,7 +43,7 @@
                             <option  value="">Seleccione</option>
                             @foreach ($ciudades as $ciudad)
                             @php
-                                $selected = ($tienda->ciudad == $ciudad->ciudad) ? ' selected' : '';
+                                $selected = ($bodega->ciudad == $ciudad->ciudad) ? ' selected' : '';
                                 echo '<option value="'.$ciudad->ciudad.'"'.$selected.'>'.$ciudad->ciudad.'</option>';
                             @endphp
                             @endforeach
@@ -61,7 +59,7 @@
                             <option  value="">Seleccione</option>
                             @foreach ($comunas as $comuna)
                             @php
-                                $selected = ($tienda->comuna == $comuna->comuna) ? ' selected' : '';
+                                $selected = ($bodega->comuna == $comuna->comuna) ? ' selected' : '';
                                 $com_tit = ($comuna->comuna == '') ? "Dejar en Blanco" : $comuna->comuna;
                                 echo '<option value="'.$comuna->comuna.'"'.$selected.'>'.$com_tit.'</option>';
                             @endphp
@@ -78,7 +76,7 @@
                             <option  value="">Seleccione</option>
                             @foreach ($regiones as $region)
                             @php
-                                $selected = ($tienda->region == $region->region) ? ' selected' : '';
+                                $selected = ($bodega->region == $region->region) ? ' selected' : '';
                                 echo '<option value="'.$region->region.'"'.$selected.'>'.$region->region.'</option>';
                             @endphp
                             @endforeach
@@ -90,17 +88,17 @@
                 </div>
                 <div class="form-group">
                     <label for="latitude">Latitud</label>
-                    <input id="latitude" name = "latitude" type="text" class="form-control" value="{!!$tienda->
+                    <input id="latitude" name = "latitude" type="text" class="form-control" value="{!!$bodega->
                     latitude!!}" required placeholder="Latitud"> 
                 </div>
                 <div class="form-group">
                     <label for="longitud">Longitud</label>
-                    <input id="longitud" name = "longitud" type="text" class="form-control" value="{!!$tienda->
+                    <input id="longitud" name = "longitud" type="text" class="form-control" value="{!!$bodega->
                     longitud!!}" required placeholder="Longitud"> 
                 </div>
                 <div class="form-group">
                     <label for="direccion">Dirección</label>
-                    <input id="direccion" name = "direccion" type="text" class="form-control" value="{!!$tienda->
+                    <input id="direccion" name = "direccion" type="text" class="form-control" value="{!!$bodega->
                     direccion!!}" required placeholder="Dirección"> 
                 </div>
                 <button class = 'btn btn-success pull-right type ='submit'><i class="fa fa-floppy-o"></i> Guardar</button>

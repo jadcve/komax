@@ -20,7 +20,7 @@ class CreateTemporalsTable extends Migration
 
             $table->increments('id');
             $table->String('cod_art');
-            $table->String('canal');
+            $table->String('agrupacion1');
             $table->String('marca');
             $table->integer('netamount');
             $table->integer('qty');

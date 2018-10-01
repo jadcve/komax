@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MarcasTiendas extends Migration
+class MarcasBodegas extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class MarcasTiendas extends Migration
      */
     public function up()
     {
-        Schema::create('marca_tienda',function (Blueprint $table){
+        Schema::create('marca_bodega',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('marca_id')->unsigned()->index();
 			$table->foreign('marca_id')->references('id')->on('marcas')->onDelete('cascade');
-			$table->integer('tienda_id')->unsigned()->index();
-			$table->foreign('tienda_id')->references('id')->on('tiendas')->onDelete('cascade');
+			$table->integer('bodega_id')->unsigned()->index();
+			$table->foreign('bodega_id')->references('id')->on('bodegas')->onDelete('cascade');
 			/**
 			 * Type your addition here
 			 *
@@ -32,6 +32,6 @@ class MarcasTiendas extends Migration
      */
     public function down()
     {
-        Schema::drop('marca_tienda');
+        Schema::drop('marca_bodega');
     }
 }

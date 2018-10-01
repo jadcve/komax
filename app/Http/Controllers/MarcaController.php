@@ -52,7 +52,7 @@ class MarcaController extends Controller
         $marca = new Marca();
 
         
-        $marca->canal = $request->canal;
+        $marca->agrupacion1 = $request->agrupacion1;
 
         
         $marca->marca = $request->marca;
@@ -124,7 +124,7 @@ class MarcaController extends Controller
     {
         $marca = Marca::findOrfail($id);
     	
-        $marca->canal = $request->canal;
+        $marca->agrupacion1 = $request->agrupacion1;
         
         $marca->marca = $request->marca;
         

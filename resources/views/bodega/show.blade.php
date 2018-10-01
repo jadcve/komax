@@ -1,13 +1,13 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Tiendas')
+@section('title','Bodegas')
 @section('content')
 
 <section class="content">
     <h1>
-        Detalles de {!!$tienda->bodega!!}
+        Detalles de {!!$bodega->bodega!!}
     </h1>
     <br>
-    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Tiendas</a>
+    <a href='{!!url("bodega")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Bodegas</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
@@ -17,46 +17,46 @@
         <tbody>
             <tr>
                 <td> <b>Código</b> </td>
-                <td>{!!$tienda->cod_tienda!!}</td>
+                <td>{!!$bodega->cod_bodega!!}</td>
             </tr>
             <tr>
                 <td> <b>Bodega</b> </td>
-                <td>{!!$tienda->bodega!!}</td>
+                <td>{!!$bodega->bodega!!}</td>
             </tr>
             <tr>
-                <td> <b>Canal</b> </td>
-                <td>{!!$tienda->canal!!}</td>
+                <td> <b>Agrupacion1</b> </td>
+                <td>{!!$bodega->agrupacion1!!}</td>
             </tr>
             <tr>
                 <td> <b>Ciudad</b> </td>
-                <td>{!!$tienda->ciudad!!}</td>
+                <td>{!!$bodega->ciudad!!}</td>
             </tr>
             <tr>
                 <td> <b>Comuna</b> </td>
-                <td>{!!$tienda->comuna!!}</td>
+                <td>{!!$bodega->comuna!!}</td>
             </tr>
             <tr>
                 <td> <b>Región</b> </td>
-                <td>{!!$tienda->region!!}</td>
+                <td>{!!$bodega->region!!}</td>
             </tr>
             <tr>
                 <td> <b>Latitud</b> </td>
-                <td>{!!$tienda->latitude!!}</td>
+                <td>{!!$bodega->latitude!!}</td>
             </tr>
             <tr>
                 <td> <b>Longitud</b> </td>
-                <td>{!!$tienda->longitud!!}</td>
+                <td>{!!$bodega->longitud!!}</td>
             </tr>
             <tr>
                 <td> <b>Dirección</b> </td>
-                <td>{!!$tienda->direccion!!}</td>
+                <td>{!!$bodega->direccion!!}</td>
             </tr>
             <tr>
                 <td> <b>Ultima Edición</b> </td>
                 <td>
-                    {!!$tienda->user['name']!!}
+                    {!!$bodega->user['name']!!}
                     <br>
-                    {!!$tienda->updated_at!!}
+                    {!!$bodega->updated_at!!}
                 </td>
             </tr>
         </tbody>

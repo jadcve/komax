@@ -25,7 +25,7 @@ class Trans extends Migration
         $table->String('cod_art');
         $table->String('sku');
         $table->String('bodega');
-        $table->String('canal');
+        $table->String('agrupacion1');
         $table->integer('unit_price_ivaincl');
         $table->integer('netamount');
         $table->integer('precioneto');

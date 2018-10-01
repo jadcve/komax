@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
 use App\Sugerido;
 use App\Convert_to_csv;
+use App\Bodega;
 
 class bodyController extends Controller
 {
@@ -155,6 +156,7 @@ class bodyController extends Controller
     {
         DB::table('calculos')->truncate();
 
+<<<<<<< HEAD
         DB::select(\DB::raw('insert into calculos with mov_salida1 as --trae la venta desde la tabla 
             (
                 select trim(UPPER(bodega)) as bodega ,trim(upper(sku)) as sku,case when qty>3 then 1 else qty end as qty , fecha,netamount
@@ -532,7 +534,6 @@ class bodyController extends Controller
 
     
     $sugerido = $this->sugerido();
-
 
     }
     

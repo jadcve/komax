@@ -17,17 +17,17 @@ class Tran extends Model
     // protected $primaryKey = 'bodega';
 
 
-    public function scopeCanal($query, $canal)
+    public function scopeAgrupacion1($query, $agrupacion1)
     {
-        if(trim($canal != "")){
-            $query->where(\DB::raw('canal', $canal), "like","%$canal%");
+        if(trim($agrupacion1 != "")){
+            $query->where(\DB::raw('agrupacion1', $agrupacion1), "like","%$agrupacion1%");
         }
     }
 
     public function scopeMarca($query, $marca)
     {
         if(trim($marca != "")){
-            $query->where(\DB::raw('canal', $marca), "like","%$marca%");
+            $query->where(\DB::raw('agrupacion1', $marca), "like","%$marca%");
         }
     }
 
@@ -36,7 +36,7 @@ class Tran extends Model
         return $this->hasOne('App\Temporal');
     }
 
-    public function tiendas(){
-        return $this->belongsTo('App\Tienda', 'bodega', 'bodega');
+    public function bodegas(){
+        return $this->belongsTo('App\Bodega', 'bodega', 'bodega');
     }
 }

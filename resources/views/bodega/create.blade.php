@@ -1,37 +1,37 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Tiendas')
+@section('title','Bodegas')
 @section('content')
 
 <section class="content">
     <h1>
         Crear Bodega
     </h1>
-    <a href="{!!url('tienda')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Tiendas</a>
+    <a href="{!!url('bodega')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Lista de Bodegas</a>
     <br>
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
-            <form method = 'POST' action = '{!!url("tienda")!!}'>
+            <form method = 'POST' action = '{!!url("bodega")!!}'>
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
-                    <label for="cod_tienda">Código Tienda</label>
-                    <input id="cod_tienda" name = "cod_tienda" type="text" class="form-control" placeholder="Código Tienda">
+                    <label for="cod_bodega">Código Bodega</label>
+                    <input id="cod_bodega" name = "cod_bodega" type="text" class="form-control" placeholder="Código Bodega">
                 </div>
                 <div class="form-group">
                     <label for="bodega">Bodega</label>
                     <input id="bodega" name = "bodega" type="text" class="form-control" placeholder="Bodega" required>
                 </div>
                 <div class="form-group">
-                    <label for="tienda_id">Canal</label>
-                        <select class="form-control" id="canal" name="canal">
+                    <label for="agrupacion1">Agrupacion1</label>
+                        <select class="form-control" id="agrupacion1" name="agrupacion1">
                             <option  value="">Seleccione</option>
-                            @foreach ($canales as $canal)
-                                <option value="{!! $canal->canal !!}">{!! $canal->canal !!}</option>
+                            @foreach ($agrupaciones1 as $agrupacion1)
+                                <option value="{!! $agrupacion1->agrupacion1 !!}">{!! $agrupacion1->agrupacion1 !!}</option>
                             @endforeach
                         </select>
                 </div>
                 <div class="form-group">
-                    <label for="nuevo_canal">Nuevo Canal</label>
-                    <input id="nuevo_canal" name = "nuevo_canal" type="text" class="form-control" placeholder="Agregar un Nuevo Canal">
+                    <label for="nuevo_agrupacion1">Nueva agrupacion1</label>
+                    <input id="nuevo_agrupacion1" name = "nuevo_agrupacion1" type="text" class="form-control" placeholder="Agregar una Nueva Agrupacion1">
                 </div>
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>

@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Tiendas.
+ * Class Bodegas.
  *
  * @author  The scaffold-interface created at 2018-08-22 05:20:21pm
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Tiendas extends Migration
+class Bodegas extends Migration
 {
     /**
      * Run the migrations.
@@ -18,12 +18,12 @@ class Tiendas extends Migration
      */
     public function up()
     {
-        Schema::create('tiendas',function (Blueprint $table){
+        Schema::create('bodegas',function (Blueprint $table){
 
         $table->increments('id');
-        $table->String('cod_tienda');
+        $table->String('cod_bodega');
         $table->String('bodega');
-        $table->String('canal');
+        $table->String('agrupacion1');
         $table->String('ciudad');
         $table->String('comuna');
         $table->String('region');
@@ -51,6 +51,6 @@ class Tiendas extends Migration
      */
     public function down()
     {
-        Schema::drop('tiendas');
+        Schema::drop('bodegas');
     }
 }

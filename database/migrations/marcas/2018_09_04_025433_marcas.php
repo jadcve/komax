@@ -22,7 +22,7 @@ class Marcas extends Migration
 
         $table->increments('id');
         
-        $table->String('canal');
+        $table->String('agrupacion1');
         
         $table->String('marca');
         
