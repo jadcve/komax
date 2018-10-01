@@ -23,7 +23,7 @@ class Tiendas extends Migration
         $table->increments('id');
         $table->String('cod_tienda');
         $table->String('bodega');
-        $table->String('canal');
+        $table->String('agrupacion1');
         $table->String('ciudad');
         $table->String('comuna');
         $table->String('region');

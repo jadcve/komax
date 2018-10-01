@@ -120,7 +120,7 @@ jQuery(document).ready(function () {
                 contenido ='<tr>'+
                     '<td>'+resaltar(json.cod_tienda)+'</td>'+
                     '<td>'+resaltar(json.bodega)+'</td>'+
-                    '<td>'+resaltar(json.canal)+'</td>'+
+                    '<td>'+resaltar(json.agrupacion1)+'</td>'+
                     '<td>'+resaltar(json.ciudad)+'</td>'+
                     '<td>'+resaltar(json.comuna)+'</td>'+
                     '<td>'+resaltar(json.region)+'</td>'+

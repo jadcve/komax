@@ -17,12 +17,12 @@
             <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
         </div>
         <div class="form-group">
-            <label for="canal">Canal</label>
+            <label for="agrupacion1">Agrupacion1</label>
             <br>
-            <select name="canal" id="canal" class="form-control" required>
+            <select name="agrupacion1" id="agrupacion1" class="form-control" required>
                 <option  value="">Seleccione</option>
-                @foreach ($canales as $canal)
-                    <option value="{!! $canal->canal !!}">{!! $canal->canal !!}</option>
+                @foreach ($agrupaciones1 as $agrupacion1)
+                    <option value="{!! $agrupacion1->agrupacion1 !!}">{!! $agrupacion1->agrupacion1 !!}</option>
                 @endforeach
             </select>
         </div>

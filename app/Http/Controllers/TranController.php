@@ -30,7 +30,7 @@ class TranController extends Controller
     {
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
-        $canal = $request->canal;
+        $agrupacion1 = $request->agrupacion1;
         $marca = $request->marca;
         $a = $request->a;
         $b = $request->b;
@@ -39,17 +39,17 @@ class TranController extends Controller
 
         $suma = DB::table('trans')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->where('canal','=',$canal)
+            ->where('agrupacion1','=',$agrupacion1)
             ->where('marca','=',$marca)
             ->sum('netamount');
 
 
         $trans = DB::table('trans')
-            ->select('cod_art','canal','marca', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
-            ->groupBy('cod_art', 'canal', 'marca' )
+            ->select('cod_art','agrupacion1','marca', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
+            ->groupBy('cod_art', 'agrupacion1', 'marca' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->where('canal','=',$canal)
+            ->where('agrupacion1','=',$agrupacion1)
             ->where('marca','=',$marca)
             ->get();
 
@@ -60,7 +60,7 @@ class TranController extends Controller
             $temp = new Temporal();
             $temp->cod_art = $t->cod_art;
             $temp->netamount = $t->netamount;
-            $temp->canal = $t->canal;
+            $temp->agrupacion1 = $t->agrupacion1;
             $temp->marca = $t->marca;
             $temp->qty = $t->qty;
             $temp->calc = $t->calc;
@@ -88,16 +88,16 @@ class TranController extends Controller
     public function index()
     {
         // $tiendas = Tran::with('tiendas');
-        $canales = Tienda::distinct()->get(['canal'])->sortBy('canal');
+        $agrupaciones1 = Tienda::distinct()->get(['agrupacion1'])->sortBy('agrupacion1');
 
-        return view('tran.index', compact('canales'));
+        return view('tran.index', compact('agrupaciones1'));
     }
 
 
     public function selectAjax(Request $request)
     {
         if($request->ajax()){
-            $marcas = Marca::where('canal', $request->canal)->get(['marca'])->sortBy('marca');
+            $marcas = Marca::where('agrupacion1', $request->agrupacion1)->get(['marca'])->sortBy('marca');
             return response()->json($marcas);
         }
     }

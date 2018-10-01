@@ -43,7 +43,7 @@
         <thead>
             <th>Código</th>
             <th>Bodega</th>
-            <th>Canal</th>
+            <th>Agrupacion1</th>
             <th>Ciudad</th>
             <th>Comuna</th>
             <th>Región</th>
@@ -58,7 +58,7 @@
             <tr>
                 <td>{!!$tienda->cod_tienda!!}</td>
                 <td>{!!$tienda->bodega!!}</td>
-                <td>{!!$tienda->canal!!}</td>
+                <td>{!!$tienda->agrupacion1!!}</td>
                 <td>{!!$tienda->ciudad!!}</td>
                 <td>{!!$tienda->comuna!!}</td>
                 <td>{!!$tienda->region!!}</td>

@@ -24,8 +24,8 @@
                 <td>{!!$tienda->bodega!!}</td>
             </tr>
             <tr>
-                <td> <b>Canal</b> </td>
-                <td>{!!$tienda->canal!!}</td>
+                <td> <b>Agrupacion1</b> </td>
+                <td>{!!$tienda->agrupacion1!!}</td>
             </tr>
             <tr>
                 <td> <b>Ciudad</b> </td>

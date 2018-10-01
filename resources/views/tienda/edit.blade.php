@@ -24,20 +24,20 @@
                     bodega!!}" required placeholder="Bodega"> 
                 </div>
                 <div class="form-group">
-                    <label for="tienda_id">Canal</label>
-                        <select class="form-control" id="canal" name="canal">
+                    <label for="tienda_id">Agrupacion1</label>
+                        <select class="form-control" id="agrupacion1" name="agrupacion1">
                             <option  value="">Seleccione</option>
-                            @foreach ($canales as $canal)
+                            @foreach ($agrupaciones1 as $agrupacion1)
                             @php
-                                $selected = ($tienda->canal == $canal->canal) ? ' selected' : '';
-                                echo '<option value="'.$canal->canal.'"'.$selected.'>'.$canal->canal.'</option>';
+                                $selected = ($tienda->agrupacion1 == $agrupacion1->agrupacion1) ? ' selected' : '';
+                                echo '<option value="'.$agrupacion1->agrupacion1.'"'.$selected.'>'.$agrupacion1->agrupacion1.'</option>';
                             @endphp
                             @endforeach
                         </select>
                 </div>
                 <div class="form-group">
-                    <label for="nuevo_canal">Nuevo Canal</label>
-                    <input id="nuevo_canal" name = "nuevo_canal" type="text" class="form-control" placeholder="Agregar un Nuevo Canal">
+                    <label for="nuevo_agrupacion1">Nueva Agrupacion1</label>
+                    <input id="nuevo_agrupacion1" name = "nuevo_agrupacion1" type="text" class="form-control" placeholder="Agregar una Nueva Agrupacion1">
                 </div>
                 <div class="form-group">
                     <label for="ciudad">Ciudad</label>

@@ -4,13 +4,13 @@ jQuery(document).ready(function(){
     to = to == -1 ? url.length : to + 1;
     url = url.substring(0, to);
     // console.log(url);
-    $("select[name='canal']").change(function(){
-        var canal = $(this).val();
+    $("select[name='agrupacion1']").change(function(){
+        var agrupacion1 = $(this).val();
         var token = $("input[name='_token']").val();
         $.ajax({
             url: url+"marcas",
             method: 'POST',
-            data: {canal:canal, _token:token},
+            data: {agrupacion1:agrupacion1, _token:token},
             success: function(data) {
                 $("#marca").empty();
                 $("#marca").append('<option id="select-option" value="">Seleccione</option>');

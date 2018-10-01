@@ -16,8 +16,8 @@
         </thead>
         <tbody>
             <tr>
-                <td> <b>canal</b> </td>
-                <td>{!!$marca->canal!!}</td>
+                <td> <b>agrupacion1</b> </td>
+                <td>{!!$marca->agrupacion1!!}</td>
             </tr>
             <tr>
                 <td> <b>marca</b> </td>

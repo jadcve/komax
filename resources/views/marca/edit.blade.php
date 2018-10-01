@@ -12,9 +12,9 @@
         id!!}/update'> 
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
-            <label for="canal">canal</label>
-            <input id="canal" name = "canal" type="text" class="form-control" value="{!!$marca->
-            canal!!}"> 
+            <label for="agrupacion1">agrupacion1</label>
+            <input id="agrupacion1" name = "agrupacion1" type="text" class="form-control" value="{!!$marca->
+            agrupacion1!!}"> 
         </div>
         <div class="form-group">
             <label for="marca">marca</label>

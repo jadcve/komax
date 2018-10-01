@@ -19,7 +19,7 @@
 
             <th>Código Articulo</th>
             <th>Monto Neto</th>
-            <th>Canal</th>
+            <th>Agrupacion1</th>
             <th>Marca</th>
             <th>Cantidad</th>
             <th>% de la Venta</th>
@@ -42,7 +42,7 @@
             <tr>
                 <td>{!!$t->cod_art!!}</td>
                 <td>{!!$t->netamount!!}</td>
-                <td>{!!$t->canal!!}</td>
+                <td>{!!$t->agrupacion1!!}</td>
                 <td>{!!$t->marca!!}</td>
                 <td>{!!$t->qty!!}</td>
                 <td>{!!round($t->calc,2);!!}</td>

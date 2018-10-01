@@ -4,7 +4,7 @@
 
 jQuery(document).ready(function (){
     $("#busca_abc").click(function () {
-        if ($("#fechaInicial").val().trim() != '' && $("#fechaFinal").val().trim() != '' && $("#canal").val().trim() != '' && $("#marca").val().trim() != '' && $("#a").val().trim() != '' && $("#b").val().trim() != ''){
+        if ($("#fechaInicial").val().trim() != '' && $("#fechaFinal").val().trim() != '' && $("#agrupacion1").val().trim() != '' && $("#marca").val().trim() != '' && $("#a").val().trim() != '' && $("#b").val().trim() != ''){
             $("#loading_abc").fadeIn();
         }
     });

@@ -46,12 +46,12 @@ class TiendaController extends Controller
     {
         $title = 'Create - tienda';
 
-        $canales = Tienda::distinct()->get(['canal'])->sortBy('canal');
+        $agrupaciones1 = Tienda::distinct()->get(['agrupacion1'])->sortBy('agrupacion1');
         $ciudades = Tienda::distinct()->get(['ciudad'])->sortBy('ciudad');
         $comunas = Tienda::distinct()->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
         $regiones = Tienda::distinct()->get(['region'])->sortBy('region');
         
-        return view('tienda.create',compact('canales', 'ciudades', 'comunas', 'regiones'));
+        return view('tienda.create',compact('agrupaciones1', 'ciudades', 'comunas', 'regiones'));
     }
 
     /**
@@ -68,16 +68,16 @@ class TiendaController extends Controller
 
         $tienda->bodega = strtoupper($request->bodega);
 
-        if (strlen(trim($request->canal)) >= 1){
-            $tienda->canal = $request->canal;
+        if (strlen(trim($request->agrupacion1)) >= 1){
+            $tienda->agrupacion1 = $request->agrupacion1;
         }
         else{
-            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
-                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            if (!Tienda::where('agrupacion1', '=', strtoupper($request->nuevo_agrupacion1))->exists()){
+                $tienda->agrupacion1 = strtoupper(trim($request->nuevo_agrupacion1));
             }
             else{
-                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
-                echo $tienda->canal = $result[0]->canal;
+                $result = Tienda::where('agrupacion1', 'ilike', "%".$request->nuevo_agrupacion1."%")->distinct('agrupacion1')->get(['agrupacion1']);
+                echo $tienda->agrupacion1 = $result[0]->agrupacion1;
             }
         }
 
@@ -179,13 +179,13 @@ class TiendaController extends Controller
             return URL::to('tienda/'. $id . '/edit');
         }
 
-        $canales = Tienda::distinct()->groupBy('canal')->get(['canal'])->sortBy('canal');
+        $agrupaciones1 = Tienda::distinct()->groupBy('agrupacion1')->get(['agrupacion1'])->sortBy('agrupacion1');
         $ciudades = Tienda::distinct()->groupBy('ciudad')->get(['ciudad'])->sortBy('ciudad');
         $comunas = Tienda::distinct()->groupBy('comuna')->selectRaw("coalesce(comuna,'') as comuna")->get()->sortBy('comuna');
         $regiones = Tienda::distinct()->groupBy('region')->get(['region'])->sortBy('region');
 
         $tienda = Tienda::findOrfail($id);
-        return view('tienda.edit',compact('title','tienda', 'canales', 'ciudades', 'comunas', 'regiones'));
+        return view('tienda.edit',compact('title','tienda', 'agrupaciones1', 'ciudades', 'comunas', 'regiones'));
     }
 
     /**
@@ -203,16 +203,16 @@ class TiendaController extends Controller
         
         $tienda->bodega = strtoupper($request->bodega);
         
-        if (strlen(trim($request->canal)) >= 1){
-            $tienda->canal = $request->canal;
+        if (strlen(trim($request->agrupacion1)) >= 1){
+            $tienda->agrupacion1 = $request->agrupacion1;
         }
         else{
-            if (!Tienda::where('canal', '=', strtoupper($request->nuevo_canal))->exists()){
-                $tienda->canal = strtoupper(trim($request->nuevo_canal));
+            if (!Tienda::where('agrupacion1', '=', strtoupper($request->nuevo_agrupacion1))->exists()){
+                $tienda->agrupacion1 = strtoupper(trim($request->nuevo_agrupacion1));
             }
             else{
-                $result = Tienda::where('canal', 'ilike', "%".$request->nuevo_canal."%")->distinct('canal')->get(['canal']);
-                echo $tienda->canal = $result[0]->canal;
+                $result = Tienda::where('agrupacion1', 'ilike', "%".$request->nuevo_agrupacion1."%")->distinct('agrupacion1')->get(['agrupacion1']);
+                echo $tienda->agrupacion1 = $result[0]->agrupacion1;
             }
         }
 
@@ -302,7 +302,7 @@ class TiendaController extends Controller
              $value = trim(str_replace($replase_simbols, '', $value));
          });
 
-        $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('cod_tienda', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion') : array('"cod_tienda"', 'bodega', 'canal', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion');
+        $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('cod_tienda', 'bodega', 'agrupacion1', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion') : array('"cod_tienda"', 'bodega', 'agrupacion1', 'ciudad', 'comuna', 'region', 'latitude', 'longitud', 'direccion');
 
          if ($headersEncontrados == $headersRequeridos) {
          }
@@ -328,9 +328,9 @@ class TiendaController extends Controller
                     $GLOBALS['validar'] = true;
                     $GLOBALS['columna'] .= ' bodega <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
-                if (trim($tiendas->canal) == "" or is_null($tiendas->canal)){
+                if (trim($tiendas->agrupacion1) == "" or is_null($tiendas->agrupacion1)){
                     $GLOBALS['validar'] = true;
-                    $GLOBALS['columna'] .= ' canal <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
+                    $GLOBALS['columna'] .= ' agrupacion1 <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
                 if (trim($tiendas->ciudad) == "" or is_null($tiendas->ciudad)){
                     $GLOBALS['validar'] = true;
@@ -377,7 +377,7 @@ class TiendaController extends Controller
                 Tienda::create([
                     'cod_tienda' => strtoupper($tiendas->cod_tienda),
                     'bodega' => strtoupper($tiendas->bodega),
-                    'canal' => strtoupper($tiendas->canal),
+                    'agrupacion1' => strtoupper($tiendas->agrupacion1),
                     'ciudad' => ucwords($tiendas->ciudad),
                     'comuna' => ucwords($tiendas->comuna),
                     'region' => ucwords($tiendas->region),
@@ -400,10 +400,10 @@ class TiendaController extends Controller
 
         $contenidoCsv = [];
         //headers del csv
-        array_push($contenidoCsv, array('cod_tienda', 'bodega', 'canal', 'ciudad','comuna', 'region', 'latitude', 'longitud', 'direccion'));
+        array_push($contenidoCsv, array('cod_tienda', 'bodega', 'agrupacion1', 'ciudad','comuna', 'region', 'latitude', 'longitud', 'direccion'));
         //agrego los datos al array
         foreach ($datos as $registro) {
-            array_push($contenidoCsv, array($registro->cod_tienda, $registro->bodega, $registro->canal, $registro->ciudad, $registro->comuna, $registro->region, $registro->latitude, $registro->longitud, $registro->direccion));
+            array_push($contenidoCsv, array($registro->cod_tienda, $registro->bodega, $registro->agrupacion1, $registro->ciudad, $registro->comuna, $registro->region, $registro->latitude, $registro->longitud, $registro->direccion));
         }
         //fecha para crear el nombre
         $fecha = date('Ymdhis');
@@ -421,7 +421,7 @@ class TiendaController extends Controller
         tiendas.id,
         tiendas.cod_tienda,
         tiendas.bodega,
-        tiendas.canal,
+        tiendas.agrupacion1,
         tiendas.ciudad,
         tiendas.comuna,
         tiendas.region,
@@ -433,7 +433,7 @@ class TiendaController extends Controller
     FROM
         tiendas INNER JOIN users ON (tiendas.user_id = users.id) 
     WHERE
-        CAST(bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(cod_tienda AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(canal AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(ciudad AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(comuna AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(region AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(latitude AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(longitud AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(direccion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(tiendas.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+        CAST(bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(cod_tienda AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(agrupacion1 AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(ciudad AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(comuna AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(region AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(latitude AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(longitud AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(direccion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(tiendas.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
 
         return response()->json($result);
     }

@@ -11,8 +11,8 @@
     <form method = 'POST' action = '{!!url("marca")!!}'>
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
-            <label for="canal">canal</label>
-            <input id="canal" name = "canal" type="text" class="form-control">
+            <label for="agrupacion1">agrupacion1</label>
+            <input id="agrupacion1" name = "agrupacion1" type="text" class="form-control">
         </div>
         <div class="form-group">
             <label for="marca">marca</label>
