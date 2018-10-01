@@ -36,7 +36,7 @@ class Tran extends Model
         return $this->hasOne('App\Temporal');
     }
 
-    public function tiendas(){
-        return $this->belongsTo('App\Tienda', 'bodega', 'bodega');
+    public function bodegas(){
+        return $this->belongsTo('App\Bodega', 'bodega', 'bodega');
     }
 }

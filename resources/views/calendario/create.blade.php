@@ -35,11 +35,11 @@
                     <input id="tiempo_entrega" name = "tiempo_entrega" type="number" class="form-control" required placeholder="Tiempo de Entrega">
                 </div>
                 <div class="form-group">
-                    <label for="tienda_id">Tienda</label>
-                        <select class="form-control" id="tienda_id" name="tienda_id">
+                    <label for="bodega_id">Bodega</label>
+                        <select class="form-control" id="bodega_id" name="bodega_id">
                             <option  value="">Seleccione</option>
-                            @foreach ($tiendas as $tienda)
-                                <option value="{!! $tienda->id !!}">{!! $tienda->bodega !!}</option>
+                            @foreach ($bodegas as $bodega)
+                                <option value="{!! $bodega->id !!}">{!! $bodega->bodega !!}</option>
                             @endforeach
                         </select>
                 </div>

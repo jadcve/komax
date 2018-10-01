@@ -4,7 +4,7 @@
 
 <section class="content">
     <h1>
-        <i class="fa fa-download" aria-hidden="true"></i> Descarga de datos de Tiendas
+        <i class="fa fa-download" aria-hidden="true"></i> Descarga de datos de Bodegas
     </h1>
     <div class="row">
         <div class="col-xs-12">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <br>
-    <a href='{!!url("tienda")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Tiendas</a>
+    <a href='{!!url("bodega")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Lista de Bodegas</a>
     <br><br>
 </section>
 @endsection

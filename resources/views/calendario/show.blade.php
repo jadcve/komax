@@ -32,8 +32,8 @@
                 <td>{!!$calendario->tiempo_entrega!!}</td>
             </tr>
             <tr>
-                <td> <b>Tienda</b> </td>
-                <td>{!!$calendario->tienda['bodega']!!}</td>
+                <td> <b>Bodega</b> </td>
+                <td>{!!$calendario->bodega['bodega']!!}</td>
             </tr>
             <tr>
                 <td> <b>Ultima Edición</b> </td>

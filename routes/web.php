@@ -31,16 +31,16 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('proveedor/search', '\App\Http\Controllers\ProveedorController@search');
 });
 
-//tienda Routes
+//Bodega Routes
 Route::group(['middleware'=> 'web'],function(){
-  Route::resource('tienda','\App\Http\Controllers\TiendaController');
-  Route::post('tienda/import','\App\Http\Controllers\TiendaController@import');
-  Route::post('tienda/load', '\App\Http\Controllers\TiendaController@load');
-  Route::post('tienda/download', '\App\Http\Controllers\TiendaController@download');
-  Route::post('tienda/{id}/update','\App\Http\Controllers\TiendaController@update');
-  Route::get('tienda/{id}/delete','\App\Http\Controllers\TiendaController@destroy');
-  Route::get('tienda/{id}/deleteMsg','\App\Http\Controllers\TiendaController@DeleteMsg');
-  Route::post('tienda/search', '\App\Http\Controllers\TiendaController@search');
+  Route::resource('bodega','\App\Http\Controllers\BodegaController');
+  Route::post('bodega/import','\App\Http\Controllers\BodegaController@import');
+  Route::post('bodega/load', '\App\Http\Controllers\BodegaController@load');
+  Route::post('bodega/download', '\App\Http\Controllers\BodegaController@download');
+  Route::post('bodega/{id}/update','\App\Http\Controllers\BodegaController@update');
+  Route::get('bodega/{id}/delete','\App\Http\Controllers\BodegaController@destroy');
+  Route::get('bodega/{id}/deleteMsg','\App\Http\Controllers\BodegaController@DeleteMsg');
+  Route::post('bodega/search', '\App\Http\Controllers\BodegaController@search');
 });
 
 //nivel_servicio Routes

@@ -1,16 +1,16 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Tiendas')
+@section('title','Bodegas')
 @section('content')
 
 <section class="content">
     <h1>
-        Tienda Index
+        Bodegas
     </h1>
-    <a href='{!!url("tienda")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Tienda</a>
+    <a href='{!!url("bodega")!!}/create' class = 'btn btn-success'><i class="fa fa-plus"></i> Crear Bodega</a>
     <br><br>
     <div class="row">
             <div class="col-xs-12 col-md-4">
-                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("tienda/load")!!}' enctype="multipart/form-data">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("bodega/load")!!}' enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <label for="up_csv">Carga masiva por CSV</label>
@@ -20,7 +20,7 @@
                 </form>
             </div>
             <div class="col-xs-12 col-md-4">
-                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("tienda/download")!!}' enctype="multipart/form-data">
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("bodega/download")!!}' enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <label for="">Descargar datos</label><br>
@@ -54,30 +54,30 @@
             <th style="width: 5%;"></th>
         </thead>
         <tbody>
-            @foreach($tiendas as $tienda)
+            @foreach($bodegas as $bodega)
             <tr>
-                <td>{!!$tienda->cod_tienda!!}</td>
-                <td>{!!$tienda->bodega!!}</td>
-                <td>{!!$tienda->agrupacion1!!}</td>
-                <td>{!!$tienda->ciudad!!}</td>
-                <td>{!!$tienda->comuna!!}</td>
-                <td>{!!$tienda->region!!}</td>
-                <td>{!!$tienda->latitude!!}</td>
-                <td>{!!$tienda->longitud!!}</td>
-                <td>{!!$tienda->direccion!!}</td>
+                <td>{!!$bodega->cod_bodega!!}</td>
+                <td>{!!$bodega->bodega!!}</td>
+                <td>{!!$bodega->agrupacion1!!}</td>
+                <td>{!!$bodega->ciudad!!}</td>
+                <td>{!!$bodega->comuna!!}</td>
+                <td>{!!$bodega->region!!}</td>
+                <td>{!!$bodega->latitude!!}</td>
+                <td>{!!$bodega->longitud!!}</td>
+                <td>{!!$bodega->direccion!!}</td>
                 <td>
-                       {!!$tienda->user['name']!!}<span style="font-size:8px"><br>{!!$tienda->updated_at!!}</span>
+                       {!!$bodega->user['name']!!}<span style="font-size:8px"><br>{!!$bodega->updated_at!!}</span>
                 </td>
                 <td>
-                        <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/tienda/{!!$tienda->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
-                        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/tienda/{!!$tienda->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
-                        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/tienda/{!!$tienda->id!!}/deleteMsg" ><i class = 'fa fa-trash'> Eliminar</i></a>    
+                        <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/bodega/{!!$bodega->id!!}'><i class = 'fa fa-eye'> Detalles</i></a>
+                        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/bodega/{!!$bodega->id!!}/edit'><i class = 'fa fa-edit'> Editar</i></a>
+                        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/bodega/{!!$bodega->id!!}/deleteMsg" ><i class = 'fa fa-trash'> Eliminar</i></a>    
                 </td>
             </tr>
             @endforeach 
         </tbody>
     </table>
-    {!! $tiendas->render() !!}
+    {!! $bodegas->render() !!}
 
 </section>
 @endsection

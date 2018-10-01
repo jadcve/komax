@@ -28,7 +28,7 @@ class Calendarios extends Migration
         
         $table->integer('tiempo_entrega');
         
-        $table->integer('tienda_id');
+        $table->integer('bodega_id');
 
         $table->integer('semana_id');
         

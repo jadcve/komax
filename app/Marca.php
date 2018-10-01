@@ -24,34 +24,34 @@ class Marca extends Model
 	
 
 	/**
-     * tienda.
+     * bodega.
      *
      * @return  \Illuminate\Support\Collection;
      */
-    public function tiendas()
+    public function bodegas()
     {
-        return $this->belongsToMany('App\Tienda');
+        return $this->belongsToMany('App\Bodega');
     }
 
     /**
-     * Assign a tienda.
+     * Assign a bodega.
      *
-     * @param  $tienda
+     * @param  $bodega
      * @return  mixed
      */
-    public function assignTienda($tienda)
+    public function assignBodega($bodega)
     {
-        return $this->tiendas()->attach($tienda);
+        return $this->bodegas()->attach($bodega);
     }
     /**
-     * Remove a tienda.
+     * Remove a bodega.
      *
-     * @param  $tienda
+     * @param  $bodega
      * @return  mixed
      */
-    public function removeTienda($tienda)
+    public function removeBodega($bodega)
     {
-        return $this->tiendas()->detach($tienda);
+        return $this->bodegas()->detach($bodega);
     }
 
 }

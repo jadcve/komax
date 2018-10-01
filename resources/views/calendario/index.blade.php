@@ -46,7 +46,7 @@
             <th>Día de Despacho</th>
             <th>Lead Time</th>
             <th>Tiempo de Entrega</th>
-            <th>Tienda</th>
+            <th>Bodega</th>
             <th>Editado</th>
             <th style="width: 5%;"></th>
         </thead>
@@ -57,7 +57,7 @@
                 <td>{!!$calendario->dia_despacho!!}</td>
                 <td>{!!$calendario->lead_time!!}</td>
                 <td>{!!$calendario->tiempo_entrega!!}</td>
-                <td>{!!$calendario->tienda['bodega']!!}</td>
+                <td>{!!$calendario->bodega['bodega']!!}</td>
                 <td>
                         {!!$calendario->user['name']!!}<span style="font-size:8px"><br>{!!$calendario->updated_at!!}</span>
                 </td>

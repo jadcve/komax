@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
 /**
- * Class Tienda.
+ * Class Bodega.
  *
  * @author  The scaffold-interface created at 2018-08-22 05:20:21pm
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Tienda extends Model
+class Bodega extends Model
 {
     
-    protected $fillable = ['cod_tienda', 'bodega', 'agrupacion1', 'comuna', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
+    protected $fillable = ['cod_bodega', 'bodega', 'agrupacion1', 'comuna', 'ciudad', 'region', 'latitude', 'longitud', 'direccion', 'user_id'];
     
-    protected $table = 'tiendas';
+    protected $table = 'bodegas';
 
 	public function user(){
         return $this->belongsTo(User::class);

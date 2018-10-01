@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
-use App\Tienda;
+use App\Bodega;
 
 class User extends Authenticatable
 {
@@ -31,8 +31,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function tiendas(){
-        return $this->hasMany(Tienda::class, 'users_id');
+    public function bodegas(){
+        return $this->hasMany(Bodega::class, 'users_id');
     }
     
     public function nivel_servicios(){

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
 use App\Sugerido;
 use App\Convert_to_csv;
-use App\Tienda;
+use App\Bodega;
 
 class bodyController extends Controller
 {
@@ -169,7 +169,7 @@ select trim(upper(s.bodega)) as bodega,trim(upper(s.sku))as sku ,s.cantidad
 from stock as s
 where trim(upper(s.bodega))=\'$bodega\' 
 ),
-tran as-- el transito que va desde el CD  la tienda.
+tran as-- el transito que va desde el CD  la bodega.
 (
 select trim(upper(g.bodega_hasta)) as bodega, trim(upper(g.sku)) as sku, sum(g.qty_requested-g.qty_received) as transito
 from gid_transito as g
@@ -753,7 +753,7 @@ where marca=\'MARMOT\''));
 
     public function index()
     {
-        $bodegas = Tienda::distinct()->get(['bodega'])->sortBy('bodega');
+        $bodegas = Bodega::distinct()->get(['bodega'])->sortBy('bodega');
         
         return view('sugerido.index', compact('bodegas'));
     }

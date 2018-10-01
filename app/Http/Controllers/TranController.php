@@ -10,7 +10,7 @@ Use App\Temporal;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use URL;
-use App\Tienda;
+use App\Bodega;
 use App\Marca;
 
 /**
@@ -87,8 +87,8 @@ class TranController extends Controller
      */
     public function index()
     {
-        // $tiendas = Tran::with('tiendas');
-        $agrupaciones1 = Tienda::distinct()->get(['agrupacion1'])->sortBy('agrupacion1');
+        // $bodegas = Tran::with('bodegas');
+        $agrupaciones1 = Bodega::distinct()->get(['agrupacion1'])->sortBy('agrupacion1');
 
         return view('tran.index', compact('agrupaciones1'));
     }

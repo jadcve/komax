@@ -117,9 +117,9 @@ jQuery(document).ready(function () {
                     '</td>'+
                 '</tr>';
                 break;
-                case "tienda":
+                case "bodega":
                 contenido ='<tr>'+
-                    '<td>'+resaltar(json.cod_tienda)+'</td>'+
+                    '<td>'+resaltar(json.cod_bodega)+'</td>'+
                     '<td>'+resaltar(json.bodega)+'</td>'+
                     '<td>'+resaltar(json.agrupacion1)+'</td>'+
                     '<td>'+resaltar(json.ciudad)+'</td>'+
@@ -132,9 +132,9 @@ jQuery(document).ready(function () {
                     resaltar(json.name)+'<span style="font-size:8px"><br>'+resaltar(json.updated_at)+
                         '</span></td>'+
                     '<td>'+
-                        '<a href = "#" class = "viewShow btn btn-warning btn-xs" data-link = "/tienda/'+json.id+'><i class = "fa fa-eye"> Detalles</i></a>'+
-                        '<a href = "#" class = "viewEdit btn btn-primary btn-xs" data-link = "/tienda/'+json.id+'/edit"><i class = "fa fa-edit"> Editar</i></a>'+
-                        '<a data-toggle="modal" data-target="#myModal" class = "delete btn btn-danger btn-xs" data-link = "/tienda/'+json.id+'/deleteMsg" ><i class = "fa fa-trash"> Eliminar</i></a>'+
+                        '<a href = "#" class = "viewShow btn btn-warning btn-xs" data-link = "/bodega/'+json.id+'><i class = "fa fa-eye"> Detalles</i></a>'+
+                        '<a href = "#" class = "viewEdit btn btn-primary btn-xs" data-link = "/bodega/'+json.id+'/edit"><i class = "fa fa-edit"> Editar</i></a>'+
+                        '<a data-toggle="modal" data-target="#myModal" class = "delete btn btn-danger btn-xs" data-link = "/bodega/'+json.id+'/deleteMsg" ><i class = "fa fa-trash"> Eliminar</i></a>'+
                     '</td>'+
                 '</tr>';
                 break;
