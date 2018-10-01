@@ -30,8 +30,10 @@ class TranController extends Controller
     {
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
-        $canal = $request->canal;
-        $marca = $request->marca;
+        //$canal = $request->canal;
+        $canal='TKI';
+        $marca = 'MARMOT';
+        //$marca = $request->marca;
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;

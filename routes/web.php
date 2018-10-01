@@ -83,10 +83,11 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('tran','\App\Http\Controllers\TranController@calculo');
 });
 
-
+//Sugerido
 Route::group(['middleware'=> 'web'],function(){
     Route::resource('sugerido','\App\Http\Controllers\BodyController');
     Route::post('sugerido','\App\Http\Controllers\BodyController@body');
+    //Route::post('sugerido','\App\Http\Controllers\BodyController@sugerido');
     Route::post('sugerido/download', '\App\Http\Controllers\BodyController@download');
 });
 
