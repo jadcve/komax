@@ -3,12 +3,15 @@
 @section('content')
 
 <section class="content">
+
     <h1>
         Envio Sugerido
     </h1>
     <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
         <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-left'><i class="fa fa-home"></i> Sugerido</a>
     </div>
+
+
     <br/>
     <div class="row">
             <div class="col-xs-12 col-md-4">
