@@ -31,7 +31,7 @@ class TranController extends Controller
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
         $agrupacion1 = $request->agrupacion1;
-        $marca = $request->marca;
+        //$marca = $request->marca;
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;
@@ -40,7 +40,7 @@ class TranController extends Controller
         $suma = DB::table('trans')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('agrupacion1','=',$agrupacion1)
-            ->where('marca','=',$marca)
+            ->where('marca','=','MARMOT')
             ->sum('netamount');
 
 
@@ -50,7 +50,7 @@ class TranController extends Controller
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->where('agrupacion1','=',$agrupacion1)
-            ->where('marca','=',$marca)
+            ->where('marca','=','MARMOT')
             ->get();
 
         DB::table('temporals')->truncate();

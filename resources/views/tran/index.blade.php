@@ -29,7 +29,7 @@
         <div class="form-group">
             <label>Marca</label>
             <br>
-            <select name="marca" id="marca" class="form-control" required>
+            <select name="marca" id="marca" class="form-control" >
             </select>
         </div>
         <div class="form-group">

@@ -3,15 +3,12 @@
 @section('content')
 
 <section class="content">
-
     <h1>
         Envio Sugerido
     </h1>
     <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
         <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-left'><i class="fa fa-home"></i> Sugerido</a>
     </div>
-
-
     <br/>
     <div class="row">
             <div class="col-xs-12 col-md-4">
@@ -25,23 +22,32 @@
             </div>
         </div>
     <br/>
-    <br/>
-    <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
+    <br/> 
+
+    <table id="tabla" class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-            <th>Codigo Articulo</th>
-            <th>Forecast</th>
-            <th>Ordercicle</th>
-            <th>Mínimo</th>
-            <th>Sugerido</th>
+            <th>campo1</th>
+            <th>campo2</th>
+            <th>campo2</th>
+
+
         </thead>
         <tbody>
-            @foreach($sugerido as $t)
+            @php
+                $registros = 0;
+            @endphp
+            @foreach($prueba as $t)
+            @php
+                if ($registros == 2000){
+                    break;
+                }
+                $registros++;
+            @endphp
             <tr>
-                <td>{!!$t->cod_art!!}</td>
-                <td>{!!$t->score_m1!!}</td>
-                <td>{!!$t->ordercicle!!}</td>
-                <td>{!!$t->minimo!!}</td>
-                <td>{!!$t->sugerido!!}</td>
+                <td>{!!$t->bodega!!}</td>
+                <td>{!!$t->agrupacion1!!}</td>
+                <td>{!!$t->sku!!}</td>
+                
             </tr>
             @endforeach
         </tbody>
