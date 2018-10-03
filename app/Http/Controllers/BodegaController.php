@@ -14,6 +14,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Convert_to_csv;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class BodegaController.
@@ -434,8 +436,17 @@ class BodegaController extends Controller
         bodegas INNER JOIN users ON (bodegas.user_id = users.id) 
     WHERE
         CAST(bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(cod_bodega AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(agrupacion1 AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(ciudad AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(comuna AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(region AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(latitude AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(longitud AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(direccion AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(bodegas.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
-
+        // $result = $this->arrayPaginator($result, $request);
         return response()->json($result);
+    }
+
+    public function arrayPaginator($array, $request){
+        $page = Input::get('page', 1);
+        $perPage = 4;
+        $offset = ($page * $perPage) - $perPage;
+
+        return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+            ['path' => $request->url(), 'query' => $request->query()]);
     }
     /**
      * Delete confirmation message by Ajaxis.

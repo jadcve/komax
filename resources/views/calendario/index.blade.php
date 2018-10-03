@@ -51,7 +51,7 @@
             <th style="width: 5%;"></th>
         </thead>
         <tbody>
-            @foreach($calendarios as $calendario) 
+            @foreach($calendarios as $calendario)     
             <tr>
                 <td>{!!$calendario->semana['dia']!!}</td>
                 <td>{!!$calendario->dia_despacho!!}</td>

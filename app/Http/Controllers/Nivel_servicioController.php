@@ -30,7 +30,7 @@ class Nivel_servicioController extends Controller
     public function index()
     {
         $title = 'Index - nivel_servicio';
-        $nivel_servicios = Nivel_servicio::with('user')->orderBy('id', 'desc')->paginate(10);
+        $nivel_servicios = Nivel_servicio::with('user')->orderBy('id', 'desc')->paginate(5);
         return view('nivel_servicio.index',compact('nivel_servicios','title'));
     }
 

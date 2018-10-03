@@ -32,7 +32,7 @@ class ProveedorController extends Controller
     public function index()
     {   
         $title = 'Index - proveedor';
-        $proveedors = Proveedor::with('user')->orderBy('id')->paginate(10);
+        $proveedors = Proveedor::with('user')->orderBy('id')->paginate(5);
         return view('proveedor.index',compact('proveedors','title'));
     }
 
@@ -293,18 +293,19 @@ class ProveedorController extends Controller
         proveedors INNER JOIN users ON (proveedors.user_id = users.id) 
     WHERE
         CAST(descripcion_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(codigo_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(lead_time_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or CAST(tiempo_entrega_proveedor AS VARCHAR(100)) ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(proveedors.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+
         // $result = $this->arrayPaginator($result, $request);
         return response()->json($result);
     }
-    // public function arrayPaginator($array, $request)
-    // {
-    //     $page = Input::get('page', 1);
-    //     $perPage = 10;
-    //     $offset = ($page * $perPage) - $perPage;
+    
+    public function arrayPaginator($array, $request){
+        $page = Input::get('page', 1);
+        $perPage = 10;
+        $offset = ($page * $perPage) - $perPage;
 
-    //     return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
-    //         ['path' => $request->url(), 'query' => $request->query()]);
-    // }
+        return new LengthAwarePaginator(array_slice($array, $offset, $perPage, true), count($array), $perPage, $page,
+            ['path' => $request->url(), 'query' => $request->query()]);
+    }
     /**
      * Delete confirmation message by Ajaxis.
      *
