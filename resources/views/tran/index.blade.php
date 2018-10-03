@@ -11,7 +11,7 @@
             <br>
             <div class="checkbox box-multiple">
                 @foreach ($agrupaciones1 as $agrupacion1)
-                    <label><input name="agrupacion1" type="checkbox" value="{!! $agrupacion1->agrupacion1 !!}" checked>{!! $agrupacion1->agrupacion1 !!}</label>
+                    <label><input name="agrupacion1[]" type="checkbox" value="{!! $agrupacion1->agrupacion1 !!}" checked>{!! $agrupacion1->agrupacion1 !!}</label>
                     <br>
                 @endforeach
               </div>
