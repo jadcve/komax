@@ -6,9 +6,7 @@ jQuery(document).ready(function () {
     var end = url.lastIndexOf('?');
     to = to == -1 ? url.length : to + 1;
     url = end == -1 ? url.substring(to) : url.substring(to, end);
-    var response;
-    // $("#buscar").focus();
-    console.log('url:', url);
+    // console.log('url:', url);
 
     $("#buscar_btn").click(function (e) { 
         e.preventDefault();
@@ -29,9 +27,6 @@ jQuery(document).ready(function () {
             url: url+"/search",
             data: {busqueda:busqueda, _token:token},
             success: function (response) {
-                // console.log('response', response);
-                // console.log('responsexxxxx', response.length);
-
                 $("#no-result-box").remove();
                 $("tbody").empty();
                 // $("ul.pagination").fadeOut();
@@ -48,46 +43,73 @@ jQuery(document).ready(function () {
         });
     }
 
-    function paginator(response, pagina){
+    function paginator(response, pagina, previo = 0, proximo = 0){
        
         var porPagina = 5;
-        var totalPaginas = Math.round(response.length / porPagina);
-        inicio = Math.max(pagina - 1, 0) * 5;
-        // console.log('inicio', inicio)
+        var pagSecc = 10;
+        proximo = proximo == 0 ? pagSecc : proximo;
+        //cuantas paginas hay en total
+        var totalPaginas = Math.ceil(response.length / porPagina);
+        if (totalPaginas == 1){
+            $(".pagination").css("display", "none");
+        }
+        //cuantas secciones hay en total redondeado hacia arriba
+        var secciones = Math.ceil(totalPaginas/pagSecc);
+        //principio de los registros de la pagina
+        inicio = Math.max(pagina - 1, 0) * porPagina;
+        //fin de los registros de la pagina
         fin = inicio + porPagina;
-        // console.log('fin', fin)
+        // extrae los registros de la pagina
         mostrarElementos = response.slice(inicio, fin);
-        // console.log('mostrarElementos', mostrarElementos)
-        
-        // console.log('totalPaginas', totalPaginas)
+        //vacia la tabla
         $(".pagination").empty();
-        $(".pagination").append('<li class="page-item" aria-disabled="true" aria-label="« Previous"><a class="page-link" href="" value="1" rel="prev" aria-label="Prev »">‹</a></li>');
-        
-        for (let numeroPagina = 1; numeroPagina <= totalPaginas; numeroPagina++) {
-            console.log('numeroPagina', numeroPagina)
-            // totalPaginas > 10 ? console.log('dd') : '';
+
+        //-------- Paginacion
+        //Previo
+        $(".pagination").append('<li class="page-item" aria-disabled="true" aria-label="« Previous"><a id="previo" class="page-link" href="" value="1" rel="prev" aria-label="Prev »">‹</a></li>');
+        //crea los links con los numeros de las paginas 
+        for (let i = 1; i <= pagSecc; i++) {
+            // crea el numero de las paginas
+            numeroPagina = i + previo;
+            //define si es la pagina actual y agrega la clase active y el aria-current
             active = (pagina == numeroPagina) ? ' active' : '';
             aria = (pagina == numeroPagina) ? ' aria-current="page"' : '';
+            // crea el link
             $(".pagination").append('<li class="page-item'+active+'"'+aria+'><a class="page-link" href="" value="'+numeroPagina+'">'+numeroPagina+'</a></li>');
-            if (numeroPagina == 5) $(".pagination").append('<li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>');
+            if (numeroPagina == totalPaginas){
+                break;
+            }
         }
+        // Proximo
+        $(".pagination").append('<li class="page-item"><a id="proximo" class="page-link" href="" value="'+totalPaginas+'" rel="next" aria-label="Next »">›</a></li>');
+        // si la pagina actual es la primera de todas las paginas desactiva el previo
+        (previo == 0) ? $('.pagination li:first').addClass('disabled').empty().append('<span class="page-link" aria-hidden="true">‹</span>') : $('.pagination li:first').removeClass('disabled');
+        // si la pagina actual es la ultima de todas las paginas desactiva el proximo
+        (numeroPagina == totalPaginas) ? $('.pagination li:last-child').addClass('disabled').empty().append('<span class="page-link" aria-hidden="true">›</span>') : $('.pagination li:last-child').removeClass('disabled');
 
-        $(".pagination").append('<li class="page-item"><a class="page-link" href="" value="'+totalPaginas+'" rel="next" aria-label="Next »">›</a></li>');
-
-        (pagina == 1) ? $('.pagination li:first').addClass('disabled') : $('.pagination li:first').removeClass('disabled');
-        (pagina == totalPaginas) ? $('.pagination li:last-child').addClass('disabled') : $('.pagination li:last-child').removeClass('disabled');
-
+        // accion al hacer click en un link de pagina
         $(".page-link").click(function (e) {
             e.preventDefault();
-
-            pagina =  e.currentTarget.attributes[2].value;
-            inicio = parseInt(pagina) * 5;
-
+            // al hacer click en proximo o previo
+            if (e.currentTarget.id == 'proximo' || e.currentTarget.id == 'previo'){
+                // suma y resta a proximo y a previo el numero de paginas por seccion
+                proximo = e.currentTarget.id == 'proximo' ? proximo + pagSecc : proximo - pagSecc;
+                previo = proximo - pagSecc;
+                // actualiza la primera pagina de la seccion como la actual
+                pagina = previo + 1
+            }
+            else{
+                // asigna a pagina el numero de la pagina en la que se hace click
+                pagina =  e.currentTarget.attributes[2].value;
+            }
+            // asigna el nuevo valor al boton de previo
+            previo = proximo - pagSecc;
+            // vacia la tabla
             $("tbody").empty();
-            paginator(response, pagina);
+            // llamado recursivo a pagina para crear la nueva paginacion
+            paginator(response, pagina, previo, proximo);
         });
-
-        // console.log('mostrarElementospagian xxxxxxxx', mostrarElementos)
+        // llena la tabla
         data(mostrarElementos);
     }
 

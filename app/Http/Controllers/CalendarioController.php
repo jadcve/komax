@@ -32,7 +32,7 @@ class CalendarioController extends Controller
     public function index()
     {
         $title = 'Index - calendario';
-        $calendarios = Calendario::with('user', 'bodega', 'semana')->orderBy('id', 'desc')->paginate(10);
+        $calendarios = Calendario::with('user', 'bodega', 'semana')->orderBy('id', 'desc')->paginate(5);
         return view('calendario.index',compact('calendarios','title'));
     }
 

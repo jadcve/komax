@@ -34,7 +34,7 @@ class BodegaController extends Controller
     {
         $title = 'Index - bodega';
         
-        $bodegas = Bodega::with('user')->orderBy('id')->paginate(4);
+        $bodegas = Bodega::with('user')->orderBy('id')->paginate(10);
 
         return view('bodega.index',compact('bodegas','title'));
     }
