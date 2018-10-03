@@ -101,6 +101,7 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
     padding: 1vh 1vw 1vh 0.5vw;
     border: 1px solid #d2d6de;
     height: 20vh;
+    min-width: 10vw;
     overflow-x: auto;
 }
 
