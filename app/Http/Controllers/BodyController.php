@@ -32,21 +32,7 @@ class bodyController extends Controller
         $fecha = date("Y/m/d", strtotime($fechaentrada));
         $bodegas = $request->bodega;
         
-        $agrupacion1 = ['TMA','TAG','TKI'];
         
-            $prueba = DB::table('trans')
-            ->select('bodega','agrupacion1', 'sku')
-            ->whereNotNull('bodega')
-            ->where('fecha','>',$fecha)
-            ->whereIn('agrupacion1',$agrupacion1)
-            ->get();   
-        
-
-
-       
-    
-
-            return view('sugerido.body', compact('prueba'));
 
 
 

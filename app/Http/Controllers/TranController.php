@@ -30,17 +30,16 @@ class TranController extends Controller
     {
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
-        $agrupacion1 = $request->agrupacion1;
-        //$marca = $request->marca;
+        //$agrupacion1[] = $request->agrupacion1;
+        $agrupacion1 = ['TKI','TMA'];
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;
-
+        
 
         $suma = DB::table('trans')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->where('agrupacion1','=',$agrupacion1)
-            ->where('marca','=','MARMOT')
+            ->whereIn('agrupacion1',$agrupacion1)
             ->sum('netamount');
 
 
@@ -49,8 +48,7 @@ class TranController extends Controller
             ->groupBy('cod_art', 'agrupacion1', 'marca' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->where('agrupacion1','=',$agrupacion1)
-            ->where('marca','=','MARMOT')
+            ->whereIn('agrupacion1',$agrupacion1)
             ->get();
 
         DB::table('temporals')->truncate();
