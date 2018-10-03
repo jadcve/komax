@@ -5,7 +5,17 @@
 <section class="content">
     <h1>Cálculos para Obtener el ABC</h1>
     <br>
-    {!! Form::open(['url' => 'tran', 'method'=>'POST', 'class'=>'form-inline']) !!}
+    {!! Form::open(['url' => 'tran', 'method'=>'POST', 'class'=>'form-inline abc']) !!}
+        <div class="form-group">
+            <label for="agrupacion1">Agrupacion1</label>
+            <br>
+            <div class="checkbox box-multiple">
+                @foreach ($agrupaciones1 as $agrupacion1)
+                    <label><input name="agrupacion1" type="checkbox" value="{!! $agrupacion1->agrupacion1 !!}" checked>{!! $agrupacion1->agrupacion1 !!}</label>
+                    <br>
+                @endforeach
+              </div>
+        </div>
         <div class="form-group">
             {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
             <br>
@@ -17,22 +27,6 @@
             <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
         </div>
         <div class="form-group">
-            <label for="agrupacion1">Agrupacion1</label>
-            <br>
-            <select name="agrupacion1" id="agrupacion1" class="form-control" required>
-                <option  value="">Seleccione</option>
-                @foreach ($agrupaciones1 as $agrupacion1)
-                    <option value="{!! $agrupacion1->agrupacion1 !!}">{!! $agrupacion1->agrupacion1 !!}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Marca</label>
-            <br>
-            <select name="marca" id="marca" class="form-control" required>
-            </select>
-        </div>
-        <div class="form-group">
             {!! Form::label('a', 'Clas. A'); !!}
             <br>
             {!! Form::number('a', null, ['class'=>'form-control', 'required'])!!}
@@ -42,7 +36,9 @@
             <br>
             {!! Form::number('b', null, ['class'=>'form-control', 'required'])!!}
         </div>
-        <div class="form-group"><br>
+        <div class="form-group">
+            <label for="busca_abc"> &nbsp;</label>
+            <br>
             <button id="busca_abc" type="submit" class="btn btn-primary">Buscar</button>
         </div>
     {!! Form::close() !!}

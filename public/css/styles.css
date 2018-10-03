@@ -95,3 +95,19 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
     vertical-align: middle;
     line-height: 30vh;
 }
+
+.box-multiple{
+    background: #FFF;
+    padding: 1vh 1vw 1vh 0.5vw;
+    border: 1px solid #d2d6de;
+    height: 20vh;
+    overflow-x: auto;
+}
+
+.abc .form-group{
+    vertical-align: top;
+}
+
+.box-multiple input[type=checkbox] {
+    margin-right: 3px;
+}
