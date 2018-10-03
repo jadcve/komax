@@ -22,21 +22,25 @@ class bodyController extends Controller
 
     public function index()
     {
-        return view('sugerido.index');
+        $bodegas = Bodega::distinct()->get(['bodega'])->sortBy('bodega');
+        return view('sugerido.index',compact('bodegas'));
     } 
 
     public function body(Request $request)
     {
         $fechaentrada = $request->fecha;
         $fecha = date("Y/m/d", strtotime($fechaentrada));
-        $bodega = $request->bodega;
+        $bodegas = $request->bodega;
+        
+        
+
 
 
 
         //$bodega = 'RUTA68';
 
        
-        $calculo = $this->calculo($fecha, $bodega);
+        //$calculo = $this->calculo($fecha, $bodegas);
             
 /*
         $mov_salida1 = $this->mov_salida($fecha);
@@ -154,10 +158,11 @@ class bodyController extends Controller
 
     public function calculo($fecha,$bodega)
     {
+    
+      
         DB::table('calculos')->truncate();
 
-<<<<<<< HEAD
-        DB::select(\DB::raw('insert into calculos with mov_salida1 as --trae la venta desde la tabla 
+        DB::select(\DB::raw('insert into calculos with mov_salida1 as 
             (
                 select trim(UPPER(bodega)) as bodega ,trim(upper(sku)) as sku,case when qty>3 then 1 else qty end as qty , fecha,netamount
                 from mov_salida
@@ -532,7 +537,6 @@ class bodyController extends Controller
                 left join maxbodega on maxbodega.warehouse=demand4.warehouse
                 where marca=\'MARMOT\''));
 
-    
     $sugerido = $this->sugerido();
 
     }
@@ -543,13 +547,18 @@ class bodyController extends Controller
     {
         DB::table('sugeridos')->truncate();
 
+       $tabla_sugerido = DB::select(\DB::raw('insert into sugeridos 
+        select distinct(calculos.articlecode) as cod_art, round(score_m1) as forecast,  calculos.ordercicle as ordercicle, calculos.minimo as minimo, case when round(score_m1) >= orderlevel then round(score_m1) else orderlevel end as sugerido 
+        from calculos
+        left join forecast_marmot on forecast_marmot.cod_art = calculos.articlecode'));
+/*
         $cuenta = DB::table('calculos')
         ->leftjoin('forecast_marmot','forecast_marmot.cod_art', '=', 'calculos.articlecode')
         ->select(\DB::raw('calculos.articlecode as cod_art, calculos.minimo as minimo, 
                            calculos.ordercicle as ordercicle, round(score_m1) as score_m1,
                            case when round(score_m1) >= orderlevel then round(score_m1) else orderlevel end as sugerido'))
         ->get();
-       
+        
         foreach($cuenta as $s){
             $sugerido = new Sugerido();
             $sugerido->cod_art = $s->cod_art;
@@ -559,10 +568,12 @@ class bodyController extends Controller
             $sugerido->sugerido = $s->sugerido;
             $sugerido->save();  
         }
+
+    */
         //$tabla_sugerido =  DB::table('sugeridos')->get();
         
-       // return view('sugerido.body', compact('tabla_sugerido'));
-        return view('sugerido.body');
+        return view('sugerido.body', compact('tabla_sugerido'));
+       // return view('sugerido.body');
         
     }
 
