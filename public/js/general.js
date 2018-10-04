@@ -188,6 +188,6 @@ $(document).ready(function () {
             $(".msj-abc").fadeOut();
             $("#loading_abc").fadeIn();
 
-        // return true;
+        return true;
     });
 });
