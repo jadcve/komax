@@ -24,22 +24,22 @@
         <div class="form-group">
             {!! Form::label('fecha_inicial', 'Fecha Inicial'); !!}
             <br>
-            <input class="form-control" id="fechaInicial" name="fechaInicial"    type="date" required/>
+            <input class="form-control" id="fechaInicial" name="fechaInicial" autocomplete="off" type="date" required/>
         </div>
         <div class="form-group">
             {!! Form::label('fecha_final', 'Fecha Final'); !!}
             <br>
-            <input class="form-control" id="fechaFinal" name="fechaFinal"   type="date" required/>
+            <input class="form-control" id="fechaFinal" name="fechaFinal" autocomplete="off" type="date" required/>
         </div>
         <div class="form-group">
             {!! Form::label('a', 'Clas. A'); !!}
             <br>
-            {!! Form::number('a', null, ['class'=>'form-control', 'required'])!!}
+            {!! Form::number('a', null, ['class'=>'form-control', 'required', 'autocomplete'=>'off', 'min'=>'0', 'max'=>'100'])!!}
         </div>
         <div class="form-group">
             {!! Form::label('b', 'Clas. B'); !!}
             <br>
-            {!! Form::number('b', null, ['class'=>'form-control', 'required'])!!}
+            {!! Form::number('b', null, ['class'=>'form-control', 'required', 'autocomplete'=>'off', 'min'=>'0', 'max'=>'100'])!!}
         </div>
         <div class="form-group">
             <label for="busca_abc"> &nbsp;</label>
