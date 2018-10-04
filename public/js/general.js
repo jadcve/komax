@@ -1,21 +1,4 @@
 $(document).ready(function () {
-    // para redirigir cuando expira la sesion
-    // php configuration 120 minute * 60 second * 1000 milisecond = 7.200.000
-    // $(function() {
-    //     // Set idle time
-    //     $(document).idleTimer(7200000);
-    // });
-    
-    // $(function() {
-    //     $( document ).on( "idle.idleTimer", function(event, elem, obj){
-    //         var url = window.location.href;
-    //         var to = url.lastIndexOf('/');
-    //         to = to == -1 ? url.length : to + 1;
-    //         url = url.substring(0, to);
-    //         console.log('url principal', url)
-    //         window.location.href = "example.com/login"
-    //     });  
-    // });
 
     $("#bodega").keyup(function (e) { 
         $("#bodega").val($("#bodega").val().trim());
@@ -27,5 +10,43 @@ $(document).ready(function () {
     
     $('#b').keyup(function (e) { 
         $("#b").val($("#b").val().trim());
+    });
+
+    // validacion formulario abc
+    $("#abc-calculo").submit(function (e) {
+        if ($("#fechaInicial").val().trim() == '' && $("#fechaFinal").val().trim() == '' && $("#a").val().trim() == '' && $("#b").val().trim() == ''){
+            validadoVacio = false;
+        }
+        else{
+            validadoVacio = true;
+        }
+        var fechaInicial = new Date($("#fechaInicial").val());
+        var fechaFinal = new Date($("#fechaFinal").val());
+        if (fechaInicial.getTime() < fechaFinal.getTime()){
+            $("#msj-fecha").remove();
+            validadoFecha = true;
+        }
+        else{
+            $("#msj-fecha").remove();
+            $(".msj-abc").append('<div id="msj-fecha">La <strong>Fecha Inicial</strong> debe ser menor que la <strong>Fecha Final</strong></div>');
+            validadoFecha = false;
+        }
+        if ($("#a").val() < $("#b").val()){
+            $("#msj-ab").remove();
+            validadoAb = true;
+        }
+        else{
+            $("#msj-ab").remove();
+            $(".msj-abc").append('<div id="msj-ab">El valor de <strong>B</strong> debe ser mayor que <strong>A</strong></div>');
+            validadoAb = false;
+        }
+
+            validado = validadoAb && validadoFecha;
+            validado = validado && validadoVacio;
+
+            validado ? $("#loading_abc").fadeIn() : '';
+            validado ? $(".msj-abc").fadeOut() : $(".msj-abc").fadeIn();
+
+        return validado;
     });
 });

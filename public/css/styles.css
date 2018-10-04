@@ -112,3 +112,13 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
 .box-multiple input[type=checkbox] {
     margin-right: 3px;
 }
+
+.msj-abc{
+    display: none;
+    color: #de0c0c;
+    background: #FFF;
+    padding: 1vh 2vw;
+    margin-bottom: 2vh;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}

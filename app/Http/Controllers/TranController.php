@@ -30,8 +30,8 @@ class TranController extends Controller
     {
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
-        //$agrupacion1[] = $request->agrupacion1;
-        $agrupacion1 = ['TKI','TMA'];
+        $agrupacion1 = $request->agrupacion1;
+        // $agrupacion1 = ['TKI','TMA'];
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;

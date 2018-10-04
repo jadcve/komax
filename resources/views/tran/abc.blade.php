@@ -6,8 +6,8 @@
     <h1>
         ABC
     </h1>
-    <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-        <a href="{!!url('tran')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> ABC</a>
+    <div class="col-xs-12">
+        <a href="{!!url('tran')!!}" class = 'btn btn-primary pull-right'><i class="fa fa-home"></i> Nuevo Calcuclo ABC</a>
     </div>
     <br/>
     <br/>

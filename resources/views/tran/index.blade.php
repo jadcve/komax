@@ -5,7 +5,12 @@
 <section class="content">
     <h1>Cálculos para Obtener el ABC</h1>
     <br>
-    {!! Form::open(['url' => 'tran', 'method'=>'POST', 'class'=>'form-inline abc']) !!}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="msj-abc"></div>
+        </div>
+    </div>
+    {!! Form::open(['url' => 'tran', 'method'=>'POST', 'class'=>'form-inline abc', 'id'=>'abc-calculo']) !!}
         <div class="form-group">
             <label for="agrupacion1">Agrupacion1</label>
             <br>
