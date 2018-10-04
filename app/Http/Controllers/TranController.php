@@ -16,8 +16,8 @@ use App\Marca;
 /**
  * Class TranController.
  *
- * @author  The scaffold-interface created at 2018-08-23 04:31:37pm
- * @link  https://github.com/amranidev/scaffold-interface
+ * @author  Alain Diaz & Jhean Carlos Guerrero - Red Pill grupo BIWISER  
+ * 
  */
 class TranController extends Controller
 {
@@ -31,7 +31,6 @@ class TranController extends Controller
         $fecha_inicio = $request->fechaInicial;
         $fecha_fin = $request->fechaFinal;
         $agrupacion1 = $request->agrupacion1;
-        // $agrupacion1 = ['TKI','TMA'];
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;
