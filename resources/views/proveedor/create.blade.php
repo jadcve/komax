@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="lead_time_proveedor">Lead Time Proveedor</label>
-                    <input id="lead_time_proveedor" name = "lead_time_proveedor" type="number" class="form-control" required placeholder="Leed Time Proveedor">
+                    <input id="lead_time_proveedor" name = "lead_time_proveedor" type="number" class="form-control" required placeholder="Lead Time Proveedor">
                 </div>
                 <div class="form-group">
                     <label for="tiempo_entrega_proveedor">Tiempo de entrega de Proveedor</label>

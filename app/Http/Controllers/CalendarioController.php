@@ -31,6 +31,7 @@ class CalendarioController extends Controller
      */
     public function index()
     {
+        
         $title = 'Index - calendario';
         $calendarios = Calendario::with('user', 'bodega', 'semana')->orderBy('id', 'desc')->paginate(5);
         return view('calendario.index',compact('calendarios','title'));
@@ -73,7 +74,7 @@ class CalendarioController extends Controller
 
         $calendario->user_id = Auth::user()->id;
 
-        $calendario->semana_id = $request->semana;
+        $calendario->dia = $request->semana;
         
         $calendario->save();
 
@@ -152,7 +153,7 @@ class CalendarioController extends Controller
         
         $calendario->user_id = Auth::user()->id;
 
-        $calendario->semana_id = $request->semana;
+        $calendario->dia = $request->semana;
         
         $calendario->save();
 
@@ -192,7 +193,7 @@ class CalendarioController extends Controller
              $value = trim(str_replace($replase_simbols, '', $value));
          });
         //arreglo con los headers de calendario
-         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id') : array('"semana_id"', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id');
+         $headersRequeridos = (array_search('"', $headersEncontrados) === false) ? array('dia', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id') : array('"dia"', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id');
 
         if ($headersEncontrados == $headersRequeridos) {
         }
@@ -210,9 +211,9 @@ class CalendarioController extends Controller
             $fila = 1;
             foreach ($reader->get() as $calendario) {
                 $fila ++;
-                if (trim($calendario->semana_id) == "" or is_null($calendario->semana_id) or !is_numeric($calendario->semana_id)){
+                if (trim($calendario->dia) == "" or is_null($calendario->dia) or !is_numeric($calendario->dia)){
                     $GLOBALS['validar'] = true;
-                    $GLOBALS['columna'] .= ' semana_id <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
+                    $GLOBALS['columna'] .= ' dia <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
                 }
                 if (trim($calendario->dia_despacho) == "" or is_null($calendario->dia_despacho) or !is_numeric($calendario->dia_despacho)){
                     $GLOBALS['validar'] = true;
@@ -258,7 +259,7 @@ class CalendarioController extends Controller
                     'lead_time' => $calendario->lead_time,
                     'tiempo_entrega' => $calendario->tiempo_entrega,
                     'bodega_id' => $calendario->bodega_id,
-                    'semana_id' => $calendario->semana_id,
+                    'dia' => $calendario->dia,
                     'user_id' => Auth::user()->id
                 ]);
             }
@@ -275,10 +276,10 @@ class CalendarioController extends Controller
 
         $contenidoCsv = [];
         //headers del csv
-        array_push($contenidoCsv, array('semana_id', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id'));
+        array_push($contenidoCsv, array('dia', 'dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id'));
         //agrego los datos al array
         foreach ($datos as $registro) {
-            array_push($contenidoCsv, array($registro->semana_id, $registro->dia_despacho, $registro->lead_time, $registro->tiempo_entrega, $registro->bodega_id));
+            array_push($contenidoCsv, array($registro->dia, $registro->dia_despacho, $registro->lead_time, $registro->tiempo_entrega, $registro->bodega_id));
         }
         //fecha para crear el nombre
         $fecha = date('Ymdhis');
@@ -299,13 +300,16 @@ class CalendarioController extends Controller
             calendarios.tiempo_entrega,
             calendarios.updated_at,
             bodegas.bodega,
-            semanas.dia,
+            dia.dia AS dia_ini,
+            despacho.dia AS dia_desp,
             users.name
         FROM
-            calendarios INNER JOIN bodegas ON (calendarios.bodega_id = bodegas.id) INNER JOIN semanas ON (calendarios.semana_id = semanas.id) INNER JOIN users ON (calendarios.user_id = users.id) 
+            calendarios INNER JOIN bodegas ON (calendarios.bodega_id = bodegas.id) INNER JOIN semanas AS dia ON (calendarios.dia = dia.id) INNER JOIN semanas AS despacho ON (calendarios.dia_despacho = despacho.id) INNER JOIN users ON (calendarios.user_id = users.id) 
         WHERE
-            CAST(dia_despacho AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(lead_time AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(tiempo_entrega AS VARCHAR(100)) like '%".$request->busqueda."%' or semanas.dia ilike '%".$request->busqueda."%' or bodegas.bodega ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(calendarios.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+            CAST(dia_despacho AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(lead_time AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(tiempo_entrega AS VARCHAR(100)) like '%".$request->busqueda."%' or dia.dia ilike '%".$request->busqueda."%' or despacho.dia ilike '%".$request->busqueda."%' or bodegas.bodega ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(calendarios.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
 
+/*CAST(dia_despacho AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(lead_time AS VARCHAR(100)) like '%".$request->busqueda."%' or CAST(tiempo_entrega AS VARCHAR(100)) like '%".$request->busqueda."%' or semanas.dia ilike '%".$request->busqueda."%' or bodegas.bodega ilike '%".$request->busqueda."%' or users.name ilike '%".$request->busqueda."%' or CAST(calendarios.updated_at AS VARCHAR(100)) like '%".$request->busqueda."%' ") );
+*/
         return response()->json($result);
     }
     /**

@@ -1,5 +1,25 @@
+$(".form-group label").css('display', 'none');
+$(".form-group input").css('display', 'none');
+$(".form-group .checkbox").css({'display': 'none', 'width': '0%', 'min-width': '0vw', 'height': '0vh'});
+$(".form-group button").css('display', 'none');
 $(document).ready(function () {
-
+    $(".form-group label").fadeIn(300);
+    $(".form-group input").fadeIn(1000);
+    $(".form-group .checkbox").fadeIn(1000);
+    $(".form-group button").fadeIn(5000);
+    $(".form-group .checkbox").animate({width:"10vw", height:"20vh"},500);
+    //  for (let index = 0; index <= 100; index++) {
+         setTimeout(() => {
+            // $(".form-group .checkbox").css('width', index+'%');
+            
+            // $(".form-group .checkbox").animate({width:"100%", height:"20vh"},500);
+            //  $(".form-group input").animate({width:"100%", height: "34px"},500);
+            //  $(".form-group .search-input").animate({width:"65%", height: "34px"})
+            //  $(".form-group .checkbox").css('width', index+'%');
+            //  $(".form-group .checkbox").css('min-width', '10vw');
+        }, 3000);
+        
+    // }
     $("#bodega").keyup(function (e) { 
         $("#bodega").val($("#bodega").val().trim());
     });

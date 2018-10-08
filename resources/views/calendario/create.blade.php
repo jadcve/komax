@@ -13,18 +13,24 @@
             <form method = 'POST' action = '{!!url("calendario")!!}'>
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
-                    <label for="semana">
-                        <select name="semana" id="semana" class="form-control">
+                    <label for="semana">Día
+                        <select name="semana" id="semana" class="form-control" required>
                             <option value="">Seleccione</option>
-                            @foreach ($semanas as $semana)
-                                <option value="{!!$semana->dia_semana!!}">{!!$semana->dia!!}</option>
+                            @foreach (General::dias() as $key => $dia)
+                                <option value="{!!$key!!}">{!!$dia!!}</option>
                             @endforeach
                         </select>
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="dia_despacho">Día de Despacho</label>
-                    <input id="dia_despacho" name = "dia_despacho" type="number" class="form-control" required placeholder="Día de Despacho">
+                    <label for="semana">Día de Despacho
+                            <select name="dia_despacho" id="dia_despacho" class="form-control" required>
+                                <option value="">Seleccione</option>
+                                @foreach (General::dias() as $key => $dia)
+                                    <option value="{!!$key!!}">{!!$dia!!}</option>
+                                @endforeach
+                            </select>
+                        </label>
                 </div>
                 <div class="form-group">
                     <label for="lead_time">Lead Time</label>
@@ -35,13 +41,14 @@
                     <input id="tiempo_entrega" name = "tiempo_entrega" type="number" class="form-control" required placeholder="Tiempo de Entrega">
                 </div>
                 <div class="form-group">
-                    <label for="bodega_id">Bodega</label>
-                        <select class="form-control" id="bodega_id" name="bodega_id">
+                    <label for="bodega_id">Bodega
+                        <select class="form-control" id="bodega_id" name="bodega_id" required>
                             <option  value="">Seleccione</option>
                             @foreach ($bodegas as $bodega)
                                 <option value="{!! $bodega->id !!}">{!! $bodega->bodega !!}</option>
                             @endforeach
                         </select>
+                    </label>
                 </div>
                 <button class = 'btn btn-success' type ='submit'> <i class="fa fa-floppy-o"></i> Guardar</button>
             </form>

@@ -17,11 +17,11 @@
         <tbody>
             <tr>
                 <td> <b>Día</b> </td>
-                <td>{!!$calendario->semana['dia']!!}</td>
+                <td>{!!General::dia($calendario->dia)!!}</td>
             </tr>
             <tr>
                 <td> <b>Día de Despacho</b> </td>
-                <td>{!!$calendario->dia_despacho!!}</td>
+                <td>{!!General::dia($calendario->dia_despacho)!!}</td>
             </tr>
             <tr>
                 <td> <b>Lead Time</b> </td>

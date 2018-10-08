@@ -159,8 +159,8 @@ jQuery(document).ready(function () {
                 break;
             case "calendario":
                 contenido ='<tr>'+
-                    '<td>'+resaltar(json.dia)+'</td>'+
-                    '<td>'+resaltar(json.dia_despacho)+'</td>'+
+                    '<td>'+resaltar(json.dia_ini)+'</td>'+
+                    '<td>'+resaltar(json.dia_desp)+'</td>'+
                     '<td>'+resaltar(json.lead_time)+'</td>'+
                     '<td>'+resaltar(json.tiempo_entrega)+'</td>'+
                     '<td>'+resaltar(json.bodega)+'</td>'+

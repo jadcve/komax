@@ -44,7 +44,7 @@
         <thead>
             <th>Código Proveedor</th>
             <th>Nombre</th>
-            <th>Leed Time</th>
+            <th>Lead Time</th>
             <th>Tiempo de entrega</th>
             <th>Editado</th>
             <th style="width: 5%;"></th>

@@ -24,7 +24,7 @@
                 <td>{!!$proveedor->descripcion_proveedor!!}</td>
             </tr>
             <tr>
-                <td> <b>Leed Time del Proveedor</b> </td>
+                <td> <b>Lead Time del Proveedor</b> </td>
                 <td>{!!$proveedor->lead_time_proveedor!!}</td>
             </tr>
             <tr>

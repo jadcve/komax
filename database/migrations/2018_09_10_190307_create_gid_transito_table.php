@@ -12,7 +12,7 @@ class CreateGidTransitoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('gid_transito', function(Blueprint $table)
+		Schema::create('transito', function(Blueprint $table)
 		{
 			$table->string('bodega_desde', 10)->nullable();
 			$table->string('bodega_hasta', 10)->nullable();
@@ -39,7 +39,7 @@ class CreateGidTransitoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('gid_transito');
+		Schema::drop('transito');
 	}
 
 }
