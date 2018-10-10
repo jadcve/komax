@@ -7,12 +7,12 @@
         Envio Sugerido
     </h1>
     <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
-        <a href="{!!url('sugerido')!!}" class = 'btn btn-primary pull-left'><i class="fa fa-home"></i> Sugerido</a>
+        <a href="{!!url('sugerido_distribucion')!!}" class = 'btn btn-primary pull-left'><i class="fa fa-home"></i> Sugerido</a>
     </div>
     <br/>
     <div class="row">
             <div class="col-xs-12 col-md-4">
-                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("sugerido/download")!!}'>
+                <form style="display:inline-block; padding-right: 5px;" method = 'POST' action = '{!!url("sugerido_distribucion/download")!!}'>
                     <div class="form-group">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <label for="">Descargar datos</label><br>

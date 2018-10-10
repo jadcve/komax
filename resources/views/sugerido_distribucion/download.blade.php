@@ -12,7 +12,7 @@
         </div>
     </div>
     <br>
-    <a href='{!!url("sugeridos")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Sugerido</a>
+    <a href='{!!url("sugerido_distribucion")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i> Sugerido</a>
     <br><br>
 </section>
 @endsection

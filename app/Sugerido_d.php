@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sugerido extends Model
+class SugeridoD extends Model
 {
     //
 }
