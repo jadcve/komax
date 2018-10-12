@@ -16,8 +16,8 @@ use App\Marca;
 /**
  * Class TranController.
  *
- * @author  Alain Diaz & Jhean Carlos Guerrero - Red Pill grupo BIWISER  
- * 
+ * @author  Alain Diaz & Jhean Carlos Guerrero - Red Pill grupo BIWISER
+ *
  */
 class TranController extends Controller
 {
@@ -34,20 +34,20 @@ class TranController extends Controller
         $a = $request->a;
         $b = $request->b;
         $c = $request->c;
-        
 
-        $suma = DB::table('trans')
+
+        $suma = DB::table('mov_salida')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->whereIn('agrupacion1',$agrupacion1)
+            ->whereIn(\DB::raw('substring(bodega,1,3)'), $agrupacion1)
             ->sum('netamount');
 
 
-        $trans = DB::table('trans')
-            ->select('cod_art','agrupacion1','marca', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
-            ->groupBy('cod_art', 'agrupacion1', 'marca' )
+        $trans = DB::table('mov_salida')
+            ->select('bodega','sku', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
+            ->groupBy('bodega', 'sku' )
             ->orderBy('netamount','desc')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-            ->whereIn('agrupacion1',$agrupacion1)
+            ->whereIn(\DB::raw('substring(bodega,1,3)'), $agrupacion1)
             ->get();
 
         DB::table('temporals')->truncate();
@@ -55,10 +55,9 @@ class TranController extends Controller
 
         foreach($trans as $t){
             $temp = new Temporal();
-            $temp->cod_art = $t->cod_art;
+            $temp->bodega = $t->bodega;
             $temp->netamount = $t->netamount;
-            $temp->agrupacion1 = $t->agrupacion1;
-            $temp->marca = $t->marca;
+            $temp->sku = $t->sku;
             $temp->qty = $t->qty;
             $temp->calc = $t->calc;
             $suma += $t->calc;

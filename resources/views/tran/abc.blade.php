@@ -17,10 +17,9 @@
         <thead>
 
 
-            <th>Código Articulo</th>
+            <th>Bodega</th>
             <th>Monto Neto</th>
-            <th>Agrupacion1</th>
-            <th>Marca</th>
+            <th>Código Producto</th>
             <th>Cantidad</th>
             <th>% de la Venta</th>
             <th>Acumulado %</th>
@@ -40,10 +39,9 @@
                 $registros++;
             @endphp
             <tr>
-                <td>{!!$t->cod_art!!}</td>
+                <td>{!!$t->bodega!!}</td>
                 <td>{!!$t->netamount!!}</td>
-                <td>{!!$t->agrupacion1!!}</td>
-                <td>{!!$t->marca!!}</td>
+                <td>{!!$t->sku!!}</td>
                 <td>{!!$t->qty!!}</td>
                 <td>{!!round($t->calc,2);!!}</td>
                 <td>{!!round($t->acum,2); !!}</td>
@@ -55,6 +53,6 @@
    @else
        <h2>No se encontrarón resultados para esta consulta</h2>
    @endif
-    
+
 </section>
 @endsection
