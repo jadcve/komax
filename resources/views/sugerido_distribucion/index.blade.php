@@ -5,7 +5,7 @@
 <section class="content">
     <h1>Cálculo para Obtener los Despachos Sugeridos</h1>
     <br>
-    {!! Form::open(['url' => 'sugerido', 'method'=>'POST', 'class'=>'form-inline']) !!}
+    {!! Form::open(['url' => 'sugerido_distribucion', 'method'=>'POST', 'class'=>'form-inline']) !!}
         <div class="form-group" style="padding-right: 2vw;">
             {!! Form::label('fecha', 'Fecha'); !!}
             <br>

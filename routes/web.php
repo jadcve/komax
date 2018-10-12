@@ -83,12 +83,12 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('tran','\App\Http\Controllers\TranController@calculo');
 });
 
-//Sugerido
+//Sugerido Distribucion
 Route::group(['middleware'=> 'web'],function(){
-    Route::resource('sugerido','\App\Http\Controllers\BodyController');
-    Route::post('sugerido','\App\Http\Controllers\BodyController@body');
-    //Route::post('sugerido','\App\Http\Controllers\BodyController@sugerido');
-    Route::post('sugerido/download', '\App\Http\Controllers\BodyController@download');
+    Route::resource('sugerido_distribucion','\App\Http\Controllers\SugeridoDController');
+    Route::post('sugerido_distribucion','\App\Http\Controllers\SugeridoDController@body');
+    //Route::post('sugerido','\App\Http\Controllers\SugeridoDController@sugerido');
+    Route::post('sugerido_distribucion/download', '\App\Http\Controllers\SugeridoDController@download');
 });
 
 

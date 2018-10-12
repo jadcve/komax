@@ -107,6 +107,7 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
 
 .abc .form-group{
     vertical-align: top;
+    margin-right: 1vw;
 }
 
 .box-multiple input[type=checkbox] {
@@ -122,3 +123,22 @@ td>.btn-danger:hover, td>.btn-danger:active, td>.btn-danger:focus, td>.btn-dange
     border: 1px solid #CCC;
     border-radius: 5px;
 }
+
+/* .form-group label{
+    display: none;
+}
+
+.form-group input{
+    display: none;
+}
+
+.form-group .checkbox{
+    display: none;
+    width: 0%;
+    min-width: 0vw;
+    height: 0vh;
+}
+
+.form-group button{
+    display: none;
+} */

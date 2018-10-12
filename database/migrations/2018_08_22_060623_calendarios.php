@@ -22,7 +22,7 @@ class Calendarios extends Migration
 
         $table->increments('id');
         
-        $table->String('dia_despacho');
+        $table->integer('dia_despacho');
         
         $table->integer('lead_time');
         
@@ -30,7 +30,7 @@ class Calendarios extends Migration
         
         $table->integer('bodega_id');
 
-        $table->integer('semana_id');
+        $table->integer('dia');
         
         /**
          * Foreignkeys section

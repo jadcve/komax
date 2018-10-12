@@ -219,6 +219,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'General' => App\Helpers\General::class,
         
     ],
 

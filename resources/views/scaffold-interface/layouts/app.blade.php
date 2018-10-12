@@ -127,7 +127,7 @@
 												<a href="{{url('/tran')}}"><i class="fa fa-table"></i> <span>Cálculo ABC</span></a>
 										</li>
 										<li class="treeview">
-												<a href="{{url('/sugerido')}}"><i class="fa fa-cart-plus"></i> <span>Sugerido</span></a>
+												<a href="{{url('/sugerido_distribucion')}}"><i class="fa fa-cart-plus"></i> <span>Sugerido</span></a>
 										</li>
 									</ul>
 								</li>

@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\DB;
 use URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
-use App\Sugerido;
+use App\SugeridoD;
 use App\Convert_to_csv;
 use App\Bodega;
 
-class bodyController extends Controller
+class SugeridoDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +23,13 @@ class bodyController extends Controller
     public function index()
     {
         $bodegas = Bodega::distinct()->get(['bodega'])->sortBy('bodega');
+<<<<<<< HEAD:app/Http/Controllers/BodyController.php
         return view('sugerido.index',compact('bodegas'));
     }
+=======
+        return view('sugerido_distribucion.index',compact('bodegas'));
+    } 
+>>>>>>> d35e3b5f235b0a1ed32f5899a45ebaa3b8fd153e:app/Http/Controllers/SugeridoDController.php
 
     public function body(Request $request)
     {
@@ -132,7 +137,7 @@ class bodyController extends Controller
             ->get();
 */
 
-        //return view('sugerido.body', compact('sugerido'));
+        //return view('sugerido_distribucion.body', compact('sugerido'));
     }
 
     /**
@@ -597,10 +602,17 @@ class bodyController extends Controller
 
     */
         //$tabla_sugerido =  DB::table('sugeridos')->get();
+<<<<<<< HEAD:app/Http/Controllers/BodyController.php
 
         return view('sugerido.body', compact('tabla_sugerido'));
        // return view('sugerido.body');
 
+=======
+        
+        return view('sugerido_distribucion.body', compact('tabla_sugerido'));
+       // return view('sugerido_distribucion.body');
+        
+>>>>>>> d35e3b5f235b0a1ed32f5899a45ebaa3b8fd153e:app/Http/Controllers/SugeridoDController.php
     }
 
 
