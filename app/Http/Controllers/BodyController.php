@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use URL;
-use App\Http\Controllers\Controller;    
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
 use App\Sugerido;
 use App\Convert_to_csv;
@@ -24,30 +24,33 @@ class bodyController extends Controller
     {
         $bodegas = Bodega::distinct()->get(['bodega'])->sortBy('bodega');
         return view('sugerido.index',compact('bodegas'));
-    } 
+    }
 
     public function body(Request $request)
     {
         $fechaentrada = $request->fecha;
         $fecha = date("Y/m/d", strtotime($fechaentrada));
         $bodegas = $request->bodega;
-        
-        
 
 
 
 
-        //$bodega = 'RUTA68';
+        $calculo = $this->calculo($fecha, $bodegas);
 
-       
-        //$calculo = $this->calculo($fecha, $bodegas);
-            
-/*
-        $mov_salida1 = $this->mov_salida($fecha);
-        $mov_salida2 = $this->mov_salida($fecha);
-        $mov_salida3 = $this->mov_salida($fecha);
-        $mov_salida_1 = $this->mov_salida($fecha);
-        $mov_salida_2 = $this->mov_salida($fecha);
+        /**
+         * lLAMADO AL CALENDARIO PARA OBTENER LAS FECHAS DE LAS CONSULTAS
+         */
+
+
+        $calendario = DB::table('calendarios')
+            ->select('dia_despacho','lead_time','tiempo_entrega');
+
+
+        /**
+         * Obtención de las ventas para  12 semanas atrás
+         */
+
+
         $mov_salida_3 = $this->mov_salida($fecha);
         $mov_salida_4 = $this->mov_salida($fecha);
         $mov_salida_5 = $this->mov_salida($fecha);
@@ -60,6 +63,36 @@ class bodyController extends Controller
         $mov_salida_12 = $this->mov_salida($fecha);
         $mov_salida_13 = $this->mov_salida($fecha);
         $mov_salida_14 = $this->mov_salida($fecha);
+
+
+        $semana_1 = $this->dias_sumatoria($mov_salida_3,8,1);
+        $semana_2 = $this->dias_sumatoria($mov_salida_4,16,9);
+        $semana_3 = $this->dias_sumatoria($mov_salida_5,24,17);
+        $semana_4 = $this->dias_sumatoria($mov_salida_6,32,25);
+        $semana_5 = $this->dias_sumatoria($mov_salida_7,33,40);
+        $semana_6 = $this->dias_sumatoria($mov_salida_8,41,48);
+        $semana_7 = $this->dias_sumatoria($mov_salida_9,49,56);
+        $semana_8 = $this->dias_sumatoria($mov_salida_10,57,64);
+        $semana_9 = $this->dias_sumatoria($mov_salida_11,65,72);
+        $semana_10 = $this->dias_sumatoria($mov_salida_12,73,80);
+        $semana_11 = $this->dias_sumatoria($mov_salida_13,81,88);
+        $semana_12 = $this->dias_sumatoria($mov_salida_14,89,96);
+
+
+
+
+
+        return view('sugerido.body', compact('semana_1'));
+
+
+
+
+
+
+
+
+/*
+
         $mov_salida_base = $this->mov_salida($fecha);
         $stocksem = DB::table('stock')
             -> select('bodega','sku','cantidad');
@@ -78,23 +111,8 @@ class bodyController extends Controller
 /*
         $diasx = $this->diasx($mov_salida_1, 8,1);
         $diasx1 = $this->diasx($mov_salida_2, 16,9);
-        $dias3 = $this->dias_sumatoria($mov_salida_3,8,1);
-        $dias4 = $this->dias_sumatoria($mov_salida_4,16,9);
-        $dias5 = $this->dias_sumatoria($mov_salida_5,24,17);
-        $dias6 = $this->dias_sumatoria($mov_salida_6,32,25);
-        $dias7 = $this->dias_sumatoria($mov_salida_7,33,40);
-        $dias8 = $this->dias_sumatoria($mov_salida_8,41,48);
-        $dias9 = $this->dias_sumatoria($mov_salida_9,49,56);
-        $dias10 = $this->dias_sumatoria($mov_salida_10,57,64);
-        $dias11 = $this->dias_sumatoria($mov_salida_11,65,72);
-        $dias12 = $this->dias_sumatoria($mov_salida_12,73,80);
-        $dias13 = $this->dias_sumatoria($mov_salida_13,81,88);
-        $dias14 = $this->dias_sumatoria($mov_salida_14,89,96);
 
 
-        $total = $mov_salida1
-                    ->select('bodega','sku',DB::raw('sum(qty) as cantidad'))
-                    ->groupBy('bodega','sku');
 
         $totalx = $mov_salida2
             ->select('bodega','sku',DB::raw('sum(qty) as cantidad'))
@@ -118,10 +136,35 @@ class bodyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Función que llama a la venta de productos de las últimas 12 semanas.
      *
-     * @return \Illuminate\Http\Response
+     * @return ventas de productos de las últimas semanas
      */
+
+
+    public function dias_sumatoria($query, $d1, $d2)
+    {
+        $carbon = new \Carbon\Carbon();
+        $date_inicial = $carbon->now();
+        $date_final = $carbon->now();
+
+        return $query
+            ->select('bodega','sku', \DB::raw("CONCAT(bodega,'_',sku) as cod_art, sum(qty) as cantidad"))
+            ->whereBetween( 'fecha',[$date_inicial->subDay($d1), $date_final->subDay($d2)])
+            ->groupBy('fecha','bodega','sku')
+            ->orderBy('cantidad','desc')
+            ->get();
+    }
+
+
+    public function mov_salida($fecha)
+    {
+        return DB::table('mov_salida')
+            -> select('bodega', 'sku', \DB::raw("case when qty > 3 then 1 else qty end as qty"),'fecha')
+            ->whereNotNull('bodega')
+            ->where('fecha','>=',$fecha);
+    }
+
 
     public function diasx($query,$d1,$d2)
     {
@@ -136,30 +179,13 @@ class bodyController extends Controller
 
     }
 
-    public function dias_sumatoria($query, $d1, $d2)
-    {
-        $carbon = new \Carbon\Carbon();
-        $date_inicial = $carbon->now();
-        $date_final = $carbon->now();
 
-        return $query
-            ->select('bodega','sku', \DB::raw('sum(qty) as cantidad'))
-            ->whereBetween( 'fecha',[$date_inicial->subDay($d1), $date_final->subDay($d2)])
-            ->groupBy('fecha','bodega','sku');
-    }
 
-    public function mov_salida($fecha)
-    {
-        return DB::table('trans', \DB::raw('case when qty>3 then 1 else qty end as qty', 'fecha','netamount'))
-            -> select('bodega', 'sku')
-            ->whereNotNull('bodega')
-            ->where('fecha','>',$fecha);
-    }
 
     public function calculo($fecha,$bodega)
     {
-    
-      
+
+
         DB::table('calculos')->truncate();
 
         DB::select(\DB::raw('insert into calculos with mov_salida1 as 
@@ -167,7 +193,7 @@ class bodyController extends Controller
                 select trim(UPPER(bodega)) as bodega ,trim(upper(sku)) as sku,case when qty>3 then 1 else qty end as qty , fecha,netamount
                 from mov_salida
                 where  bodega is not null and fecha is not null and invoice_id is not null
-                and fecha>\'2018-01-01\'
+                and fecha>\'2018-06-01\'
             ),
             stocksem as  -- stock del el cliente
             (
@@ -183,7 +209,7 @@ class bodyController extends Controller
             tran as-- el transito que va desde el CD  la tienda.
             (
                 select trim(upper(g.bodega_hasta)) as bodega, trim(upper(g.sku)) as sku, sum(g.qty_requested-g.qty_received) as transito
-                from gid_transito as g
+                from transito as g
                 where g.qty_requested-g.qty_received>0
                 group by trim(upper(g.bodega_hasta)), trim(upper(g.sku))
             ),
@@ -540,7 +566,7 @@ class bodyController extends Controller
     $sugerido = $this->sugerido();
 
     }
-    
+
 /**Calculo del súgerido  */
 
     public function sugerido()
@@ -554,11 +580,11 @@ class bodyController extends Controller
 /*
         $cuenta = DB::table('calculos')
         ->leftjoin('forecast_marmot','forecast_marmot.cod_art', '=', 'calculos.articlecode')
-        ->select(\DB::raw('calculos.articlecode as cod_art, calculos.minimo as minimo, 
+        ->select(\DB::raw('calculos.articlecode as cod_art, calculos.minimo as minimo,
                            calculos.ordercicle as ordercicle, round(score_m1) as score_m1,
                            case when round(score_m1) >= orderlevel then round(score_m1) else orderlevel end as sugerido'))
         ->get();
-        
+
         foreach($cuenta as $s){
             $sugerido = new Sugerido();
             $sugerido->cod_art = $s->cod_art;
@@ -566,27 +592,32 @@ class bodyController extends Controller
             $sugerido->forecast = $s->score_m1;
             $sugerido->ordercicle = $s->ordercicle;
             $sugerido->sugerido = $s->sugerido;
-            $sugerido->save();  
+            $sugerido->save();
         }
 
     */
         //$tabla_sugerido =  DB::table('sugeridos')->get();
-        
+
         return view('sugerido.body', compact('tabla_sugerido'));
        // return view('sugerido.body');
-        
+
     }
 
+
+    /**
+     * Descaraga la data en un csv
+     */
+
     public function download(){
-        
+
         $datos = DB::table('sugeridos')->get();
 
         $contenidoCsv = [];
         //headers del csv
-        array_push($contenidoCsv, array('id', 'cod_art', 'forecast', 'ordercicle', 'minimo', 'sugerido'));
+        array_push($contenidoCsv, array('cod_art', 'forecast', 'ordercicle', 'minimo', 'sugerido'));
         //agrego los datos al array
         foreach ($datos as $registro) {
-            array_push($contenidoCsv, array($registro->id, $registro->cod_art, $registro->forecast, $registro->ordercicle, $registro->minimo, $registro->sugerido));
+            array_push($contenidoCsv, array($registro->cod_art, $registro->forecast, $registro->ordercicle, $registro->minimo, $registro->sugerido));
         }
         //fecha para crear el nombre
         $fecha = date('Ymdhis');

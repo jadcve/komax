@@ -22,21 +22,20 @@
             </div>
         </div>
     <br/>
-    <br/> 
+    <br/>
 
     <table id="tabla" class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-            <th>campo1</th>
-            <th>campo2</th>
-            <th>campo2</th>
-
-
+            <th>BODEGA</th>
+            <th>SKU</th>
+            <th>COD_ART</th>
+            <th>QTY</th>
         </thead>
         <tbody>
             @php
                 $registros = 0;
             @endphp
-            @foreach($prueba as $t)
+            @foreach($semana_1 as $t)
             @php
                 if ($registros == 2000){
                     break;
@@ -45,9 +44,9 @@
             @endphp
             <tr>
                 <td>{!!$t->bodega!!}</td>
-                <td>{!!$t->agrupacion1!!}</td>
                 <td>{!!$t->sku!!}</td>
-                
+                <td>{!!$t->cod_art!!}</td>
+                <td>{!!$t->cantidad!!}</td>
             </tr>
             @endforeach
         </tbody>
