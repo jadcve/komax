@@ -23,12 +23,12 @@ class Proveedor extends Model
 	
     protected $table = 'proveedors';
     
-    public function __construct() {
-        $user = Auth::user();
-        $prefix = ($user->empresa == '') ? '' : $user->empresa.'_';
+    // public function __construct() {
+    //     $user = Auth::user();
+    //     $prefix = ($user->empresa == '') ? '' : $user->empresa.'_';
 
-        $this->table = $prefix.'proveedors';
-    }
+    //     $this->table = $prefix.'proveedors';
+    // }
 
 	public function user(){
         return $this->belongsTo(User::class);
