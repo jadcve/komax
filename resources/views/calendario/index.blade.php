@@ -53,7 +53,7 @@
         <tbody>
             @foreach($calendarios as $calendario)     
             <tr>
-                <td>{!!General::dia($calendario->dia)!!}</td>
+                <td>{!!General::dia($calendario->dia_reposicion)!!}</td>
                 <td>{!!General::dia($calendario->dia_despacho)!!}</td>
                 <td>{!!$calendario->lead_time!!}</td>
                 <td>{!!$calendario->tiempo_entrega!!}</td>

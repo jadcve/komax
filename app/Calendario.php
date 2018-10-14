@@ -20,7 +20,7 @@ class Calendario extends Model
 
     // protected $dates = ['deleted_at'];
     
-    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id', 'user_id', 'dia'];
+    protected $fillable = ['dia_despacho', 'lead_time', 'tiempo_entrega', 'bodega_id', 'user_id', 'dia_reposicion'];
 
     protected $table = 'calendarios';
 
