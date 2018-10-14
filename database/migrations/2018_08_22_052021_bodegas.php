@@ -27,9 +27,11 @@ class Bodegas extends Migration
         $table->String('ciudad');
         $table->String('comuna');
         $table->String('region');
-        $table->String('latitude');
         $table->String('longitud');
         $table->String('direccion');
+        $table->String('latitude');
+        $table->foreign('user_id')->references('id')->on('users');
+        $table->boolean('centro_distribucion');
 
         /**
          * Foreignkeys section
