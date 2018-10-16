@@ -29,6 +29,8 @@ class Proveedors extends Migration
         $table->String('lead_time_proveedor');
         
         $table->String('tiempo_entrega_proveedor');
+
+        $table->foreign('user_id')->references('id')->on('users');
         
         /**
          * Foreignkeys section

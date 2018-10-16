@@ -29,8 +29,10 @@ class Calendarios extends Migration
         $table->integer('tiempo_entrega');
         
         $table->integer('bodega_id');
+        $table->foreign('bodega_id')->references('id')->on('bodegas');
+        $table->foreign('user_id')->references('id')->on('users');
 
-        $table->integer('dia');
+        $table->integer('dia_reposicion');
         
         /**
          * Foreignkeys section

@@ -16,8 +16,8 @@
         </thead>
         <tbody>
             <tr>
-                <td> <b>Día</b> </td>
-                <td>{!!General::dia($calendario->dia)!!}</td>
+                <td> <b>Día Reposición</b> </td>
+                <td>{!!General::dia($calendario->dia_reposicion)!!}</td>
             </tr>
             <tr>
                 <td> <b>Día de Despacho</b> </td>

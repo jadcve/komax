@@ -27,6 +27,7 @@ class NivelServicios extends Migration
         $table->integer('nivel_servicio');
         
         $table->String('descripcion');
+        $table->foreign('user_id')->references('id')->on('users');
         
         /**
          * Foreignkeys section

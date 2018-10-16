@@ -14,7 +14,7 @@
                 id!!}/update'> 
                 <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
                 <div class="form-group">
-                    <label for="semana">Día
+                    <label for="semana">Día Reposición
                         <select name="semana" id="semana" class="form-control" required>
                             <option value="">Seleccione</option>
                             @foreach (General::dias() as $key => $dia)

@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //proveedor Routes
-Route::group(['middleware'=> 'web'],function(){
+  Route::group(['middleware'=> 'web'],function(){
   Route::resource('proveedor','\App\Http\Controllers\ProveedorController');
   Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
   Route::post('proveedor/load', '\App\Http\Controllers\ProveedorController@load');
