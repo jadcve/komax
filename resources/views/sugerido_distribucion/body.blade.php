@@ -26,27 +26,29 @@
 
     <table id="tabla" class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
-            <th>BODEGA</th>
-            <th>SKU</th>
             <th>COD_ART</th>
-            <th>QTY</th>
+            <th>FORECAST</th>
+            <th>ORDERCICLE</th>
+            <th>MINIMO</th>
+            <th>SUGERIDO</th>
         </thead>
         <tbody>
             @php
                 $registros = 0;
             @endphp
-            @foreach($semana_1 as $t)
+            @foreach($tabla_sugerido as $t)
             @php
-                if ($registros == 2000){
+                if ($registros == 200){
                     break;
                 }
                 $registros++;
             @endphp
             <tr>
-                <td>{!!$t->bodega!!}</td>
-                <td>{!!$t->sku!!}</td>
                 <td>{!!$t->cod_art!!}</td>
-                <td>{!!$t->cantidad!!}</td>
+                <td>{!!$t->forecast!!}</td>
+                <td>{!!$t->ordercicle!!}</td>
+                <td>{!!$t->minimo!!}</td>
+                <td>{!!$t->sugerido!!}</td>
             </tr>
             @endforeach
         </tbody>

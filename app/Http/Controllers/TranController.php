@@ -38,14 +38,16 @@ class TranController extends Controller
 
         $suma = DB::table('mov_salida')
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+           // ->where('netamount','>',0)
             ->whereIn(\DB::raw('substring(bodega,1,3)'), $agrupacion1)
             ->sum('netamount');
 
 
         $trans = DB::table('mov_salida')
-            ->select('bodega','sku', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty'), \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
+            ->select('bodega','sku', \DB::raw('SUM(netamount) as netamount'),\DB::raw('SUM(qty) as qty') , \DB::raw(('SUM(netamount)*100 / ' . $suma) . ' as calc'))
             ->groupBy('bodega', 'sku' )
             ->orderBy('netamount','desc')
+            //->where('netamount','>',0)
             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
             ->whereIn(\DB::raw('substring(bodega,1,3)'), $agrupacion1)
             ->get();
