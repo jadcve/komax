@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
   Route::group(['middleware'=> 'web'],function(){
   Route::resource('proveedor','\App\Http\Controllers\ProveedorController');
   Route::post('proveedor/import','\App\Http\Controllers\ProveedorController@import');
-  Route::post('proveedor/load', '\App\Http\Controllers\ProveedorController@load');
+  Route::post('proveedor/load', '\App\Http\Controllers\ProveedorController1@load');
   Route::post('proveedor/download', '\App\Http\Controllers\ProveedorController@download');
   Route::post('proveedor/{id}/update','\App\Http\Controllers\ProveedorController@update');
   Route::get('proveedor/{id}/delete','\App\Http\Controllers\ProveedorController@destroy');

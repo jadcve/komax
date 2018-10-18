@@ -191,7 +191,7 @@ class ProveedorController1 extends Controller
              $value = mb_convert_encoding($value, 'ASCII','utf-8');
              $value = trim(str_replace($replase_simbols, '', $value));
          });
-         var_dump($headersEncontrados);
+        //  var_dump($headersEncontrados);
          $totalHeadrers = count($headersEncontrados);
          echo 'totalHeadrers '.$totalHeadrers;
         //arreglo con los headers de proveedor
@@ -232,30 +232,37 @@ class ProveedorController1 extends Controller
             $file = fopen("../storage\app\public\uploads\proveedor\\".$archivo, 'r');
             $lineaUno = fgets($file);
             $fila = 1;
+            
             while (($datos = fgetcsv($file, 0, ";")) !== FALSE) {
-                echo $fila.'<br>';
-                // $datos = fgetcsv($file);
-                var_dump($datos);
-                // echo $bufer.'<br>';
-                if (count($headersEncontrados) == count($datos)){
-                    $GLOBALS['columna'] .= 'Número de campos no coincide: <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
-                }
-                else{
-                    echo '<br>'.count($datos).' coin<br>';
-                }
+                // echo '<br>fila '.$fila.'<br>';
+                // // $datos = fgetcsv($file);
+                // echo 'Vardump datos<br>';
+                // var_dump($datos);
+                // echo '-----------------------------<br>';
+                // echo 'Vardump headersEncontrados<br>';
+                // var_dump($headersEncontrados);
+                // echo '-----------------------------<br>';
+                // // echo $bufer.'<br>';
+                // var_dump(count($headersEncontrados) != count($datos));
+                // echo '<br><br>pre headersEncontrados '.count($headersEncontrados).'<br>';
+                //     echo 'pre datos '.count($datos).'<br><br>';
+
+                if (count($headersEncontrados) != count($datos)) $GLOBALS['columna'] .= 'Número de campos no coincide: <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
+                
                 $key = 0;
-                foreach ($datos as $value) {
+                foreach ($datos as $columnas) {
                     $headersEncontrados[$key];
-                    echo $value.' - ';
-                    if (trim($value) == "" or is_null($value)){
-                        // echo '<br>'.$value.' ---------------------- <br>';
+                    // echo $headersEncontrados[$key].': - '.$columnas.' - <br>';
+                    // validacion
+                    if (trim($columnas) == "" or is_null($columnas)){
+                        // echo '<br>'.$columnas.' ---------------------- <br>';
                         $GLOBALS['validar'] = true;
                         $GLOBALS['columna'] .= ' '.$headersEncontrados[$key].' <span style="color:#1b5f9a;">fila: '.$fila.'</span><br>';
-                        $key++;
                     }
+                    $key++;
                 }
                 $fila ++;
-                echo '<br>';
+                // echo '<br>';
             }
             if (!feof($file)) {
                 echo "Error: fallo inesperado de fgets()\n";
