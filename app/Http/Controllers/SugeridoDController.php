@@ -30,10 +30,8 @@ class SugeridoDController extends Controller
     public function body(Request $request)
     {
         $fechaentrada = $request->fecha;
-        $fecha = date("Y/m/d", strtotime($fechaentrada));
+        $fecha = date("Y-m-d", strtotime($fechaentrada));
         $bodegas = $request->bodega;
-
-
 
 
         $calculo = $this->calculo($fecha, $bodegas);
@@ -52,19 +50,7 @@ class SugeridoDController extends Controller
          */
 
 /*
-        $mov_salida_3 = $this->mov_salida($fecha);
-        $mov_salida_4 = $this->mov_salida($fecha);
-        $mov_salida_5 = $this->mov_salida($fecha);
-        $mov_salida_6 = $this->mov_salida($fecha);
-        $mov_salida_7 = $this->mov_salida($fecha);
-        $mov_salida_8 = $this->mov_salida($fecha);
-        $mov_salida_9 = $this->mov_salida($fecha);
-        $mov_salida_10 = $this->mov_salida($fecha);
-        $mov_salida_11 = $this->mov_salida($fecha);
-        $mov_salida_12 = $this->mov_salida($fecha);
-        $mov_salida_13 = $this->mov_salida($fecha);
-        $mov_salida_14 = $this->mov_salida($fecha);
-
+    
 
         $semana_1 = $this->dias_sumatoria($mov_salida_3,8,1);
         $semana_2 = $this->dias_sumatoria($mov_salida_4,16,9);
@@ -86,26 +72,6 @@ class SugeridoDController extends Controller
         //return view('sugerido.body', compact('semana_1'));
 
 
-
-
-
-
-
-
-/*
-
-        $mov_salida_base = $this->mov_salida($fecha);
-        $stocksem = DB::table('stock')
-            -> select('bodega','sku','cantidad');
-
-        $stockcd = $stocksem
-            ->where('bodega','=',$bodega);
-
-        $tran = DB::table('gid_transito')
-            ->select('bodega_hasta', 'sku', \DB::raw('sum(qty_requested-qty_received) as transito'))
-            ->where(\DB::raw('qty_requested-qty_received'),'>',0)
-            ->groupBy('bodega_hasta','sku');
-*/
         /**
         *  Llamado a la función que calcula el precio de los productos
         */
@@ -158,13 +124,6 @@ class SugeridoDController extends Controller
     }
 
 
-    public function mov_salida($fecha)
-    {
-        return DB::table('mov_salida')
-            -> select('bodega', 'sku', \DB::raw("case when qty > 3 then 1 else qty end as qty"),'fecha')
-            ->whereNotNull('bodega')
-            ->where('fecha','>=',$fecha);
-    }
 
 
     public function diasx($query,$d1,$d2)
@@ -185,14 +144,14 @@ class SugeridoDController extends Controller
     {
 
         DB::table('calculos')->truncate();
-        $date = date("y-m-d"); 
+        
 
         DB::select(\DB::raw("insert into calculos with mov_salida1 as --trae la venta desde la tabla 
         (
         select trim(UPPER(bodega)) as bodega ,trim(upper(sku)) as sku,case when qty>3 then 1 else qty end as qty , fecha,netamount  
         from mov_salida
         where  bodega is not null and fecha is not null and invoice_id is not null
-        and fecha>'".$date."' -- se seleciona un periodo menor a la tabla original para que la query corra mas rapido
+        and fecha>'".$fecha."' -- se seleciona un periodo menor a la tabla original para que la query corra mas rapido
         ),
         stocksem as  -- stock del el cliente
         (
@@ -203,7 +162,7 @@ class SugeridoDController extends Controller
         (
         select trim(upper(s.bodega)) as bodega,trim(upper(s.sku))as sku ,s.cantidad
         from stock as s
-        where trim(upper(s.bodega))='RUTA68' -- filtro por el CD.
+        where trim(upper(s.bodega))='".$bodega."' -- filtro por el CD.
         ),
         tran as-- el transito que va desde el CD  la tienda.
         (
@@ -675,7 +634,7 @@ class SugeridoDController extends Controller
         ,semana7 as demand7
         ,semana8  as demanad8
         ,stockcd-maxcompraacum.acum as ava_cd_ship
-        ,'RUTA68' as ALMACEN_ORIGEN 
+        ,'".$bodega."' as ALMACEN_ORIGEN 
         ,codigo_bodega as ALMACEN_DESTINO
         ,2 as TIPO_PEDIDO
         ,maestroc.itemid1 as ESTILO_COLOR
@@ -731,10 +690,10 @@ class SugeridoDController extends Controller
         group by warehouse
         )
         select 
-        demand4.warehouse
+        demand4.warehouse as bodega
         ,tienda
-        ,demand4.alm_art
-        ,articlecode
+        ,demand4.alm_art as sku
+        ,articlecode as cod_art
         ,ordercicle
         ,stockonhand
         ,stockonhandcd
@@ -783,7 +742,9 @@ class SugeridoDController extends Controller
         left join maxbodega on maxbodega.warehouse=demand4.warehouse
         where marca='MARMOT'"));
 
-    $sugerido = $this->sugerido();
+        return view('sugerido_distribucion.body');
+
+    //$sugerido = $this->sugerido();
 
     }
 
