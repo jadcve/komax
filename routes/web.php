@@ -109,4 +109,11 @@ Route::group(['middleware'=> 'web'],function(){
 });
 
 
+//Sugerido Distribucion
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('sugerido_distribucion_1','\App\Http\Controllers\SugeridoDController_aux');
+  Route::post('sugerido_distribucion_1','\App\Http\Controllers\SugeridoDController_aux@sugerido_dist');
+});
+
+
 // $router->post('import', 'ImportController@import');
